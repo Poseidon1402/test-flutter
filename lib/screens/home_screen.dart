@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../blocs/live_events_bloc.dart';
+import '../blocs/auth_bloc.dart';
 import '../models/live_event.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -24,6 +25,22 @@ class HomeScreen extends StatelessWidget {
         title: const Text('Live Shopping'),
         centerTitle: false,
         actions: [
+          BlocBuilder<AuthBloc, AuthState>(
+            builder: (context, state) {
+              final isLoggedIn = state.status == AuthStatus.authenticated;
+              return IconButton(
+                tooltip: isLoggedIn ? 'Profile' : 'Login',
+                icon: Icon(isLoggedIn ? Icons.person : Icons.person_outline),
+                onPressed: () {
+                  if (isLoggedIn) {
+                    context.go('/profile');
+                  } else {
+                    context.go('/login');
+                  }
+                },
+              );
+            },
+          ),
           IconButton(
             tooltip: isDark ? 'Switch to light mode' : 'Switch to dark mode',
             icon: Icon(isDark ? Icons.light_mode : Icons.dark_mode),
