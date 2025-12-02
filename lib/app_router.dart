@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import 'screens/home_screen.dart';
+import 'screens/live_event/live_event_screen.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -19,7 +20,15 @@ class AppRouter {
                 themeMode: themeMode,
               ),
             ),
-            // TODO: add routes for live event, cart, checkout, profile
+            GoRoute(
+              path: '/live/:id',
+              name: 'live-event',
+              builder: (context, state) {
+                final eventId = state.pathParameters['id']!;
+                return LiveEventScreen(eventId: eventId);
+              },
+            ),
+            // TODO: add routes for cart, checkout, profile
           ],
         );
 
