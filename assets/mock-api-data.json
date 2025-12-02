@@ -216,6 +216,20 @@
       "reviewsCount": 234
     }
   ],
+  "users": [
+    {
+      "id": "user_001",
+      "name": "Alice Martin",
+      "email": "alice@example.com",
+      "password": "password123"
+    },
+    {
+      "id": "user_002",
+      "name": "John Doe",
+      "email": "john@example.com",
+      "password": "secret456"
+    }
+  ],
   "chatMessages": {
     "evt_001": [
       {
@@ -280,29 +294,6 @@
     "evt_002": [],
     "evt_003": []
   },
-  "users": [
-    {
-      "id": "user_001",
-      "email": "alice@example.com",
-      "name": "Alice Martin",
-      "avatar": "https://i.pravatar.cc/150?img=5",
-      "createdAt": "2023-12-01T00:00:00Z"
-    },
-    {
-      "id": "user_002",
-      "email": "bob@example.com",
-      "name": "Bob Dupont",
-      "avatar": "https://i.pravatar.cc/150?img=6",
-      "createdAt": "2023-11-15T00:00:00Z"
-    },
-    {
-      "id": "user_003",
-      "email": "claire@example.com",
-      "name": "Claire Bernard",
-      "avatar": "https://i.pravatar.cc/150?img=7",
-      "createdAt": "2024-01-01T00:00:00Z"
-    }
-  ],
   "orders": [
     {
       "id": "order_001",

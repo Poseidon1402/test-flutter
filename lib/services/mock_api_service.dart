@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import '../models/cart_item.dart';
 import '../models/live_event.dart';
 import '../models/product.dart';
+import '../models/user.dart';
 
 class MockApiService {
   static final MockApiService _instance = MockApiService._internal();
@@ -13,6 +14,7 @@ class MockApiService {
 
   Map<String, dynamic>? _data;
   final List<CartItem> _cart = [];
+  User? _currentUser;
 
   Future<void> _loadData() async {
     if (_data != null) return;
@@ -75,6 +77,36 @@ class MockApiService {
     } catch (_) {
       return null;
     }
+  }
+
+  // Auth operations (mocked)
+
+  Future<User?> login(String email, String password) async {
+    await _loadData();
+    final list = _data!['users'] as List<dynamic>?;
+    if (list == null) return null;
+    try {
+      print(list);
+      final match = list.firstWhere(
+        (u) =>
+            (u as Map<String, dynamic>)['email'] == email &&
+            u['password'] == password,
+      ) as Map<String, dynamic>;
+
+      _currentUser = User.fromJson(match);
+      return _currentUser;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  Future<void> logout() async {
+    _currentUser = null;
+  }
+
+  Future<User?> getCurrentUser() async {
+    await _loadData();
+    return _currentUser;
   }
 
   // Cart operations
