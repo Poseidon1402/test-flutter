@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Live Shopping',
+        debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
         home: const HomeScreen(),
       ),
