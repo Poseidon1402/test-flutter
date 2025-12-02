@@ -5,6 +5,8 @@ import 'screens/home_screen.dart';
 import 'screens/live_event/live_event_screen.dart';
 import 'screens/cart_screen.dart';
 import 'screens/checkout_screen.dart';
+import 'screens/login_screen.dart';
+import 'screens/profile_screen.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -40,7 +42,16 @@ class AppRouter {
                 return LiveEventScreen(eventId: eventId);
               },
             ),
-            // TODO: add routes for cart, checkout, profile
+            GoRoute(
+              path: '/login',
+              name: 'login',
+              builder: (context, state) => const LoginScreen(),
+            ),
+            GoRoute(
+              path: '/profile',
+              name: 'profile',
+              builder: (context, state) => const ProfileScreen(),
+            ),
           ],
         );
 
