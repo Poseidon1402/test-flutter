@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import 'config/theme_config.dart';
 import 'services/mock_api_service.dart';
 import 'services/mock_socket_service.dart';
 import 'blocs/live_events_bloc.dart';
-import 'screens/home_screen.dart';
+import 'app_router.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,6 +34,11 @@ class _MyAppState extends State<MyApp> {
     final api = MockApiService();
     final socket = MockSocketService();
 
+    final appRouter = AppRouter(
+      onToggleTheme: _toggleTheme,
+      themeMode: _themeMode,
+    );
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -40,13 +46,13 @@ class _MyAppState extends State<MyApp> {
         ),
         // Other BLoCs (LiveEventBloc, ChatBloc) will be provided closer to their screens
       ],
-      child: MaterialApp(
+      child: MaterialApp.router(
         title: 'Live Shopping',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
         darkTheme: AppTheme.dark,
         themeMode: _themeMode,
-        home: HomeScreen(onToggleTheme: _toggleTheme, themeMode: _themeMode),
+        routerConfig: appRouter.router,
       ),
     );
   }
