@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../blocs/live_events_bloc.dart';
 import '../models/live_event.dart';
@@ -142,7 +143,7 @@ class _LiveEventCard extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          // TODO: navigate to live event screen
+          context.go('/live/${event.id}');
         },
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -267,7 +268,7 @@ class _LiveEventCard extends StatelessWidget {
                       const Spacer(),
                       FilledButton.tonalIcon(
                         onPressed: () {
-                          // TODO: quick add to cart / open details
+                          context.go('/live/${event.id}');
                         },
                         icon: const Icon(Icons.play_arrow_rounded, size: 18),
                         label: const Text('Watch'),
