@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
             tooltip: 'Cart',
             icon: const Icon(Icons.shopping_bag_outlined),
             onPressed: () {
-              // TODO: navigate to cart
+              context.go('/cart');
             },
           ),
           const SizedBox(width: 8),
