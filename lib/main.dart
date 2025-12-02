@@ -10,8 +10,22 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  ThemeMode _themeMode = ThemeMode.light;
+
+  void _toggleTheme() {
+    setState(() {
+      _themeMode =
+          _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +41,9 @@ class MyApp extends StatelessWidget {
         title: 'Live Shopping',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
-        home: const HomeScreen(),
+        darkTheme: AppTheme.dark,
+        themeMode: _themeMode,
+        home: HomeScreen(onToggleTheme: _toggleTheme, themeMode: _themeMode),
       ),
     );
   }
