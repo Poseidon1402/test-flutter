@@ -11,6 +11,7 @@ class Product extends Equatable {
   final int stock;
   final Map<String, dynamic>? variations;
   final bool isFeatured;
+  final DateTime? featuredAt;
 
   const Product({
     required this.id,
@@ -23,6 +24,7 @@ class Product extends Equatable {
     required this.stock,
     this.variations,
     this.isFeatured = false,
+    this.featuredAt,
   });
 
   double get currentPrice => salePrice ?? price;
@@ -41,9 +43,12 @@ class Product extends Equatable {
       stock: json['stock'] as int,
       variations: json['variations'] as Map<String, dynamic>?,
       isFeatured: json['isFeatured'] as bool? ?? false,
+      featuredAt: json['featuredAt'] != null
+          ? DateTime.parse(json['featuredAt'] as String)
+          : null,
     );
   }
 
   @override
-  List<Object?> get props => [id, name, price, salePrice, stock];
+  List<Object?> get props => [id, name, price, salePrice, stock, isFeatured];
 }
