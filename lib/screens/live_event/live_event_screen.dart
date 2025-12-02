@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../blocs/chat/chat_bloc.dart';
@@ -22,6 +23,9 @@ class LiveEventScreen extends StatefulWidget {
 class _LiveEventScreenState extends State<LiveEventScreen> {
   late final String _userId;
   late final String _userName;
+  late final VideoPlayerController _videoController;
+  double _volume = 0.7;
+  bool _isVideoInitialized = false;
 
   @override
   void initState() {
@@ -30,6 +34,22 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
     final suffix = random.nextInt(9999).toString().padLeft(4, '0');
     _userId = 'user_$suffix';
     _userName = 'User $suffix';
+
+    _videoController = VideoPlayerController.networkUrl(
+      Uri.parse('https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'),
+    )
+      ..setVolume(_volume)
+      ..initialize().then((_) {
+        setState(() {
+          _isVideoInitialized = true;
+        });
+      });
+  }
+
+  @override
+  void dispose() {
+    _videoController.dispose();
+    super.dispose();
   }
 
   @override
@@ -78,7 +98,26 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
               final content = [
                 Expanded(
                   flex: 2,
-                  child: _LiveVideoAndProducts(),
+                  child: _LiveVideoAndProducts(
+                    controller: _videoController,
+                    isInitialized: _isVideoInitialized,
+                    volume: _volume,
+                    onTogglePlay: () {
+                      setState(() {
+                        if (_videoController.value.isPlaying) {
+                          _videoController.pause();
+                        } else {
+                          _videoController.play();
+                        }
+                      });
+                    },
+                    onVolumeChanged: (v) {
+                      setState(() {
+                        _volume = v;
+                        _videoController.setVolume(v);
+                      });
+                    },
+                  ),
                 ),
                 const VerticalDivider(width: 1),
                 Expanded(
@@ -111,6 +150,20 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
 }
 
 class _LiveVideoAndProducts extends StatelessWidget {
+  final VideoPlayerController controller;
+  final bool isInitialized;
+  final double volume;
+  final VoidCallback onTogglePlay;
+  final ValueChanged<double> onVolumeChanged;
+
+  const _LiveVideoAndProducts({
+    required this.controller,
+    required this.isInitialized,
+    required this.volume,
+    required this.onTogglePlay,
+    required this.onVolumeChanged,
+  });
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LiveEventBloc, LiveEventState>(
@@ -131,14 +184,26 @@ class _LiveVideoAndProducts extends StatelessWidget {
             children: [
               AspectRatio(
                 aspectRatio: 16 / 9,
-                child: Container(
-                  color: Colors.black,
-                  alignment: Alignment.center,
-                  child: Text(
-                    event.title,
-                    style: const TextStyle(color: Colors.white),
-                    textAlign: TextAlign.center,
-                  ),
+                child: Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: [
+                    Container(
+                      color: Colors.black,
+                      child: isInitialized
+                          ? VideoPlayer(controller)
+                          : const Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                    ),
+                    if (isInitialized)
+                      _VideoControlsOverlay(
+                        controller: controller,
+                        isPlaying: controller.value.isPlaying,
+                        volume: volume,
+                        onTogglePlay: onTogglePlay,
+                        onVolumeChanged: onVolumeChanged,
+                      ),
+                  ],
                 ),
               ),
               Padding(
@@ -349,6 +414,78 @@ class _ChatMessageTile extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _VideoControlsOverlay extends StatelessWidget {
+  final VideoPlayerController controller;
+  final bool isPlaying;
+  final double volume;
+  final VoidCallback onTogglePlay;
+  final ValueChanged<double> onVolumeChanged;
+
+  const _VideoControlsOverlay({
+    required this.controller,
+    required this.isPlaying,
+    required this.volume,
+    required this.onTogglePlay,
+    required this.onVolumeChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.bottomCenter,
+          end: Alignment.topCenter,
+          colors: [
+            Colors.black54,
+            Colors.transparent,
+          ],
+        ),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              IconButton(
+                icon: Icon(
+                  isPlaying ? Icons.pause_circle_filled : Icons.play_circle_filled,
+                  color: Colors.white,
+                  size: 36,
+                ),
+                onPressed: onTogglePlay,
+              ),
+              const SizedBox(width: 8),
+              const Icon(Icons.volume_up, color: Colors.white, size: 20),
+              Expanded(
+                child: Slider(
+                  value: volume,
+                  onChanged: onVolumeChanged,
+                  min: 0,
+                  max: 1,
+                  activeColor: Colors.white,
+                  inactiveColor: Colors.white30,
+                ),
+              ),
+            ],
+          ),
+          VideoProgressIndicator(
+            controller,
+            allowScrubbing: true,
+            colors: VideoProgressColors(
+              playedColor: Colors.redAccent,
+              bufferedColor: Colors.white54,
+              backgroundColor: Colors.white24,
+            ),
+          ),
+        ],
       ),
     );
   }
