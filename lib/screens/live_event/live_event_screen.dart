@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../blocs/chat/chat_bloc.dart';
 import '../../blocs/live_event/live_event_bloc.dart';
+import '../../blocs/cart_bloc.dart';
 import '../../models/chat_message.dart';
 import '../../services/mock_api_service.dart';
 import '../../services/mock_socket_service.dart';
@@ -275,7 +276,18 @@ class _LiveVideoAndProducts extends StatelessWidget {
                     trailing: IconButton(
                       icon: const Icon(Icons.add_shopping_cart),
                       onPressed: () {
-                        // TODO: add to cart
+                        final cartBloc = context.read<CartBloc>();
+                        cartBloc.add(
+                          CartItemAdded(
+                            productId: product.id,
+                            quantity: 1,
+                          ),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text('Added ${product.name} to cart'),
+                          ),
+                        );
                       },
                     ),
                   );
