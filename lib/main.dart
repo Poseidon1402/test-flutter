@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'config/theme_config.dart';
 import 'services/mock_api_service.dart';
+import 'services/mock_socket_service.dart';
 import 'blocs/live_events_bloc.dart';
 import 'screens/home_screen.dart';
 
@@ -30,12 +31,14 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     final api = MockApiService();
+    final socket = MockSocketService();
 
     return MultiBlocProvider(
       providers: [
         BlocProvider(
           create: (_) => LiveEventsBloc(api)..add(const LiveEventsRequested()),
         ),
+        // Other BLoCs (LiveEventBloc, ChatBloc) will be provided closer to their screens
       ],
       child: MaterialApp(
         title: 'Live Shopping',
