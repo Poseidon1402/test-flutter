@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 
 import 'screens/home_screen.dart';
 import 'screens/live_event/live_event_screen.dart';
+import 'screens/cart_screen.dart';
+import 'screens/checkout_screen.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -19,6 +21,16 @@ class AppRouter {
                 onToggleTheme: onToggleTheme,
                 themeMode: themeMode,
               ),
+            ),
+            GoRoute(
+              path: '/cart',
+              name: 'cart',
+              builder: (context, state) => const CartScreen(),
+            ),
+            GoRoute(
+              path: '/checkout',
+              name: 'checkout',
+              builder: (context, state) => const CheckoutScreen(),
             ),
             GoRoute(
               path: '/live/:id',
