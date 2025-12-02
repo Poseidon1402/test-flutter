@@ -1,4 +1,4 @@
-import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,26 +8,45 @@ import '../../blocs/live_event/live_event_bloc.dart';
 import '../../models/chat_message.dart';
 import '../../services/mock_api_service.dart';
 import '../../services/mock_socket_service.dart';
+import '../../services/socket_io_service.dart';
 
-class LiveEventScreen extends StatelessWidget {
+class LiveEventScreen extends StatefulWidget {
   final String eventId;
 
   const LiveEventScreen({super.key, required this.eventId});
 
   @override
+  State<LiveEventScreen> createState() => _LiveEventScreenState();
+}
+
+class _LiveEventScreenState extends State<LiveEventScreen> {
+  late final String _userId;
+  late final String _userName;
+
+  @override
+  void initState() {
+    super.initState();
+    final random = Random();
+    final suffix = random.nextInt(9999).toString().padLeft(4, '0');
+    _userId = 'user_$suffix';
+    _userName = 'User $suffix';
+  }
+
+  @override
   Widget build(BuildContext context) {
     final api = MockApiService();
-    final socket = MockSocketService();
+    final mockSocket = MockSocketService();
+    final ioSocket = SocketIoService();
 
     return MultiBlocProvider(
       providers: [
         BlocProvider<LiveEventBloc>(
-          create: (_) => LiveEventBloc(api: api, socket: socket)
-            ..add(LiveEventOpened(eventId)),
+          create: (_) => LiveEventBloc(api: api, socket: mockSocket)
+            ..add(LiveEventOpened(widget.eventId)),
         ),
         BlocProvider<ChatBloc>(
-          create: (_) => ChatBloc(socket: socket)
-            ..add(ChatStarted(eventId)),
+          create: (_) => ChatBloc(socket: ioSocket)
+            ..add(ChatStarted(widget.eventId)),
         ),
       ],
       child: Scaffold(
@@ -37,7 +56,14 @@ class LiveEventScreen extends StatelessWidget {
             children: [
               Expanded(flex: 2, child: _LiveVideoAndProducts()),
               const VerticalDivider(width: 1),
-              const Expanded(flex: 1, child: _LiveChatPanel()),
+              Expanded(
+                flex: 1,
+                child: _LiveChatPanel(
+                  currentUserId: _userId,
+                  currentUserName: _userName,
+                  roomId: widget.eventId,
+                ),
+              ),
             ],
           ),
         ),
@@ -163,7 +189,15 @@ class _LiveVideoAndProducts extends StatelessWidget {
 }
 
 class _LiveChatPanel extends StatelessWidget {
-  const _LiveChatPanel();
+  final String currentUserId;
+  final String currentUserName;
+  final String roomId;
+
+  const _LiveChatPanel({
+    required this.currentUserId,
+    required this.currentUserName,
+    required this.roomId,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -203,15 +237,17 @@ class _LiveChatPanel extends StatelessWidget {
               IconButton(
                 icon: const Icon(Icons.send),
                 onPressed: () {
+
                   final text = controller.text.trim();
                   if (text.isEmpty) return;
                   context.read<ChatBloc>().add(
-                    ChatMessageSent(
-                      message: text,
-                      senderId: 'user_001',
-                      senderName: 'You',
-                    ),
-                  );
+                        ChatMessageSent(
+                          message: text,
+                          senderId: currentUserId,
+                          senderName: currentUserName,
+                          roomId: roomId,
+                        ),
+                      );
                   controller.clear();
                 },
               ),
@@ -230,7 +266,9 @@ class _ChatMessageTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isMe = message.senderId == 'user_001';
+    // NOTE: alignment is handled generically; we keep all messages
+    // left-aligned for now since multiple browser windows are involved.
+    const bool isMe = false;
 
     return Align(
       alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,

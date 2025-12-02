@@ -4,13 +4,13 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../models/chat_message.dart';
-import '../../services/mock_socket_service.dart';
+import '../../services/socket_io_service.dart';
 
 part 'chat_event.dart';
 part 'chat_state.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
-  final MockSocketService socket;
+  final SocketIoService socket;
   StreamSubscription<ChatMessage>? _sub;
 
   ChatBloc({required this.socket}) : super(const ChatState.initial()) {
@@ -21,6 +21,9 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   Future<void> _onStarted(ChatStarted event, Emitter<ChatState> emit) async {
     await _sub?.cancel();
+    socket.connect(baseUrl: 'http://localhost:8000');
+    socket.joinRoom(room: event.roomId, username: 'user123');
+
     _sub = socket.chatStream.listen((message) {
       add(ChatMessageReceived(message));
     });
@@ -38,12 +41,11 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     ChatMessageSent event,
     Emitter<ChatState> emit,
   ) async {
-    await socket.sendChatMessage(
-      event.message,
-      senderId: event.senderId,
-      senderName: event.senderName,
-      isVendor: event.isVendor,
-      replyTo: event.replyTo,
+    socket.sendMessage(
+      room: event.roomId,
+      userId: event.senderId,
+      username: event.senderName,
+      message: event.message,
     );
   }
 

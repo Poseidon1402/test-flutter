@@ -8,12 +8,12 @@ abstract class ChatEvent extends Equatable {
 }
 
 class ChatStarted extends ChatEvent {
-  final String eventId;
+  final String roomId;
 
-  const ChatStarted(this.eventId);
+  const ChatStarted(this.roomId);
 
   @override
-  List<Object?> get props => [eventId];
+  List<Object?> get props => [roomId];
 }
 
 class ChatMessageReceived extends ChatEvent {
@@ -29,6 +29,7 @@ class ChatMessageSent extends ChatEvent {
   final String message;
   final String senderId;
   final String senderName;
+  final String roomId;
   final bool isVendor;
   final ChatMessage? replyTo;
 
@@ -36,10 +37,11 @@ class ChatMessageSent extends ChatEvent {
     required this.message,
     required this.senderId,
     required this.senderName,
+    required this.roomId,
     this.isVendor = false,
     this.replyTo,
   });
 
   @override
-  List<Object?> get props => [message, senderId, senderName, isVendor, replyTo];
+  List<Object?> get props => [message, senderId, senderName, roomId, isVendor, replyTo];
 }
