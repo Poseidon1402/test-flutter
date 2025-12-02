@@ -50,21 +50,59 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
         ),
       ],
       child: Scaffold(
-        appBar: AppBar(title: const Text('Live Event')),
-        body: SafeArea(
-          child: Row(
-            children: [
-              Expanded(flex: 2, child: _LiveVideoAndProducts()),
-              const VerticalDivider(width: 1),
-              Expanded(
-                flex: 1,
-                child: _LiveChatPanel(
-                  currentUserId: _userId,
-                  currentUserName: _userName,
-                  roomId: widget.eventId,
-                ),
+        appBar: AppBar(
+          title: const Text('Live Event'),
+          actions: [
+            IconButton(
+              icon: Icon(
+                Theme.of(context).brightness == Brightness.dark
+                    ? Icons.light_mode
+                    : Icons.dark_mode,
               ),
-            ],
+              onPressed: () {
+                // Toggle the app theme via an inherited callback, or
+                // simply pop back so the global toggle on home can be used.
+                // Here we just show a placeholder action.
+                final messenger = ScaffoldMessenger.of(context);
+                messenger.showSnackBar(
+                  const SnackBar(content: Text('Use home toggle to change theme')),
+                );
+              },
+            ),
+          ],
+        ),
+        body: SafeArea(
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final isSmall = constraints.maxWidth < 900;
+              final content = [
+                Expanded(
+                  flex: 2,
+                  child: _LiveVideoAndProducts(),
+                ),
+                const VerticalDivider(width: 1),
+                Expanded(
+                  flex: 1,
+                  child: _LiveChatPanel(
+                    currentUserId: _userId,
+                    currentUserName: _userName,
+                    roomId: widget.eventId,
+                  ),
+                ),
+              ];
+
+              if (isSmall) {
+                return Column(
+                  children: [
+                    Expanded(child: content[0]),
+                    const Divider(height: 1),
+                    Expanded(child: content[2]),
+                  ],
+                );
+              }
+
+              return Row(children: content);
+            },
           ),
         ),
       ),
@@ -208,13 +246,20 @@ class _LiveChatPanel extends StatelessWidget {
         Expanded(
           child: BlocBuilder<ChatBloc, ChatState>(
             builder: (context, state) {
-              return ListView.builder(
-                padding: const EdgeInsets.all(8),
-                itemCount: state.messages.length,
-                itemBuilder: (context, index) {
-                  final message = state.messages[index];
-                  return _ChatMessageTile(message: message);
-                },
+              return Container(
+                color: Theme.of(context).colorScheme.surface,
+                child: ListView.builder(
+                  padding: const EdgeInsets.all(8),
+                  itemCount: state.messages.length,
+                  itemBuilder: (context, index) {
+                    final message = state.messages[index];
+                    final isMe = message.senderId == currentUserId;
+                    return _ChatMessageTile(
+                      message: message,
+                      isMe: isMe,
+                    );
+                  },
+                ),
               );
             },
           ),
@@ -261,15 +306,15 @@ class _LiveChatPanel extends StatelessWidget {
 
 class _ChatMessageTile extends StatelessWidget {
   final ChatMessage message;
+  final bool isMe;
 
-  const _ChatMessageTile({required this.message});
+  const _ChatMessageTile({
+    required this.message,
+    required this.isMe,
+  });
 
   @override
   Widget build(BuildContext context) {
-    // NOTE: alignment is handled generically; we keep all messages
-    // left-aligned for now since multiple browser windows are involved.
-    const bool isMe = false;
-
     return Align(
       alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
@@ -288,10 +333,20 @@ class _ChatMessageTile extends StatelessWidget {
           children: [
             Text(
               message.senderName,
-              style: Theme.of(context).textTheme.labelSmall,
+              style: Theme.of(context)
+                  .textTheme
+                  .labelSmall
+                  ?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant),
             ),
             const SizedBox(height: 2),
-            Text(message.message),
+            Text(
+              message.message,
+              style: TextStyle(
+                color: isMe
+                    ? Theme.of(context).colorScheme.onPrimaryContainer
+                    : Theme.of(context).colorScheme.onSurface,
+              ),
+            ),
           ],
         ),
       ),
