@@ -8,6 +8,7 @@ import 'services/mock_api_service.dart';
 import 'services/mock_socket_service.dart';
 import 'blocs/live_events_bloc.dart';
 import 'blocs/cart_bloc.dart';
+import 'blocs/auth_bloc.dart';
 import 'app_router.dart';
 
 void main() {
@@ -52,6 +53,9 @@ class _MyAppState extends State<MyApp> {
         ),
         BlocProvider(
           create: (_) => CartBloc(api: api)..add(const CartRequested()),
+        ),
+        BlocProvider(
+          create: (_) => AuthBloc(api: api)..add(const AuthStarted()),
         ),
         // Other BLoCs (LiveEventBloc, ChatBloc) will be provided closer to their screens
       ],
