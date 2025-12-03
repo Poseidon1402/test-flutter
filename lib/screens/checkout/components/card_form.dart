@@ -29,42 +29,15 @@ class _CardFormState extends State<_CardForm> {
   @override
   void initState() {
     super.initState();
-    widget.cardNumberController.addListener(_onNumberChanged);
     widget.expiryController.addListener(_onExpiryChanged);
     widget.cvvController.addListener(_onCvvChanged);
   }
 
   @override
   void dispose() {
-    widget.cardNumberController.removeListener(_onNumberChanged);
     widget.expiryController.removeListener(_onExpiryChanged);
     widget.cvvController.removeListener(_onCvvChanged);
     super.dispose();
-  }
-
-  void _onNumberChanged() {
-    final raw = widget.cardNumberController.text.replaceAll(RegExp(r'\s+'), '');
-    final valid = _luhnValid(raw) && raw.length >= 13 && raw.length <= 19;
-    widget.onNumberValid(valid);
-    setState(() {
-      _brand = _detectBrand(raw);
-      // format spacing: 4-4-4-4
-      final formatted = raw.replaceAll(RegExp(r'[^0-9]'), '');
-      final chunks = <String>[];
-      for (var i = 0; i < formatted.length; i += 4) {
-        chunks.add(
-          formatted.substring(
-            i,
-            i + 4 > formatted.length ? formatted.length : i + 4,
-          ),
-        );
-      }
-      final caret = widget.cardNumberController.selection;
-      widget.cardNumberController.value = TextEditingValue(
-        text: chunks.join(' '),
-        selection: caret,
-      );
-    });
   }
 
   void _onExpiryChanged() {
@@ -123,6 +96,11 @@ class _CardFormState extends State<_CardForm> {
           controller: widget.cardNumberController,
           hint: '1234 5678 9012 3456',
           keyboardType: TextInputType.number,
+          inputFormatters: [
+            FilteringTextInputFormatter.digitsOnly,
+            LengthLimitingTextInputFormatter(16), // 16 digits
+            CardNumberFormatter(),
+          ],
           validator: (v) {
             final raw = (v ?? '').replaceAll(RegExp(r'\s+'), '');
             if (raw.isEmpty) return 'Required';
@@ -214,12 +192,14 @@ class _CardFormState extends State<_CardForm> {
     required String hint,
     TextInputType? keyboardType,
     String? Function(String?)? validator,
+    List<TextInputFormatter>? inputFormatters,
     Widget? suffix,
   }) {
     return TextFormField(
       controller: controller,
       validator: validator,
       keyboardType: keyboardType,
+      inputFormatters: inputFormatters,
       style: const TextStyle(fontSize: 16, color: Colors.white),
       decoration: InputDecoration(
         hintText: hint,
