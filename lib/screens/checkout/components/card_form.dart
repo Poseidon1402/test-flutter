@@ -243,14 +243,6 @@ class _CardFormState extends State<_CardForm> {
     return sum % 10 == 0;
   }
 
-  String? _detectBrand(String number) {
-    if (number.startsWith('4')) return 'VISA';
-    if (number.startsWith(RegExp(r'5[1-5]'))) return 'Mastercard';
-    if (number.startsWith(RegExp(r'3[47]'))) return 'AMEX';
-    if (number.startsWith('6')) return 'Discover';
-    return null;
-  }
-
   bool _expiryValid(String text) {
     final match = RegExp(r'^(0[1-9]|1[0-2])\/([0-9]{2})$').firstMatch(text);
     if (match == null) return false;
