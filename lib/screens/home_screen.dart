@@ -19,7 +19,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    
+
     return Scaffold(
       body: Container(
         width: double.infinity,
@@ -28,11 +28,7 @@ class HomeScreen extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [
-              Color(0xFF0F1729),
-              Color(0xFF1A1D2E),
-              Color(0xFF2D1B4E),
-            ],
+            colors: [Color(0xFF0F1729), Color(0xFF1A1D2E), Color(0xFF2D1B4E)],
           ),
         ),
         child: Stack(
@@ -78,14 +74,17 @@ class HomeScreen extends StatelessWidget {
                 size: 140,
               ),
             ),
-            
+
             // Main scrollable content
             SafeArea(
               child: Column(
                 children: [
                   // Top Navigation Bar
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 32,
+                      vertical: 20,
+                    ),
                     child: Row(
                       children: [
                         // LiveShop Logo
@@ -96,7 +95,10 @@ class HomeScreen extends StatelessWidget {
                               height: 32,
                               decoration: BoxDecoration(
                                 gradient: const LinearGradient(
-                                  colors: [Color(0xFF9D4EDD), Color(0xFF7B2CBF)],
+                                  colors: [
+                                    Color(0xFF9D4EDD),
+                                    Color(0xFF7B2CBF),
+                                  ],
                                 ),
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -118,9 +120,9 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                        
+
                         const Spacer(),
-                        
+
                         // Cart Button
                         IconButton(
                           onPressed: () => context.go('/cart'),
@@ -132,12 +134,13 @@ class HomeScreen extends StatelessWidget {
                           tooltip: 'Cart',
                         ),
                         const SizedBox(width: 8),
-                        
+
                         // Login Button
                         BlocBuilder<AuthBloc, AuthState>(
                           builder: (context, state) {
-                            final isLoggedIn = state.status == AuthStatus.authenticated;
-                            
+                            final isLoggedIn =
+                                state.status == AuthStatus.authenticated;
+
                             if (isLoggedIn) {
                               return TextButton(
                                 onPressed: () => context.go('/profile'),
@@ -157,7 +160,7 @@ class HomeScreen extends StatelessWidget {
                                 ),
                               );
                             }
-                            
+
                             return TextButton(
                               onPressed: () => context.go('/login'),
                               style: TextButton.styleFrom(
@@ -180,7 +183,7 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  
+
                   // Scrollable content
                   Expanded(
                     child: SingleChildScrollView(
@@ -188,7 +191,10 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           // Hero Section
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 40),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 32,
+                              vertical: 40,
+                            ),
                             child: Column(
                               children: [
                                 const Text(
@@ -213,47 +219,68 @@ class HomeScreen extends StatelessWidget {
                                   ),
                                 ),
                                 const SizedBox(height: 32),
-                                
+
                                 // Search Bar
                                 ConstrainedBox(
-                                  constraints: const BoxConstraints(maxWidth: 600),
-                                  child: BlocBuilder<LiveEventsBloc, LiveEventsState>(
-                                    builder: (context, state) {
-                                      return TextField(
-                                        style: const TextStyle(color: Colors.white),
-                                        decoration: InputDecoration(
-                                          hintText: 'Search for live events or products...',
-                                          hintStyle: TextStyle(
-                                            color: Colors.white.withOpacity(0.4),
-                                          ),
-                                          prefixIcon: Icon(
-                                            Icons.search,
-                                            color: Colors.white.withOpacity(0.5),
-                                          ),
-                                          filled: true,
-                                          fillColor: const Color(0xFF2A2D3E),
-                                          border: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(12),
-                                            borderSide: BorderSide.none,
-                                          ),
-                                          contentPadding: const EdgeInsets.symmetric(
-                                            horizontal: 20,
-                                            vertical: 16,
-                                          ),
-                                        ),
-                                        onChanged: (value) {
-                                          context
-                                              .read<LiveEventsBloc>()
-                                              .add(LiveEventsSearchChanged(value));
-                                        },
-                                      );
-                                    },
+                                  constraints: const BoxConstraints(
+                                    maxWidth: 600,
                                   ),
+                                  child:
+                                      BlocBuilder<
+                                        LiveEventsBloc,
+                                        LiveEventsState
+                                      >(
+                                        builder: (context, state) {
+                                          return TextField(
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                            ),
+                                            decoration: InputDecoration(
+                                              hintText:
+                                                  'Search for live events or products...',
+                                              hintStyle: TextStyle(
+                                                color: Colors.white.withOpacity(
+                                                  0.4,
+                                                ),
+                                              ),
+                                              prefixIcon: Icon(
+                                                Icons.search,
+                                                color: Colors.white.withOpacity(
+                                                  0.5,
+                                                ),
+                                              ),
+                                              filled: true,
+                                              fillColor: const Color(
+                                                0xFF2A2D3E,
+                                              ),
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                                borderSide: BorderSide.none,
+                                              ),
+                                              contentPadding:
+                                                  const EdgeInsets.symmetric(
+                                                    horizontal: 20,
+                                                    vertical: 16,
+                                                  ),
+                                            ),
+                                            onChanged: (value) {
+                                              context
+                                                  .read<LiveEventsBloc>()
+                                                  .add(
+                                                    LiveEventsSearchChanged(
+                                                      value,
+                                                    ),
+                                                  );
+                                            },
+                                          );
+                                        },
+                                      ),
                                 ),
                               ],
                             ),
                           ),
-                          
+
                           // Events Section
                           BlocBuilder<LiveEventsBloc, LiveEventsState>(
                             builder: (context, state) {
@@ -273,7 +300,9 @@ class HomeScreen extends StatelessWidget {
                                   child: Center(
                                     child: Text(
                                       'Error: ${state.error}',
-                                      style: const TextStyle(color: Colors.white),
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                      ),
                                     ),
                                   ),
                                 );
@@ -287,17 +316,29 @@ class HomeScreen extends StatelessWidget {
                               }).toList();
 
                               final liveEvents = allEvents
-                                  .where((e) => e.status == LiveEventStatus.live)
+                                  .where(
+                                    (e) => e.status == LiveEventStatus.live,
+                                  )
                                   .toList();
                               final scheduledEvents = allEvents
-                                  .where((e) => e.status == LiveEventStatus.scheduled)
+                                  .where(
+                                    (e) =>
+                                        e.status == LiveEventStatus.scheduled,
+                                  )
                                   .toList();
                               final endedEvents = allEvents
-                                  .where((e) => e.status == LiveEventStatus.ended)
+                                  .where(
+                                    (e) => e.status == LiveEventStatus.ended,
+                                  )
                                   .toList();
 
                               return Padding(
-                                padding: const EdgeInsets.fromLTRB(32, 0, 32, 40),
+                                padding: const EdgeInsets.fromLTRB(
+                                  32,
+                                  0,
+                                  32,
+                                  40,
+                                ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -305,30 +346,39 @@ class HomeScreen extends StatelessWidget {
                                       _SectionHeader(
                                         icon: Icons.circle,
                                         iconColor: const Color(0xFFFF3B30),
-                                        title: 'Live Now',
+                                        title: 'Evènement en direct',
                                       ),
                                       const SizedBox(height: 16),
-                                      _EventGrid(events: liveEvents, status: LiveEventStatus.live),
+                                      _EventGrid(
+                                        events: liveEvents,
+                                        status: LiveEventStatus.live,
+                                      ),
                                       const SizedBox(height: 40),
                                     ],
                                     if (scheduledEvents.isNotEmpty) ...[
                                       _SectionHeader(
                                         icon: Icons.calendar_today,
                                         iconColor: const Color(0xFF9D4EDD),
-                                        title: 'Scheduled',
+                                        title: 'Evènement à venir',
                                       ),
                                       const SizedBox(height: 16),
-                                      _EventGrid(events: scheduledEvents, status: LiveEventStatus.scheduled),
+                                      _EventGrid(
+                                        events: scheduledEvents,
+                                        status: LiveEventStatus.scheduled,
+                                      ),
                                       const SizedBox(height: 40),
                                     ],
                                     if (endedEvents.isNotEmpty) ...[
                                       _SectionHeader(
                                         icon: Icons.access_time,
                                         iconColor: const Color(0xFF9D4EDD),
-                                        title: 'Ended',
+                                        title: 'Replays',
                                       ),
                                       const SizedBox(height: 16),
-                                      _EventGrid(events: endedEvents, status: LiveEventStatus.ended),
+                                      _EventGrid(
+                                        events: endedEvents,
+                                        status: LiveEventStatus.ended,
+                                      ),
                                       const SizedBox(height: 40),
                                     ],
                                   ],
@@ -367,11 +417,7 @@ class _DecorativeIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Transform.rotate(
       angle: rotation,
-      child: Icon(
-        icon,
-        size: size,
-        color: Colors.white.withOpacity(opacity),
-      ),
+      child: Icon(icon, size: size, color: Colors.white.withOpacity(opacity)),
     );
   }
 }
@@ -391,11 +437,7 @@ class _SectionHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(
-          icon,
-          color: iconColor,
-          size: 16,
-        ),
+        Icon(icon, color: iconColor, size: 16),
         const SizedBox(width: 8),
         Text(
           title,
@@ -414,10 +456,7 @@ class _EventGrid extends StatelessWidget {
   final List<LiveEvent> events;
   final LiveEventStatus status;
 
-  const _EventGrid({
-    required this.events,
-    required this.status,
-  });
+  const _EventGrid({required this.events, required this.status});
 
   @override
   Widget build(BuildContext context) {
@@ -425,7 +464,7 @@ class _EventGrid extends StatelessWidget {
       builder: (context, constraints) {
         final width = constraints.maxWidth;
         int crossAxisCount = 1;
-        
+
         if (width >= 1200) {
           crossAxisCount = 3;
         } else if (width >= 800) {
@@ -453,10 +492,7 @@ class _LiveEventCard extends StatelessWidget {
   final LiveEvent event;
   final LiveEventStatus status;
 
-  const _LiveEventCard({
-    required this.event,
-    required this.status,
-  });
+  const _LiveEventCard({required this.event, required this.status});
 
   @override
   Widget build(BuildContext context) {
@@ -519,7 +555,7 @@ class _LiveEventCard extends StatelessWidget {
                 ),
             ],
           ),
-          
+
           // Content
           Padding(
             padding: const EdgeInsets.all(20),
@@ -547,7 +583,7 @@ class _LiveEventCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 16),
-                
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -562,7 +598,7 @@ class _LiveEventCard extends StatelessWidget {
                       )
                     else
                       const SizedBox.shrink(),
-                    
+
                     _buildActionButton(context, status),
                   ],
                 ),
@@ -584,10 +620,7 @@ class _LiveEventCard extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF9D4EDD),
             foregroundColor: Colors.white,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 12,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
@@ -604,10 +637,7 @@ class _LiveEventCard extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF3A3D4E),
             foregroundColor: Colors.white,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 12,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
@@ -622,10 +652,7 @@ class _LiveEventCard extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF3A3D4E),
             foregroundColor: Colors.white,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-              vertical: 12,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8),
             ),
