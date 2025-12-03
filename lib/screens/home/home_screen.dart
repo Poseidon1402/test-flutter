@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../blocs/live_events_bloc.dart';
-import '../blocs/auth_bloc.dart';
-import '../models/live_event.dart';
+import '../../blocs/live_events_bloc.dart';
+import '../../blocs/auth_bloc.dart';
+import '../../models/live_event.dart';
 
 class HomeScreen extends StatefulWidget {
   final VoidCallback onToggleTheme;
