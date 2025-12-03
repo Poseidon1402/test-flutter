@@ -56,7 +56,7 @@ async def join(sid, data):
     username = data.get("username")
     print(f'Join room: {room}, username: {username}')
     if room:
-        sio.enter_room(sid, room)
+        await sio.enter_room(sid, room)
         await sio.emit(
             "system",
             {"message": f"{username or 'Someone'} joined room {room}"},
@@ -73,7 +73,7 @@ async def watch_live(sid, data):
     if not room:
         return
     # Ensure the watcher is in the room to receive updates
-    sio.enter_room(sid, room)
+    await sio.enter_room(sid, room)
     watchers = watchers_by_room.get(room)
     if watchers is None:
         watchers = set()
@@ -85,6 +85,7 @@ async def watch_live(sid, data):
         await sio.emit(
             "viewer_count",
             {"room": room, "count": viewer_counts[room]},
+            room=room,
         )
 
 
@@ -104,6 +105,7 @@ async def leave_live(sid, data):
         await sio.emit(
             "viewer_count",
             {"room": room, "count": viewer_counts[room]},
+            room=room,
         )
 
 
