@@ -6,7 +6,7 @@ import '../blocs/live_events_bloc.dart';
 import '../blocs/auth_bloc.dart';
 import '../models/live_event.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   final VoidCallback onToggleTheme;
   final ThemeMode themeMode;
 
@@ -15,6 +15,15 @@ class HomeScreen extends StatelessWidget {
     required this.onToggleTheme,
     required this.themeMode,
   });
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  String _dateFilter = 'All'; // All, Today, Tomorrow, This Week
+  String _statusFilter = 'All'; // All, live, scheduled, ended
+  String _categoryFilter = 'All'; // All, Fashion, Beauty, Electronics
 
   @override
   Widget build(BuildContext context) {
@@ -277,6 +286,60 @@ class HomeScreen extends StatelessWidget {
                                         },
                                       ),
                                 ),
+
+                                const SizedBox(height: 20),
+                                // Filters Row
+                                ConstrainedBox(
+                                  constraints: const BoxConstraints(
+                                    maxWidth: 900,
+                                  ),
+                                  child: Wrap(
+                                    spacing: 12,
+                                    runSpacing: 12,
+                                    alignment: WrapAlignment.center,
+                                    children: [
+                                      _FilterChipDropdown(
+                                        label: 'Date',
+                                        value: _dateFilter,
+                                        options: const [
+                                          'All',
+                                          'Today',
+                                          'Tomorrow',
+                                          'This Week',
+                                        ],
+                                        onChanged: (v) => setState(
+                                          () => _dateFilter = v ?? 'All',
+                                        ),
+                                      ),
+                                      _FilterChipDropdown(
+                                        label: 'Status',
+                                        value: _statusFilter,
+                                        options: const [
+                                          'All',
+                                          'live',
+                                          'scheduled',
+                                          'ended',
+                                        ],
+                                        onChanged: (v) => setState(
+                                          () => _statusFilter = v ?? 'All',
+                                        ),
+                                      ),
+                                      _FilterChipDropdown(
+                                        label: 'Category',
+                                        value: _categoryFilter,
+                                        options: const [
+                                          'All',
+                                          'Fashion',
+                                          'Beauty',
+                                          'Electronics',
+                                        ],
+                                        onChanged: (v) => setState(
+                                          () => _categoryFilter = v ?? 'All',
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -309,11 +372,16 @@ class HomeScreen extends StatelessWidget {
                               }
 
                               final query = state.searchQuery.toLowerCase();
-                              final allEvents = state.events.where((e) {
-                                return query.isEmpty ||
-                                    e.title.toLowerCase().contains(query) ||
-                                    e.sellerName.toLowerCase().contains(query);
-                              }).toList();
+                              final allEvents = state.events
+                                  .where((e) => _matchesSearch(e, query))
+                                  .where(
+                                    (e) => _matchesStatus(e, _statusFilter),
+                                  )
+                                  .where((e) => _matchesDate(e, _dateFilter))
+                                  .where(
+                                    (e) => _matchesCategory(e, _categoryFilter),
+                                  )
+                                  .toList();
 
                               final liveEvents = allEvents
                                   .where(
@@ -398,6 +466,110 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+class _FilterChipDropdown extends StatelessWidget {
+  final String label;
+  final String value;
+  final List<String> options;
+  final ValueChanged<String?> onChanged;
+
+  const _FilterChipDropdown({
+    required this.label,
+    required this.value,
+    required this.options,
+    required this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+      decoration: BoxDecoration(
+        color: const Color(0xFF2A2D3E),
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: Colors.white.withOpacity(0.08)),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            '$label:',
+            style: TextStyle(
+              color: Colors.white.withOpacity(0.7),
+              fontFamily: 'Poppins',
+            ),
+          ),
+          const SizedBox(width: 8),
+          DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              value: value,
+              dropdownColor: const Color(0xFF2A2D3E),
+              style: const TextStyle(color: Colors.white),
+              items: options
+                  .map(
+                    (o) => DropdownMenuItem<String>(value: o, child: Text(o)),
+                  )
+                  .toList(),
+              onChanged: onChanged,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+bool _matchesSearch(LiveEvent e, String query) {
+  if (query.isEmpty) return true;
+  return e.title.toLowerCase().contains(query) ||
+      e.sellerName.toLowerCase().contains(query);
+}
+
+bool _matchesStatus(LiveEvent e, String status) {
+  if (status == 'All') return true;
+  return e.status.name == status;
+}
+
+bool _matchesDate(LiveEvent e, String filter) {
+  if (filter == 'All') return true;
+  final now = DateTime.now();
+  final start = e.startTime;
+  final isSameDay =
+      start.year == now.year &&
+      start.month == now.month &&
+      start.day == now.day;
+  if (filter == 'Today') return isSameDay;
+  final tomorrow = now.add(const Duration(days: 1));
+  final isTomorrow =
+      start.year == tomorrow.year &&
+      start.month == tomorrow.month &&
+      start.day == tomorrow.day;
+  if (filter == 'Tomorrow') return isTomorrow;
+  final weekFromNow = now.add(const Duration(days: 7));
+  if (filter == 'This Week')
+    return start.isAfter(now) && start.isBefore(weekFromNow);
+  return true;
+}
+
+bool _matchesCategory(LiveEvent e, String filter) {
+  if (filter == 'All') return true;
+  final title = e.title.toLowerCase();
+  switch (filter) {
+    case 'Fashion':
+      return title.contains('robe') ||
+          title.contains('fashion') ||
+          title.contains('style');
+    case 'Beauty':
+      return title.contains('beauty') ||
+          title.contains('makeup') ||
+          title.contains('soin');
+    case 'Electronics':
+      return title.contains('tech') ||
+          title.contains('phone') ||
+          title.contains('electronics');
+  }
+  return true;
 }
 
 class _DecorativeIcon extends StatelessWidget {
