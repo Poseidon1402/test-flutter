@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../blocs/auth_bloc.dart';
-import '../../components/logo.dart';
+import '../../shared_components/logo.dart';
 part 'components/decorative_icon.dart';
 part 'components/login_card.dart';
 

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../blocs/cart_bloc.dart';
 import '../../blocs/live_events_bloc.dart';
 import '../../blocs/auth_bloc.dart';
-import '../../components/logo.dart';
+import '../../shared_components/cart_button.dart';
+import '../../shared_components/logo.dart';
 import '../../models/live_event.dart';
 
 part 'components/filter_chip_dropdown.dart';
@@ -109,20 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         const Spacer(),
 
                         // Cart Button
-                        Visibility(
-                          visible:
-                              context.read<AuthBloc>().state.status ==
-                              AuthStatus.authenticated,
-                          child: IconButton(
-                            onPressed: () => context.push('/cart'),
-                            icon: const Icon(
-                              Icons.shopping_cart_outlined,
-                              color: Colors.white,
-                              size: 24,
-                            ),
-                            tooltip: 'Cart',
-                          ),
-                        ),
+                        const CartButton(),
                         const SizedBox(width: 8),
 
                         // Login Button
