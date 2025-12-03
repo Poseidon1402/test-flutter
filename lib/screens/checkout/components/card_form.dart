@@ -29,36 +29,13 @@ class _CardFormState extends State<_CardForm> {
   @override
   void initState() {
     super.initState();
-    widget.expiryController.addListener(_onExpiryChanged);
     widget.cvvController.addListener(_onCvvChanged);
   }
 
   @override
   void dispose() {
-    widget.expiryController.removeListener(_onExpiryChanged);
     widget.cvvController.removeListener(_onCvvChanged);
     super.dispose();
-  }
-
-  void _onExpiryChanged() {
-    final text = widget.expiryController.text.replaceAll(
-      RegExp(r'[^0-9/]'),
-      '',
-    );
-    // Auto-insert slash after MM
-    var cleaned = text;
-    if (cleaned.length == 2 && !cleaned.contains('/')) {
-      cleaned = '$cleaned/';
-    }
-    if (cleaned != widget.expiryController.text) {
-      final caret = widget.expiryController.selection;
-      widget.expiryController.value = TextEditingValue(
-        text: cleaned,
-        selection: caret,
-      );
-    }
-    final valid = _expiryValid(cleaned);
-    widget.onExpiryValid(valid);
   }
 
   void _onCvvChanged() {
@@ -141,6 +118,11 @@ class _CardFormState extends State<_CardForm> {
                   _field(
                     controller: widget.expiryController,
                     hint: 'MM/YY',
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp(r'[0-9/]')),
+                      LengthLimitingTextInputFormatter(5),
+                      ExpirationDateFormatter(),
+                    ],
                     keyboardType: TextInputType.number,
                     validator: (v) =>
                         _expiryValid(v ?? '') ? null : 'Invalid expiry',

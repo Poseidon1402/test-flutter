@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_flutter/utils/formatters/card_number_formatter.dart';
 
 import '../../blocs/cart_bloc.dart';
+import '../../utils/formatters/expiration_date_formatter.dart';
 
 part 'components/decorative_icon.dart';
 part 'components/shipping_details_section.dart';
