@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../blocs/auth_bloc.dart';
-import '../blocs/orders_bloc.dart';
-import '../services/mock_api_service.dart';
+import '../../blocs/auth_bloc.dart';
+import '../../blocs/orders_bloc.dart';
+import '../../services/mock_api_service.dart';
+
+// Content moved from lib/screens/profile_screen.dart
+// (unchanged UI; only import paths adjusted)
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -12,10 +15,11 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    
+
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, authState) {
-        if (authState.status != AuthStatus.authenticated || authState.user == null) {
+        if (authState.status != AuthStatus.authenticated ||
+            authState.user == null) {
           return Scaffold(
             backgroundColor: const Color(0xFF1A1D2E),
             body: Center(
@@ -81,14 +85,17 @@ class ProfileScreen extends StatelessWidget {
                     size: 140,
                   ),
                 ),
-                
+
                 // Main content
                 SafeArea(
                   child: Column(
                     children: [
                       // Top Navigation Bar
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 32,
+                          vertical: 20,
+                        ),
                         child: Row(
                           children: [
                             // LiveShop Logo
@@ -101,7 +108,10 @@ class ProfileScreen extends StatelessWidget {
                                     height: 32,
                                     decoration: BoxDecoration(
                                       gradient: const LinearGradient(
-                                        colors: [Color(0xFF9D4EDD), Color(0xFF7B2CBF)],
+                                        colors: [
+                                          Color(0xFF9D4EDD),
+                                          Color(0xFF7B2CBF),
+                                        ],
                                       ),
                                       borderRadius: BorderRadius.circular(8),
                                     ),
@@ -124,9 +134,9 @@ class ProfileScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            
+
                             const Spacer(),
-                            
+
                             // Navigation Links
                             TextButton(
                               onPressed: () => context.go('/'),
@@ -164,7 +174,7 @@ class ProfileScreen extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(width: 16),
-                            
+
                             // User Avatar
                             Container(
                               width: 40,
@@ -182,7 +192,9 @@ class ProfileScreen extends StatelessWidget {
                                   fit: BoxFit.cover,
                                   errorBuilder: (context, error, stackTrace) {
                                     return Container(
-                                      color: const Color(0xFF9D4EDD).withOpacity(0.2),
+                                      color: const Color(
+                                        0xFF9D4EDD,
+                                      ).withOpacity(0.2),
                                       child: const Icon(
                                         Icons.person,
                                         color: Color(0xFF9D4EDD),
@@ -196,14 +208,14 @@ class ProfileScreen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      
+
                       // Scrollable content
                       Expanded(
                         child: SingleChildScrollView(
                           child: Column(
                             children: [
                               const SizedBox(height: 40),
-                              
+
                               // Profile Section
                               Container(
                                 width: 120,
@@ -216,7 +228,9 @@ class ProfileScreen extends StatelessWidget {
                                   ),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: const Color(0xFF9D4EDD).withOpacity(0.3),
+                                      color: const Color(
+                                        0xFF9D4EDD,
+                                      ).withOpacity(0.3),
                                       blurRadius: 20,
                                       spreadRadius: 2,
                                     ),
@@ -240,7 +254,7 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 24),
-                              
+
                               // User Name
                               Text(
                                 user.name,
@@ -251,7 +265,7 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 8),
-                              
+
                               // User Email
                               Text(
                                 user.email,
@@ -260,16 +274,21 @@ class ProfileScreen extends StatelessWidget {
                                   color: Colors.white.withOpacity(0.7),
                                 ),
                               ),
-                              
+
                               const SizedBox(height: 60),
-                              
+
                               // Order History Section
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 32),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 32,
+                                ),
                                 child: ConstrainedBox(
-                                  constraints: const BoxConstraints(maxWidth: 800),
+                                  constraints: const BoxConstraints(
+                                    maxWidth: 800,
+                                  ),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       const Text(
                                         'Order History',
@@ -288,44 +307,55 @@ class ProfileScreen extends StatelessWidget {
                                         ),
                                       ),
                                       const SizedBox(height: 24),
-                                      
+
                                       // Orders List
                                       BlocProvider(
-                                        create: (_) => OrdersBloc(api: MockApiService())
-                                          ..add(OrdersRequested(user.id)),
+                                        create: (_) =>
+                                            OrdersBloc(api: MockApiService())
+                                              ..add(OrdersRequested(user.id)),
                                         child: BlocBuilder<OrdersBloc, OrdersState>(
                                           builder: (context, state) {
                                             if (state.isLoading) {
                                               return const Center(
                                                 child: Padding(
                                                   padding: EdgeInsets.all(40),
-                                                  child: CircularProgressIndicator(
-                                                    color: Color(0xFF9D4EDD),
-                                                  ),
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                        color: Color(
+                                                          0xFF9D4EDD,
+                                                        ),
+                                                      ),
                                                 ),
                                               );
                                             }
-                                            
+
                                             if (state.error != null) {
                                               return Center(
                                                 child: Padding(
-                                                  padding: const EdgeInsets.all(40),
+                                                  padding: const EdgeInsets.all(
+                                                    40,
+                                                  ),
                                                   child: Text(
                                                     'Error: ${state.error}',
-                                                    style: const TextStyle(color: Colors.red),
+                                                    style: const TextStyle(
+                                                      color: Colors.red,
+                                                    ),
                                                   ),
                                                 ),
                                               );
                                             }
-                                            
+
                                             if (state.orders.isEmpty) {
                                               return Center(
                                                 child: Padding(
-                                                  padding: const EdgeInsets.all(40),
+                                                  padding: const EdgeInsets.all(
+                                                    40,
+                                                  ),
                                                   child: Text(
                                                     'No orders yet',
                                                     style: TextStyle(
-                                                      color: Colors.white.withOpacity(0.6),
+                                                      color: Colors.white
+                                                          .withOpacity(0.6),
                                                       fontSize: 16,
                                                     ),
                                                   ),
@@ -333,18 +363,32 @@ class ProfileScreen extends StatelessWidget {
                                               );
                                             }
 
-                                            final recentOrders = state.orders.take(3).toList();
-                                            
+                                            final recentOrders = state.orders
+                                                .take(3)
+                                                .toList();
+
                                             return Column(
-                                              children: recentOrders.map((order) {
+                                              children: recentOrders.map((
+                                                order,
+                                              ) {
                                                 return Container(
-                                                  margin: const EdgeInsets.only(bottom: 16),
-                                                  padding: const EdgeInsets.all(24),
+                                                  margin: const EdgeInsets.only(
+                                                    bottom: 16,
+                                                  ),
+                                                  padding: const EdgeInsets.all(
+                                                    24,
+                                                  ),
                                                   decoration: BoxDecoration(
-                                                    color: const Color(0xFF2A2D3E),
-                                                    borderRadius: BorderRadius.circular(16),
+                                                    color: const Color(
+                                                      0xFF2A2D3E,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          16,
+                                                        ),
                                                     border: Border.all(
-                                                      color: Colors.white.withOpacity(0.1),
+                                                      color: Colors.white
+                                                          .withOpacity(0.1),
                                                       width: 1,
                                                     ),
                                                   ),
@@ -355,88 +399,139 @@ class ProfileScreen extends StatelessWidget {
                                                         width: 50,
                                                         height: 50,
                                                         decoration: BoxDecoration(
-                                                          color: const Color(0xFF9D4EDD).withOpacity(0.2),
-                                                          borderRadius: BorderRadius.circular(12),
+                                                          color: const Color(
+                                                            0xFF9D4EDD,
+                                                          ).withOpacity(0.2),
+                                                          borderRadius:
+                                                              BorderRadius.circular(
+                                                                12,
+                                                              ),
                                                         ),
                                                         child: Icon(
-                                                          _getOrderIcon(order.status),
-                                                          color: const Color(0xFF9D4EDD),
+                                                          _getOrderIcon(
+                                                            order.status,
+                                                          ),
+                                                          color: const Color(
+                                                            0xFF9D4EDD,
+                                                          ),
                                                           size: 24,
                                                         ),
                                                       ),
                                                       const SizedBox(width: 20),
-                                                      
+
                                                       // Order Details
                                                       Expanded(
                                                         child: Column(
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
                                                           children: [
                                                             Text(
                                                               'Order #${order.id}',
                                                               style: const TextStyle(
                                                                 fontSize: 16,
-                                                                fontWeight: FontWeight.w600,
-                                                                color: Colors.white,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                color: Colors
+                                                                    .white,
                                                               ),
                                                             ),
-                                                            const SizedBox(height: 4),
+                                                            const SizedBox(
+                                                              height: 4,
+                                                            ),
                                                             Text(
-                                                              _formatDate(order.createdAt),
+                                                              _formatDate(
+                                                                order.createdAt,
+                                                              ),
                                                               style: TextStyle(
                                                                 fontSize: 13,
-                                                                color: Colors.white.withOpacity(0.5),
+                                                                color: Colors
+                                                                    .white
+                                                                    .withOpacity(
+                                                                      0.5,
+                                                                    ),
                                                               ),
                                                             ),
-                                                            const SizedBox(height: 8),
+                                                            const SizedBox(
+                                                              height: 8,
+                                                            ),
                                                             Text(
                                                               '${order.items.length} item${order.items.length > 1 ? 's' : ''}',
                                                               style: TextStyle(
                                                                 fontSize: 14,
-                                                                color: Colors.white.withOpacity(0.7),
+                                                                color: Colors
+                                                                    .white
+                                                                    .withOpacity(
+                                                                      0.7,
+                                                                    ),
                                                               ),
                                                             ),
                                                           ],
                                                         ),
                                                       ),
-                                                      
+
                                                       // Price and Status
                                                       Column(
-                                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .end,
                                                         children: [
                                                           Text(
                                                             '\$${order.total.toStringAsFixed(2)}',
-                                                            style: const TextStyle(
-                                                              fontSize: 20,
-                                                              fontWeight: FontWeight.bold,
-                                                              color: Colors.white,
-                                                            ),
+                                                            style:
+                                                                const TextStyle(
+                                                                  fontSize: 20,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
                                                           ),
-                                                          const SizedBox(height: 8),
+                                                          const SizedBox(
+                                                            height: 8,
+                                                          ),
                                                           Container(
-                                                            padding: const EdgeInsets.symmetric(
-                                                              horizontal: 12,
-                                                              vertical: 6,
-                                                            ),
+                                                            padding:
+                                                                const EdgeInsets.symmetric(
+                                                                  horizontal:
+                                                                      12,
+                                                                  vertical: 6,
+                                                                ),
                                                             decoration: BoxDecoration(
-                                                              color: _getStatusColor(order.status),
-                                                              borderRadius: BorderRadius.circular(20),
+                                                              color:
+                                                                  _getStatusColor(
+                                                                    order
+                                                                        .status,
+                                                                  ),
+                                                              borderRadius:
+                                                                  BorderRadius.circular(
+                                                                    20,
+                                                                  ),
                                                             ),
                                                             child: Text(
-                                                              _getStatusText(order.status),
+                                                              _getStatusText(
+                                                                order.status,
+                                                              ),
                                                               style: const TextStyle(
                                                                 fontSize: 11,
-                                                                fontWeight: FontWeight.w600,
-                                                                color: Colors.black87,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                color: Colors
+                                                                    .black87,
                                                               ),
                                                             ),
                                                           ),
                                                         ],
                                                       ),
-                                                      
+
                                                       const SizedBox(width: 16),
                                                       Icon(
                                                         Icons.chevron_right,
-                                                        color: Colors.white.withOpacity(0.3),
+                                                        color: Colors.white
+                                                            .withOpacity(0.3),
                                                         size: 24,
                                                       ),
                                                     ],
@@ -451,13 +546,15 @@ class ProfileScreen extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                              
+
                               const SizedBox(height: 60),
-                              
+
                               // Logout Button
                               ElevatedButton.icon(
                                 onPressed: () {
-                                  context.read<AuthBloc>().add(const LogoutRequested());
+                                  context.read<AuthBloc>().add(
+                                    const LogoutRequested(),
+                                  );
                                   context.go('/');
                                 },
                                 icon: const Icon(Icons.logout, size: 20),
@@ -485,7 +582,7 @@ class ProfileScreen extends StatelessWidget {
                                   elevation: 0,
                                 ),
                               ),
-                              
+
                               const SizedBox(height: 60),
                             ],
                           ),
@@ -555,8 +652,18 @@ class ProfileScreen extends StatelessWidget {
 
   String _formatDate(DateTime date) {
     final months = [
-      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
     ];
     return '${months[date.month - 1]} ${date.day.toString().padLeft(2, '0')}, ${date.year}';
   }
@@ -579,11 +686,7 @@ class _DecorativeIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Transform.rotate(
       angle: rotation,
-      child: Icon(
-        icon,
-        size: size,
-        color: Colors.white.withOpacity(opacity),
-      ),
+      child: Icon(icon, size: size, color: Colors.white.withOpacity(opacity)),
     );
   }
 }
