@@ -12,6 +12,8 @@ class LiveEventsBloc extends Bloc<LiveEventsEvent, LiveEventsState> {
 
   LiveEventsBloc(this.api) : super(const LiveEventsState.loading()) {
     on<LiveEventsRequested>(_onRequested);
+    on<LiveEventsSearchChanged>(_onSearchChanged);
+    on<LiveEventsFilterStatusChanged>(_onFilterStatusChanged);
   }
 
   Future<void> _onRequested(
@@ -25,5 +27,19 @@ class LiveEventsBloc extends Bloc<LiveEventsEvent, LiveEventsState> {
     } catch (e) {
       emit(LiveEventsState.failure(e.toString()));
     }
+  }
+
+  void _onSearchChanged(
+    LiveEventsSearchChanged event,
+    Emitter<LiveEventsState> emit,
+  ) {
+    emit(state.copyWith(searchQuery: event.query));
+  }
+
+  void _onFilterStatusChanged(
+    LiveEventsFilterStatusChanged event,
+    Emitter<LiveEventsState> emit,
+  ) {
+    emit(state.copyWith(filterStatus: event.status));
   }
 }
