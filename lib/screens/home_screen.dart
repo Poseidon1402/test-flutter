@@ -16,14 +16,88 @@ class HomeScreen extends StatelessWidget {
     required this.themeMode,
   });
 
+  void _showFilterBottomSheet(BuildContext context, LiveEventStatus? currentFilter) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      builder: (BuildContext bottomSheetContext) {
+        return Container(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  'Filter by Status',
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
+              _FilterOption(
+                label: 'All',
+                isSelected: currentFilter == null,
+                onTap: () {
+                  context.read<LiveEventsBloc>().add(
+                    const LiveEventsFilterStatusChanged(null),
+                  );
+                  Navigator.pop(bottomSheetContext);
+                },
+              ),
+              _FilterOption(
+                label: 'Live',
+                isSelected: currentFilter == LiveEventStatus.live,
+                onTap: () {
+                  context.read<LiveEventsBloc>().add(
+                    const LiveEventsFilterStatusChanged(LiveEventStatus.live),
+                  );
+                  Navigator.pop(bottomSheetContext);
+                },
+              ),
+              _FilterOption(
+                label: 'Scheduled',
+                isSelected: currentFilter == LiveEventStatus.scheduled,
+                onTap: () {
+                  context.read<LiveEventsBloc>().add(
+                    const LiveEventsFilterStatusChanged(LiveEventStatus.scheduled),
+                  );
+                  Navigator.pop(bottomSheetContext);
+                },
+              ),
+              _FilterOption(
+                label: 'Ended',
+                isSelected: currentFilter == LiveEventStatus.ended,
+                onTap: () {
+                  context.read<LiveEventsBloc>().add(
+                    const LiveEventsFilterStatusChanged(LiveEventStatus.ended),
+                  );
+                  Navigator.pop(bottomSheetContext);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final isDark = themeMode == ThemeMode.dark;
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Live Shopping'),
+        title: const Text(
+          'Live Shopping',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         centerTitle: false,
+        elevation: 0,
         actions: [
           BlocBuilder<AuthBloc, AuthState>(
             builder: (context, state) {
@@ -46,7 +120,6 @@ class HomeScreen extends StatelessWidget {
             icon: Icon(isDark ? Icons.light_mode : Icons.dark_mode),
             onPressed: onToggleTheme,
           ),
-          const SizedBox(width: 8),
           IconButton(
             tooltip: 'Cart',
             icon: const Icon(Icons.shopping_bag_outlined),
@@ -54,27 +127,42 @@ class HomeScreen extends StatelessWidget {
               context.go('/cart');
             },
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: 4),
         ],
       ),
       body: SafeArea(
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 12),
               child: BlocBuilder<LiveEventsBloc, LiveEventsState>(
                 builder: (context, state) {
                   return Row(
                     children: [
                       Expanded(
                         child: TextField(
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
                           decoration: InputDecoration(
-                            prefixIcon: const Icon(Icons.search),
-                            hintText: 'Search live events or products',
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(24),
+                            prefixIcon: Icon(
+                              Icons.search,
+                              color: Theme.of(context).colorScheme.onSurfaceVariant,
                             ),
-                            isDense: true,
+                            hintText: 'Search live events or products',
+                            hintStyle: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurfaceVariant,
+                            ),
+                            filled: true,
+                            fillColor: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide.none,
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 12,
+                            ),
                           ),
                           onChanged: (value) {
                             context
@@ -84,32 +172,22 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(width: 12),
-                      DropdownButton<LiveEventStatus?>(
-                        value: state.filterStatus,
-                        hint: const Text('Status'),
-                        onChanged: (status) {
-                          context
-                              .read<LiveEventsBloc>()
-                              .add(LiveEventsFilterStatusChanged(status));
-                        },
-                        items: const [
-                          DropdownMenuItem<LiveEventStatus?>(
-                            value: null,
-                            child: Text('All'),
+                      Material(
+                        color: Theme.of(context).colorScheme.primary,
+                        borderRadius: BorderRadius.circular(12),
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(12),
+                          onTap: () {
+                            _showFilterBottomSheet(context, state.filterStatus);
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(12),
+                            child: Icon(
+                              Icons.tune,
+                              color: Theme.of(context).colorScheme.onPrimary,
+                            ),
                           ),
-                          DropdownMenuItem<LiveEventStatus?>(
-                            value: LiveEventStatus.live,
-                            child: Text('Live'),
-                          ),
-                          DropdownMenuItem<LiveEventStatus?>(
-                            value: LiveEventStatus.scheduled,
-                            child: Text('Scheduled'),
-                          ),
-                          DropdownMenuItem<LiveEventStatus?>(
-                            value: LiveEventStatus.ended,
-                            child: Text('Ended'),
-                          ),
-                        ],
+                        ),
                       ),
                     ],
                   );
@@ -148,22 +226,34 @@ class HomeScreen extends StatelessWidget {
                     builder: (context, constraints) {
                       final width = constraints.maxWidth;
                       int crossAxisCount = 1;
-                      if (width >= 1200) {
-                        crossAxisCount = 4;
-                      } else if (width >= 800) {
+                      double childAspectRatio = 0.75;
+                      double spacing = 12;
+
+                      if (width >= 1024) {
+                        // Desktop: 3 columns
                         crossAxisCount = 3;
+                        childAspectRatio = 0.80;
+                        spacing = 16;
                       } else if (width >= 600) {
+                        // Tablet: 2 columns
                         crossAxisCount = 2;
+                        childAspectRatio = 0.78;
+                        spacing = 14;
+                      } else {
+                        // Mobile: 1 column
+                        crossAxisCount = 1;
+                        childAspectRatio = 0.85;
+                        spacing = 12;
                       }
 
                       return GridView.builder(
-                        padding: const EdgeInsets.all(16),
+                        padding: EdgeInsets.all(spacing),
                         gridDelegate:
                             SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: crossAxisCount,
-                          crossAxisSpacing: 16,
-                          mainAxisSpacing: 16,
-                          childAspectRatio: 16 / 10,
+                          crossAxisSpacing: spacing,
+                          mainAxisSpacing: spacing,
+                          childAspectRatio: childAspectRatio,
                         ),
                         itemCount: events.length,
                         itemBuilder: (context, index) {
@@ -338,6 +428,34 @@ class _LiveEventCard extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _FilterOption extends StatelessWidget {
+  final String label;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  const _FilterOption({
+    required this.label,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return ListTile(
+      title: Text(label),
+      trailing: isSelected
+          ? Icon(
+              Icons.check_circle,
+              color: colorScheme.primary,
+            )
+          : null,
+      onTap: onTap,
     );
   }
 }
