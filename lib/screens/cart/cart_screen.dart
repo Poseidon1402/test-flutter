@@ -4,6 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../blocs/cart_bloc.dart';
+part 'components/decorative_icon.dart';
+part 'components/cart_item_tile.dart';
+part 'components/subtotal_section.dart';
+part 'components/checkout_button.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -218,207 +222,35 @@ class CartScreen extends StatelessWidget {
                                         children: [
                                           // Cart Items List
                                           ...state.items.map((item) {
-                                            return Container(
-                                              margin: const EdgeInsets.only(
-                                                bottom: 16,
-                                              ),
-                                              padding: const EdgeInsets.all(16),
-                                              decoration: BoxDecoration(
-                                                color: Colors.white.withOpacity(
-                                                  0.1,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(12),
-                                                border: Border.all(
-                                                  color: Colors.white
-                                                      .withOpacity(0.2),
-                                                  width: 1,
-                                                ),
-                                              ),
-                                              child: Row(
-                                                children: [
-                                                  // Product Image
-                                                  ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                          8,
-                                                        ),
-                                                    child: Container(
-                                                      width: 60,
-                                                      height: 60,
-                                                      color: Colors.white
-                                                          .withOpacity(0.1),
-                                                      child: Image.network(
-                                                        item.product.thumbnail,
-                                                        fit: BoxFit.cover,
-                                                        errorBuilder:
-                                                            (
-                                                              context,
-                                                              error,
-                                                              stackTrace,
-                                                            ) {
-                                                              return Icon(
-                                                                Icons
-                                                                    .image_not_supported,
-                                                                color: Colors
-                                                                    .white
-                                                                    .withOpacity(
-                                                                      0.3,
-                                                                    ),
-                                                              );
-                                                            },
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  const SizedBox(width: 16),
-
-                                                  // Product Details
-                                                  Expanded(
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(
-                                                          item.product.name,
-                                                          style:
-                                                              const TextStyle(
-                                                                fontSize: 16,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600,
-                                                                color: Colors
-                                                                    .white,
-                                                              ),
-                                                          maxLines: 1,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 4,
-                                                        ),
-                                                        Text(
-                                                          '${item.quantity} x €${item.product.currentPrice.toStringAsFixed(2)}',
-                                                          style: TextStyle(
-                                                            fontSize: 14,
-                                                            color: Colors.white
-                                                                .withOpacity(
-                                                                  0.7,
-                                                                ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-
-                                                  // Delete Button
-                                                  IconButton(
-                                                    onPressed: () {
-                                                      context
-                                                          .read<CartBloc>()
-                                                          .add(
-                                                            CartItemRemoved(
-                                                              item.id,
-                                                            ),
-                                                          );
-                                                    },
-                                                    icon: Icon(
-                                                      Icons.delete_outline,
-                                                      color: Colors.white
-                                                          .withOpacity(0.7),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
+                                            return _CartItemTile(
+                                              thumbnailUrl:
+                                                  item.product.thumbnail,
+                                              name: item.product.name,
+                                              unitPrice:
+                                                  item.product.currentPrice,
+                                              quantity: item.quantity,
+                                              onRemove: () {
+                                                context.read<CartBloc>().add(
+                                                  CartItemRemoved(item.id),
+                                                );
+                                              },
                                             );
                                           }).toList(),
 
                                           const SizedBox(height: 24),
 
                                           // Subtotal
-                                          Container(
-                                            padding: const EdgeInsets.symmetric(
-                                              horizontal: 16,
-                                              vertical: 20,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              color: Colors.white.withOpacity(
-                                                0.05,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                            ),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                const Text(
-                                                  'Subtotal',
-                                                  style: TextStyle(
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  '€${state.subtotal.toStringAsFixed(2)}',
-                                                  style: const TextStyle(
-                                                    fontSize: 24,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
+                                          _SubtotalSection(
+                                            subtotal: state.subtotal,
                                           ),
 
                                           const SizedBox(height: 24),
 
                                           // Checkout Button
-                                          Container(
-                                            width: double.infinity,
-                                            height: 54,
-                                            decoration: BoxDecoration(
-                                              gradient: const LinearGradient(
-                                                colors: [
-                                                  Color(0xFF9D4EDD),
-                                                  Color(0xFF7B2CBF),
-                                                ],
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: const Color(
-                                                    0xFF9D4EDD,
-                                                  ).withOpacity(0.4),
-                                                  blurRadius: 20,
-                                                  offset: const Offset(0, 8),
-                                                ),
-                                              ],
-                                            ),
-                                            child: ElevatedButton(
-                                              onPressed: () =>
-                                                  context.pushNamed('checkout'),
-                                              style: ElevatedButton.styleFrom(
-                                                backgroundColor:
-                                                    Colors.transparent,
-                                                shadowColor: Colors.transparent,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(12),
-                                                ),
-                                              ),
-                                              child: const Text(
-                                                'Checkout',
-                                                style: TextStyle(
-                                                  fontSize: 18,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ),
+                                          _CheckoutButton(
+                                            onPressed: () =>
+                                                context.pushNamed('checkout'),
+                                            enabled: state.items.isNotEmpty,
                                           ),
                                         ],
                                       ),
@@ -441,24 +273,4 @@ class CartScreen extends StatelessWidget {
   }
 }
 
-class _DecorativeIcon extends StatelessWidget {
-  final IconData icon;
-  final double rotation;
-  final double opacity;
-  final double size;
-
-  const _DecorativeIcon({
-    required this.icon,
-    required this.rotation,
-    required this.opacity,
-    required this.size,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Transform.rotate(
-      angle: rotation,
-      child: Icon(icon, size: size, color: Colors.white.withOpacity(opacity)),
-    );
-  }
-}
+// Decorative icon moved to components/decorative_icon.dart
