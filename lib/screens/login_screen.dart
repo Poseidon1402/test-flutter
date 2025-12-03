@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../blocs/auth_bloc.dart';
+import '../components/logo.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -136,29 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     crossAxisAlignment: CrossAxisAlignment.stretch,
                                     children: [
                                       // Logo
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'LIVE',
-                                            style: TextStyle(
-                                              fontSize: 32,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                              letterSpacing: 1.2,
-                                            ),
-                                          ),
-                                          Text(
-                                            'SHOP',
-                                            style: TextStyle(
-                                              fontSize: 32,
-                                              fontWeight: FontWeight.bold,
-                                              color: Color(0xFF9D4EDD),
-                                              letterSpacing: 1.2,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
+                                      const Logo(),
                                       const SizedBox(height: 32),
                                       
                                       // Welcome text
