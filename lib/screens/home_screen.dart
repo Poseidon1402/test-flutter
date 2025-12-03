@@ -62,31 +62,58 @@ class HomeScreen extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        prefixIcon: const Icon(Icons.search),
-                        hintText: 'Search live events or products',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(24),
+              child: BlocBuilder<LiveEventsBloc, LiveEventsState>(
+                builder: (context, state) {
+                  return Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          decoration: InputDecoration(
+                            prefixIcon: const Icon(Icons.search),
+                            hintText: 'Search live events or products',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(24),
+                            ),
+                            isDense: true,
+                          ),
+                          onChanged: (value) {
+                            context
+                                .read<LiveEventsBloc>()
+                                .add(LiveEventsSearchChanged(value));
+                          },
                         ),
-                        isDense: true,
                       ),
-                      onChanged: (value) {
-                        // TODO: hook search into BLoC filter
-                      },
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  IconButton.filledTonal(
-                    onPressed: () {
-                      // TODO: open filters
-                    },
-                    icon: const Icon(Icons.tune),
-                  ),
-                ],
+                      const SizedBox(width: 12),
+                      DropdownButton<LiveEventStatus?>(
+                        value: state.filterStatus,
+                        hint: const Text('Status'),
+                        onChanged: (status) {
+                          context
+                              .read<LiveEventsBloc>()
+                              .add(LiveEventsFilterStatusChanged(status));
+                        },
+                        items: const [
+                          DropdownMenuItem<LiveEventStatus?>(
+                            value: null,
+                            child: Text('All'),
+                          ),
+                          DropdownMenuItem<LiveEventStatus?>(
+                            value: LiveEventStatus.live,
+                            child: Text('Live'),
+                          ),
+                          DropdownMenuItem<LiveEventStatus?>(
+                            value: LiveEventStatus.scheduled,
+                            child: Text('Scheduled'),
+                          ),
+                          DropdownMenuItem<LiveEventStatus?>(
+                            value: LiveEventStatus.ended,
+                            child: Text('Ended'),
+                          ),
+                        ],
+                      ),
+                    ],
+                  );
+                },
               ),
             ),
             Expanded(
@@ -102,7 +129,20 @@ class HomeScreen extends StatelessWidget {
                     return const Center(child: Text('No live events')); 
                   }
 
-                  final events = state.events;
+                  final query = state.searchQuery.toLowerCase();
+                  final statusFilter = state.filterStatus;
+                  final events = state.events.where((e) {
+                    final matchesQuery = query.isEmpty ||
+                        e.title.toLowerCase().contains(query) ||
+                        e.sellerName.toLowerCase().contains(query);
+                    final matchesStatus =
+                        statusFilter == null || e.status == statusFilter;
+                    return matchesQuery && matchesStatus;
+                  }).toList();
+
+                  if (events.isEmpty) {
+                    return const Center(child: Text('No live events'));
+                  }
 
                   return LayoutBuilder(
                     builder: (context, constraints) {
