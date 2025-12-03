@@ -76,15 +76,11 @@ class _LoginCard extends StatelessWidget {
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: emailController,
-                  style: const TextStyle(
-                    color: Colors.white,
-                  ),
+                  style: const TextStyle(color: Colors.white),
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     hintText: 'alice@example.com',
-                    hintStyle: TextStyle(
-                      color: Colors.white.withOpacity(0.5),
-                    ),
+                    hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
                     prefixIcon: Icon(
                       Icons.email_outlined,
                       color: Colors.white.withOpacity(0.7),
@@ -135,15 +131,11 @@ class _LoginCard extends StatelessWidget {
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: passwordController,
-                  style: const TextStyle(
-                    color: Colors.white,
-                  ),
+                  style: const TextStyle(color: Colors.white),
                   obscureText: true,
                   decoration: InputDecoration(
                     hintText: '••••••••••',
-                    hintStyle: TextStyle(
-                      color: Colors.white.withOpacity(0.5),
-                    ),
+                    hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
                     prefixIcon: Icon(
                       Icons.lock_outline,
                       color: Colors.white.withOpacity(0.7),
@@ -199,10 +191,7 @@ class _LoginCard extends StatelessWidget {
                   height: 54,
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
-                      colors: [
-                        Color(0xFF9D4EDD),
-                        Color(0xFF7B2CBF),
-                      ],
+                      colors: [Color(0xFF9D4EDD), Color(0xFF7B2CBF)],
                     ),
                     borderRadius: BorderRadius.circular(12),
                     boxShadow: [
