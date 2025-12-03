@@ -6,6 +6,7 @@ import '../models/cart_item.dart';
 import '../models/live_event.dart';
 import '../models/product.dart';
 import '../models/user.dart';
+import '../models/order.dart';
 
 class MockApiService {
   static final MockApiService _instance = MockApiService._internal();
@@ -77,6 +78,18 @@ class MockApiService {
     } catch (_) {
       return null;
     }
+  }
+
+  // Orders operations (mocked)
+
+  Future<List<Order>> getOrdersForUser(String userId) async {
+    await _loadData();
+    final list = _data!['orders'] as List<dynamic>? ?? [];
+    return list
+        .map((e) => Order.fromJson(e as Map<String, dynamic>))
+        .where((order) => order.userId == userId)
+        .toList()
+      ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
   }
 
   // Auth operations (mocked)
