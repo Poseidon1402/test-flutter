@@ -97,7 +97,7 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
                       currentUser: currentUser,
                       isLoggedIn: isLoggedIn,
                     ),
-                    
+
                     // Main Content
                     Expanded(
                       child: Stack(
@@ -105,7 +105,7 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
                           LayoutBuilder(
                             builder: (context, constraints) {
                               final isSmall = constraints.maxWidth < 900;
-                              
+
                               if (isSmall) {
                                 return Column(
                                   children: [
@@ -116,7 +116,9 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
                                         volume: _volume,
                                         onTogglePlay: () {
                                           setState(() {
-                                            if (_videoController.value.isPlaying) {
+                                            if (_videoController
+                                                .value
+                                                .isPlaying) {
                                               _videoController.pause();
                                             } else {
                                               _videoController.play();
@@ -135,7 +137,8 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
                                       height: 300,
                                       child: _LiveChatPanel(
                                         currentUserId: currentUser?.id ?? '',
-                                        currentUserName: currentUser?.name ?? 'Guest',
+                                        currentUserName:
+                                            currentUser?.name ?? 'Guest',
                                         roomId: widget.eventId,
                                       ),
                                     ),
@@ -153,7 +156,9 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
                                       volume: _volume,
                                       onTogglePlay: () {
                                         setState(() {
-                                          if (_videoController.value.isPlaying) {
+                                          if (_videoController
+                                              .value
+                                              .isPlaying) {
                                             _videoController.pause();
                                           } else {
                                             _videoController.play();
@@ -172,7 +177,8 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
                                     width: 360,
                                     child: _LiveChatPanel(
                                       currentUserId: currentUser?.id ?? '',
-                                      currentUserName: currentUser?.name ?? 'Guest',
+                                      currentUserName:
+                                          currentUser?.name ?? 'Guest',
                                       roomId: widget.eventId,
                                     ),
                                   ),
@@ -226,7 +232,9 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontSize: 16,
-                                            color: Colors.white.withOpacity(0.8),
+                                            color: Colors.white.withOpacity(
+                                              0.8,
+                                            ),
                                           ),
                                         ),
                                         const SizedBox(height: 32),
@@ -238,26 +246,34 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
                                                 Color(0xFF7B2CBF),
                                               ],
                                             ),
-                                            borderRadius: BorderRadius.circular(12),
+                                            borderRadius: BorderRadius.circular(
+                                              12,
+                                            ),
                                             boxShadow: [
                                               BoxShadow(
-                                                color: const Color(0xFF9D4EDD).withOpacity(0.4),
+                                                color: const Color(
+                                                  0xFF9D4EDD,
+                                                ).withOpacity(0.4),
                                                 blurRadius: 20,
                                                 offset: const Offset(0, 8),
                                               ),
                                             ],
                                           ),
                                           child: ElevatedButton(
-                                            onPressed: () => context.pushNamed('login'),
+                                            onPressed: () =>
+                                                context.pushNamed('login'),
                                             style: ElevatedButton.styleFrom(
-                                              backgroundColor: Colors.transparent,
+                                              backgroundColor:
+                                                  Colors.transparent,
                                               shadowColor: Colors.transparent,
-                                              padding: const EdgeInsets.symmetric(
-                                                horizontal: 48,
-                                                vertical: 16,
-                                              ),
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                    horizontal: 48,
+                                                    vertical: 16,
+                                                  ),
                                               shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(12),
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
                                               ),
                                             ),
                                             child: const Text(
@@ -306,10 +322,7 @@ class _TopNavigationBar extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white.withOpacity(0.05),
         border: Border(
-          bottom: BorderSide(
-            color: Colors.white.withOpacity(0.1),
-            width: 1,
-          ),
+          bottom: BorderSide(color: Colors.white.withOpacity(0.1), width: 1),
         ),
       ),
       child: Row(
@@ -344,9 +357,9 @@ class _TopNavigationBar extends StatelessWidget {
               ),
             ],
           ),
-          
+
           const Spacer(),
-          
+
           // Actions
           IconButton(
             onPressed: () {},
@@ -397,9 +410,7 @@ class _LiveVideoAndProducts extends StatelessWidget {
       builder: (context, state) {
         if (state.isLoading) {
           return const Center(
-            child: CircularProgressIndicator(
-              color: Color(0xFF9D4EDD),
-            ),
+            child: CircularProgressIndicator(color: Color(0xFF9D4EDD)),
           );
         }
         if (state.error != null) {
@@ -456,7 +467,7 @@ class _LiveVideoAndProducts extends StatelessWidget {
                   ),
                 ),
               ),
-              
+
               // Event Title and Stats
               Padding(
                 padding: const EdgeInsets.all(16),
@@ -518,7 +529,7 @@ class _LiveVideoAndProducts extends StatelessWidget {
                   ],
                 ),
               ),
-              
+
               // Product List
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -560,15 +571,21 @@ class _LiveVideoAndProducts extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  product.name,
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white,
+                                GestureDetector(
+                                  onTap: () {
+                                    context.push('/product/${product.id}');
+                                  },
+                                  child: Text(
+                                    product.name,
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white,
+                                      decoration: TextDecoration.underline,
+                                    ),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
@@ -585,10 +602,7 @@ class _LiveVideoAndProducts extends StatelessWidget {
                           Container(
                             decoration: BoxDecoration(
                               gradient: const LinearGradient(
-                                colors: [
-                                  Color(0xFF9D4EDD),
-                                  Color(0xFF7B2CBF),
-                                ],
+                                colors: [Color(0xFF9D4EDD), Color(0xFF7B2CBF)],
                               ),
                               borderRadius: BorderRadius.circular(8),
                             ),
@@ -603,7 +617,9 @@ class _LiveVideoAndProducts extends StatelessWidget {
                                 );
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
-                                    content: Text('Added ${product.name} to cart'),
+                                    content: Text(
+                                      'Added ${product.name} to cart',
+                                    ),
                                     backgroundColor: const Color(0xFF9D4EDD),
                                   ),
                                 );
@@ -648,10 +664,7 @@ class _LiveChatPanel extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFF1A1D2E),
         border: Border(
-          left: BorderSide(
-            color: Colors.white.withOpacity(0.1),
-            width: 1,
-          ),
+          left: BorderSide(color: Colors.white.withOpacity(0.1), width: 1),
         ),
       ),
       child: Column(
@@ -687,7 +700,7 @@ class _LiveChatPanel extends StatelessWidget {
               ],
             ),
           ),
-          
+
           // Messages
           Expanded(
             child: BlocBuilder<ChatBloc, ChatState>(
@@ -704,17 +717,14 @@ class _LiveChatPanel extends StatelessWidget {
               },
             ),
           ),
-          
+
           // Input Field
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: Colors.white.withOpacity(0.05),
               border: Border(
-                top: BorderSide(
-                  color: Colors.white.withOpacity(0.1),
-                  width: 1,
-                ),
+                top: BorderSide(color: Colors.white.withOpacity(0.1), width: 1),
               ),
             ),
             child: Row(
@@ -745,10 +755,7 @@ class _LiveChatPanel extends StatelessWidget {
                 Container(
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [
-                        Color(0xFF9D4EDD),
-                        Color(0xFF7B2CBF),
-                      ],
+                      colors: [Color(0xFF9D4EDD), Color(0xFF7B2CBF)],
                     ),
                     shape: BoxShape.circle,
                   ),
@@ -799,7 +806,7 @@ class _ChatMessageTile extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 12),
-          
+
           // Message Content
           Expanded(
             child: Column(
@@ -830,10 +837,7 @@ class _ChatMessageTile extends StatelessWidget {
                   ),
                   child: Text(
                     message.message,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Colors.white,
-                    ),
+                    style: const TextStyle(fontSize: 14, color: Colors.white),
                   ),
                 ),
               ],
@@ -916,9 +920,7 @@ class _VideoControlsOverlayState extends State<_VideoControlsOverlay> {
     final currentPosition = widget.controller.value.position;
     final duration = widget.controller.value.duration;
     final newPosition = currentPosition + const Duration(seconds: 10);
-    widget.controller.seekTo(
-      newPosition > duration ? duration : newPosition,
-    );
+    widget.controller.seekTo(newPosition > duration ? duration : newPosition);
   }
 
   @override
@@ -944,7 +946,7 @@ class _VideoControlsOverlayState extends State<_VideoControlsOverlay> {
                   child: Container(color: Colors.transparent),
                 ),
               ),
-            
+
             // Control Bar
             AnimatedPositioned(
               duration: const Duration(milliseconds: 300),
@@ -979,14 +981,12 @@ class _VideoControlsOverlayState extends State<_VideoControlsOverlay> {
                         constraints: const BoxConstraints(),
                       ),
                       const SizedBox(width: 16),
-                      
+
                       // Play/Pause Button
                       IconButton(
                         onPressed: widget.onTogglePlay,
                         icon: Icon(
-                          widget.isPlaying
-                              ? Icons.pause
-                              : Icons.play_arrow,
+                          widget.isPlaying ? Icons.pause : Icons.play_arrow,
                           color: Colors.white,
                           size: 32,
                         ),
@@ -994,7 +994,7 @@ class _VideoControlsOverlayState extends State<_VideoControlsOverlay> {
                         constraints: const BoxConstraints(),
                       ),
                       const SizedBox(width: 16),
-                      
+
                       // Skip Forward Button
                       IconButton(
                         onPressed: _skipForward,
@@ -1007,7 +1007,7 @@ class _VideoControlsOverlayState extends State<_VideoControlsOverlay> {
                         constraints: const BoxConstraints(),
                       ),
                       const SizedBox(width: 16),
-                      
+
                       // Volume Icon with Slider
                       Stack(
                         clipBehavior: Clip.none,
@@ -1024,14 +1024,15 @@ class _VideoControlsOverlayState extends State<_VideoControlsOverlay> {
                             padding: EdgeInsets.zero,
                             constraints: const BoxConstraints(),
                           ),
-                          
+
                           // Vertical Volume Slider
                           if (_showVolumeSlider)
                             Positioned(
                               bottom: 48,
                               left: -8,
                               child: GestureDetector(
-                                onTap: () {}, // Prevent closing when tapping slider
+                                onTap:
+                                    () {}, // Prevent closing when tapping slider
                                 child: Container(
                                   width: 40,
                                   height: 120,
@@ -1040,10 +1041,14 @@ class _VideoControlsOverlayState extends State<_VideoControlsOverlay> {
                                     horizontal: 8,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: const Color(0xFF1E0A3C).withOpacity(0.95),
+                                    color: const Color(
+                                      0xFF1E0A3C,
+                                    ).withOpacity(0.95),
                                     borderRadius: BorderRadius.circular(20),
                                     border: Border.all(
-                                      color: const Color(0xFF6C5CE7).withOpacity(0.3),
+                                      color: const Color(
+                                        0xFF6C5CE7,
+                                      ).withOpacity(0.3),
                                       width: 1,
                                     ),
                                     boxShadow: [
@@ -1062,13 +1067,20 @@ class _VideoControlsOverlayState extends State<_VideoControlsOverlay> {
                                         thumbShape: const RoundSliderThumbShape(
                                           enabledThumbRadius: 6,
                                         ),
-                                        overlayShape: const RoundSliderOverlayShape(
-                                          overlayRadius: 12,
+                                        overlayShape:
+                                            const RoundSliderOverlayShape(
+                                              overlayRadius: 12,
+                                            ),
+                                        activeTrackColor: const Color(
+                                          0xFF6C5CE7,
                                         ),
-                                        activeTrackColor: const Color(0xFF6C5CE7),
-                                        inactiveTrackColor: const Color(0xFF4A4A5A),
+                                        inactiveTrackColor: const Color(
+                                          0xFF4A4A5A,
+                                        ),
                                         thumbColor: const Color(0xFF6C5CE7),
-                                        overlayColor: const Color(0xFF6C5CE7).withOpacity(0.2),
+                                        overlayColor: const Color(
+                                          0xFF6C5CE7,
+                                        ).withOpacity(0.2),
                                       ),
                                       child: Slider(
                                         value: widget.volume,
