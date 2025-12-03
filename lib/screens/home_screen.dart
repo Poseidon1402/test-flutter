@@ -728,7 +728,9 @@ class _LiveEventCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    if (event.featuredProduct != null)
+                    // Hide price on live cards; show only for scheduled/ended
+                    if (status != LiveEventStatus.live &&
+                        event.featuredProduct != null)
                       Text(
                         '\$${event.featuredProduct!.currentPrice.toStringAsFixed(2)}',
                         style: const TextStyle(
