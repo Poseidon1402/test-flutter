@@ -179,10 +179,14 @@ class _VideoControlsOverlayState extends State<_VideoControlsOverlay> {
                                     horizontal: 8,
                                   ),
                                   decoration: BoxDecoration(
-                                    color: const Color(0xFF1E0A3C).withOpacity(0.95),
+                                    color: const Color(
+                                      0xFF1E0A3C,
+                                    ).withOpacity(0.95),
                                     borderRadius: BorderRadius.circular(20),
                                     border: Border.all(
-                                      color: const Color(0xFF6C5CE7).withOpacity(0.3),
+                                      color: const Color(
+                                        0xFF6C5CE7,
+                                      ).withOpacity(0.3),
                                       width: 1,
                                     ),
                                     boxShadow: [
@@ -201,13 +205,20 @@ class _VideoControlsOverlayState extends State<_VideoControlsOverlay> {
                                         thumbShape: const RoundSliderThumbShape(
                                           enabledThumbRadius: 6,
                                         ),
-                                        overlayShape: const RoundSliderOverlayShape(
-                                          overlayRadius: 12,
+                                        overlayShape:
+                                            const RoundSliderOverlayShape(
+                                              overlayRadius: 12,
+                                            ),
+                                        activeTrackColor: const Color(
+                                          0xFF6C5CE7,
                                         ),
-                                        activeTrackColor: const Color(0xFF6C5CE7),
-                                        inactiveTrackColor: const Color(0xFF4A4A5A),
+                                        inactiveTrackColor: const Color(
+                                          0xFF4A4A5A,
+                                        ),
                                         thumbColor: const Color(0xFF6C5CE7),
-                                        overlayColor: const Color(0xFF6C5CE7).withOpacity(0.2),
+                                        overlayColor: const Color(
+                                          0xFF6C5CE7,
+                                        ).withOpacity(0.2),
                                       ),
                                       child: Slider(
                                         value: widget.volume,

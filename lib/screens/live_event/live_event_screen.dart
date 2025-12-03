@@ -179,7 +179,7 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
                                       controller: _videoController,
                                       isInitialized: _isVideoInitialized,
                                       volume: _volume,
-                                    
+
                                       onTogglePlay: () {
                                         setState(() {
                                           if (_videoController
