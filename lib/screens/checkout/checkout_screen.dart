@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../blocs/cart_bloc.dart';
+import '../../blocs/cart_bloc.dart';
 
 class CheckoutScreen extends StatefulWidget {
   const CheckoutScreen({super.key});
