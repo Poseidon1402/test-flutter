@@ -44,7 +44,7 @@ class _LoginCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const Logo(),
+                Center(child: const Logo(centered: true)),
                 const SizedBox(height: 32),
                 Text(
                   'Welcome Back!',

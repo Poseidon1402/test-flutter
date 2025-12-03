@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../blocs/live_events_bloc.dart';
 import '../../blocs/auth_bloc.dart';
+import '../../components/logo.dart';
 import '../../models/live_event.dart';
 
 part 'components/filter_chip_dropdown.dart';
@@ -104,39 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Row(
                       children: [
                         // LiveShop Logo
-                        Row(
-                          children: [
-                            Container(
-                              width: 32,
-                              height: 32,
-                              decoration: BoxDecoration(
-                                gradient: const LinearGradient(
-                                  colors: [
-                                    Color(0xFF9D4EDD),
-                                    Color(0xFF7B2CBF),
-                                  ],
-                                ),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: const Icon(
-                                Icons.shopping_bag,
-                                color: Colors.white,
-                                size: 20,
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            const Text(
-                              'LiveShop',
-                              style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.w800,
-                                color: Colors.white,
-                                letterSpacing: -0.5,
-                              ),
-                            ),
-                          ],
-                        ),
-
+                        const Logo(),
                         const Spacer(),
 
                         // Cart Button
