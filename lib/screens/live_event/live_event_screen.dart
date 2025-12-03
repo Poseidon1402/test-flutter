@@ -26,10 +26,14 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
   late final VideoPlayerController _videoController;
   double _volume = 0.7;
   bool _isVideoInitialized = false;
+  late final SocketIoService _ioSocket;
+  StreamSubscription? _viewerSub;
 
   @override
   void initState() {
     super.initState();
+    _ioSocket = SocketIoService();
+    _ioSocket.connect();
     _videoController =
         VideoPlayerController.networkUrl(
             Uri.parse(
@@ -42,10 +46,28 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
               _isVideoInitialized = true;
             });
           });
+
+    // Start watching to increment viewers; username will be refined in build
+    _ioSocket.watchLive(room: widget.eventId, username: 'Guest');
+    // Listen for viewer count updates for this event and forward to Bloc
+    _viewerSub = _ioSocket.viewerCountStream.listen((update) {
+      if (update.room == widget.eventId && mounted) {
+        try {
+          final bloc = context.read<LiveEventBloc>();
+          bloc.add(LiveEventViewerCountUpdated(update.count));
+        } catch (_) {
+          // Bloc not available yet; ignore early updates
+        }
+      }
+    });
+    // Notify Bloc that event screen is opened
+    context.read<LiveEventBloc>().add(LiveEventOpened(widget.eventId));
   }
 
   @override
   void dispose() {
+    _viewerSub?.cancel();
+    _ioSocket.leaveLive(room: widget.eventId);
     _videoController.dispose();
     super.dispose();
   }
@@ -54,18 +76,12 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
   Widget build(BuildContext context) {
     final api = MockApiService();
     final mockSocket = MockSocketService();
-    final ioSocket = SocketIoService();
 
     return MultiBlocProvider(
       providers: [
-        BlocProvider<LiveEventBloc>(
-          create: (_) =>
-              LiveEventBloc(api: api, socket: mockSocket)
-                ..add(LiveEventOpened(widget.eventId)),
-        ),
         BlocProvider<ChatBloc>(
           create: (_) =>
-              ChatBloc(socket: ioSocket)..add(ChatStarted(widget.eventId)),
+              ChatBloc(socket: _ioSocket)..add(ChatStarted(widget.eventId)),
         ),
       ],
       child: BlocBuilder<AuthBloc, AuthState>(
@@ -105,6 +121,12 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
                           LayoutBuilder(
                             builder: (context, constraints) {
                               final isSmall = constraints.maxWidth < 900;
+                              // Ensure we watch with real username when available
+                              final username = currentUser?.name ?? 'Guest';
+                              _ioSocket.watchLive(
+                                room: widget.eventId,
+                                username: username,
+                              );
 
                               if (isSmall) {
                                 return Column(
@@ -154,6 +176,7 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
                                       controller: _videoController,
                                       isInitialized: _isVideoInitialized,
                                       volume: _volume,
+                                    
                                       onTogglePlay: () {
                                         setState(() {
                                           if (_videoController
@@ -422,6 +445,7 @@ class _LiveVideoAndProducts extends StatelessWidget {
           );
         }
         final event = state.liveEvent;
+        print('Rendering event: ${event?.id}, viewers: ${state.viewerCount}');
         if (event == null) {
           return const Center(
             child: Text(
