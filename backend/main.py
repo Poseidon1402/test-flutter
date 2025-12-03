@@ -15,6 +15,11 @@ app.add_middleware(
 
 asgi_app = socketio.ASGIApp(sio, other_asgi_app=app)
 
+# Track viewer counts per room (only watchers counted)
+viewer_counts: dict[str, int] = {}
+# Track which sids are actively watching each room
+watchers_by_room: dict[str, set[str]] = {}
+
 
 @sio.event
 async def connect(sid, environ):
@@ -24,11 +29,29 @@ async def connect(sid, environ):
 @sio.event
 async def disconnect(sid):
     print(f"Client disconnected: {sid}")
+    # Decrement viewer count only for rooms this sid is watching
+    try:
+        rooms_to_update = [
+            room for room, watchers in watchers_by_room.items() if sid in watchers
+        ]
+        for room in rooms_to_update:
+            watchers = watchers_by_room.get(room, set())
+            if sid in watchers:
+                watchers.remove(sid)
+                watchers_by_room[room] = watchers
+                viewer_counts[room] = len(watchers)
+                await sio.emit(
+                    "viewer_count",
+                    {"room": room, "count": viewer_counts[room]},
+                    room=room,
+                )
+    except Exception as e:
+        print(f"Error updating viewer counts on disconnect: {e}")
 
 
 # Basic chat namespace / events
-@sio.on("join")
-async def on_join(sid, data):
+@sio.event
+async def join(sid, data):
     room = data.get("room")
     username = data.get("username")
     print(f'Join room: {room}, username: {username}')
@@ -41,8 +64,51 @@ async def on_join(sid, data):
         )
 
 
-@sio.on("message")
-async def on_message(sid, data):
+# Watching live events (separate from chat join)
+@sio.event
+async def watch_live(sid, data):
+    room = data.get("room")
+    username = data.get("username")
+    print(f'Watch live: room={room}, username={username}')
+    if not room:
+        return
+    # Ensure the watcher is in the room to receive updates
+    sio.enter_room(sid, room)
+    watchers = watchers_by_room.get(room)
+    if watchers is None:
+        watchers = set()
+    if sid not in watchers:
+        watchers.add(sid)
+        watchers_by_room[room] = watchers
+        viewer_counts[room] = len(watchers)
+        # Emit viewer count only to the room
+        await sio.emit(
+            "viewer_count",
+            {"room": room, "count": viewer_counts[room]},
+        )
+
+
+@sio.event
+async def leave_live(sid, data):
+    room = data.get("room")
+    print(f'Leave live: room={room}')
+    if not room:
+        return
+    watchers = watchers_by_room.get(room)
+    if not watchers:
+        return
+    if sid in watchers:
+        watchers.remove(sid)
+        watchers_by_room[room] = watchers
+        viewer_counts[room] = len(watchers)
+        await sio.emit(
+            "viewer_count",
+            {"room": room, "count": viewer_counts[room]},
+        )
+
+
+@sio.event
+async def message(sid, data):
     room = data.get("room")
     message = data.get("message")
     user_id = data.get("userId")
