@@ -20,7 +20,7 @@
       ],
       "featuredProduct": "prod_001",
       "viewerCount": 245,
-      "streamUrl": "https://example.com/streams/evt_001.m3u8",
+      "streamUrl": "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
       "replayUrl": null,
       "thumbnailUrl": "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800"
     },
@@ -69,6 +69,78 @@
       "streamUrl": null,
       "replayUrl": "https://example.com/replays/evt_003.mp4",
       "thumbnailUrl": "https://images.unsplash.com/photo-1498049794561-7780e7231661?w=800"
+    }
+    ,
+    {
+      "id": "evt_004",
+      "title": "Fall Fashion Showcase",
+      "description": "Stylish jackets and classic leather boots live.",
+      "startTime": "2024-10-01T18:00:00Z",
+      "endTime": "2024-10-01T20:00:00Z",
+      "status": "live",
+      "seller": {
+        "id": "seller_004",
+        "name": "Lucie Bernard",
+        "storeName": "Urban Chic",
+        "avatar": "https://i.pravatar.cc/150?img=4"
+      },
+      "products": [
+        "prod_008",
+        "prod_009"
+      ],
+      "featuredProduct": "prod_008",
+      "viewerCount": 312,
+      "streamUrl": "https://test-streams.mux.dev/pts_shift/master.m3u8",
+      "replayUrl": null,
+      "thumbnailUrl": "https://images.unsplash.com/photo-1520975922131-c84da0495561?w=800"
+    }
+    ,
+    {
+      "id": "evt_005",
+      "title": "Winter Essentials Drop",
+      "description": "Cozy sweaters, scarves, and boots — live showcase.",
+      "startTime": "2024-12-05T17:00:00Z",
+      "endTime": "2024-12-05T19:00:00Z",
+      "status": "scheduled",
+      "seller": {
+        "id": "seller_005",
+        "name": "Camille Robert",
+        "storeName": "Nordic Wear",
+        "avatar": "https://i.pravatar.cc/150?img=5"
+      },
+      "products": [
+        "prod_008",
+        "prod_009"
+      ],
+      "featuredProduct": null,
+      "viewerCount": 0,
+      "streamUrl": null,
+      "replayUrl": null,
+      "thumbnailUrl": "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800"
+    }
+    ,
+    {
+      "id": "evt_006",
+      "title": "Beauty Gifts Live",
+      "description": "Holiday beauty picks with live demos and tips.",
+      "startTime": "2024-12-10T16:00:00Z",
+      "endTime": "2024-12-10T18:00:00Z",
+      "status": "live",
+      "seller": {
+        "id": "seller_006",
+        "name": "Nina Leroy",
+        "storeName": "Glow Studio",
+        "avatar": "https://i.pravatar.cc/150?img=6"
+      },
+      "products": [
+        "prod_004",
+        "prod_005"
+      ],
+      "featuredProduct": "prod_004",
+      "viewerCount": 128,
+      "streamUrl": "https://test-streams.mux.dev/tears_of_steel/tears_of_steel.m3u8",
+      "replayUrl": null,
+      "thumbnailUrl": "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=800"
     }
   ],
   "products": [
@@ -215,6 +287,49 @@
       "rating": 4.7,
       "reviewsCount": 234
     }
+    ,
+    {
+      "id": "prod_008",
+      "name": "Veste en jean oversize",
+      "description": "Veste en denim coupe oversize, idéale pour l'automne.",
+      "price": 89.99,
+      "salePrice": 69.99,
+      "images": [
+        "https://images.unsplash.com/photo-1520978259199-83f88bd9a303?w=800"
+      ],
+      "thumbnail": "https://images.unsplash.com/photo-1520978259199-83f88bd9a303?w=400",
+      "stock": 18,
+      "variations": {
+        "size": ["S", "M", "L", "XL"],
+        "color": ["Bleu", "Noir"]
+      },
+      "isFeatured": true,
+      "featuredAt": "2024-10-01T18:15:00Z",
+      "category": "Mode",
+      "rating": 4.6,
+      "reviewsCount": 41
+    },
+    {
+      "id": "prod_009",
+      "name": "Bottes en cuir classique",
+      "description": "Bottes en cuir véritable avec semelle antidérapante.",
+      "price": 149.99,
+      "salePrice": 129.99,
+      "images": [
+        "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=800"
+      ],
+      "thumbnail": "https://images.unsplash.com/photo-1549298916-b41d501d3772?w=400",
+      "stock": 10,
+      "variations": {
+        "size": ["38", "39", "40", "41", "42"],
+        "color": ["Noir", "Marron"]
+      },
+      "isFeatured": false,
+      "featuredAt": null,
+      "category": "Mode",
+      "rating": 4.8,
+      "reviewsCount": 73
+    }
   ],
   "users": [
     {
@@ -292,7 +407,71 @@
       }
     ],
     "evt_002": [],
-    "evt_003": []
+    "evt_003": [],
+    "evt_004": [
+      {
+        "id": "msg_101",
+        "senderId": "user_001",
+        "senderName": "Alice",
+        "message": "Cette veste en jean est canon ! Est-elle fidèle à la taille ?",
+        "timestamp": "2024-10-01T18:05:00Z",
+        "isVendor": false,
+        "replyTo": null,
+        "reactions": ["🔥"]
+      },
+      {
+        "id": "msg_102",
+        "senderId": "seller_004",
+        "senderName": "Lucie Bernard",
+        "message": "Bonjour Alice ! Oui, prenez votre taille habituelle pour une coupe oversize maîtrisée.",
+        "timestamp": "2024-10-01T18:06:00Z",
+        "isVendor": true,
+        "replyTo": {
+          "id": "msg_101",
+          "sender": "Alice",
+          "message": "Cette veste en jean est canon ! Est-elle fidèle à la taille ?"
+        },
+        "reactions": ["👍"]
+      }
+    ],
+    "evt_005": [
+      {
+        "id": "msg_201",
+        "senderId": "user_002",
+        "senderName": "John",
+        "message": "Des pulls en laine mérinos seront-ils disponibles ?",
+        "timestamp": "2024-12-05T17:10:00Z",
+        "isVendor": false,
+        "replyTo": null,
+        "reactions": []
+      }
+    ],
+    "evt_006": [
+      {
+        "id": "msg_301",
+        "senderId": "user_001",
+        "senderName": "Alice",
+        "message": "La crème hydratante convient-elle aux peaux sensibles ?",
+        "timestamp": "2024-12-10T16:05:00Z",
+        "isVendor": false,
+        "replyTo": null,
+        "reactions": ["❤️"]
+      },
+      {
+        "id": "msg_302",
+        "senderId": "seller_006",
+        "senderName": "Nina Leroy",
+        "message": "Oui, elle est formulée sans parfum et testée dermatologiquement.",
+        "timestamp": "2024-12-10T16:06:00Z",
+        "isVendor": true,
+        "replyTo": {
+          "id": "msg_301",
+          "sender": "Alice",
+          "message": "La crème hydratante convient-elle aux peaux sensibles ?"
+        },
+        "reactions": ["👍"]
+      }
+    ]
   },
   "orders": [
     {
