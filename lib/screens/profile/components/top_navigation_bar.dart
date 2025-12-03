@@ -1,7 +1,7 @@
 part of '../profile_screen.dart';
 
 class _TopNavigationBar extends StatelessWidget {
-  const _TopNavigationBar({super.key});
+  const _TopNavigationBar();
 
   @override
   Widget build(BuildContext context) {
