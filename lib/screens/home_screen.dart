@@ -504,56 +504,11 @@ class _LiveEventCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Image
-          Stack(
-            children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.vertical(
-                  top: Radius.circular(16),
-                ),
-                child: AspectRatio(
-                  aspectRatio: 16 / 9,
-                  child: Image.network(
-                    event.thumbnailUrl,
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        color: const Color(0xFF3A3D4E),
-                        child: const Icon(
-                          Icons.image_not_supported,
-                          color: Colors.white30,
-                          size: 48,
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-              if (status == LiveEventStatus.live)
-                Positioned(
-                  top: 12,
-                  left: 12,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 6,
-                    ),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFFF3B30),
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: const Text(
-                      'LIVE',
-                      style: TextStyle(
-                        fontSize: 11,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        letterSpacing: 0.5,
-                      ),
-                    ),
-                  ),
-                ),
-            ],
+          // Preview Image with overlays (LIVE + viewers)
+          _ImagePreview(
+            status: status,
+            thumbnailUrl: event.thumbnailUrl,
+            viewerCount: event.viewerCount,
           ),
 
           // Content
@@ -567,21 +522,35 @@ class _LiveEventCard extends StatelessWidget {
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
-                    fontSize: 18,
+                    fontSize: 16,
                     fontWeight: FontWeight.w600,
                     color: Colors.white,
+                    fontFamily: 'Poppins',
                   ),
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Hosted by ${event.sellerName}',
+                  'Hosted by ${event.sellerName.startsWith('@') ? event.sellerName : '@${event.sellerName}'}',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.white.withOpacity(0.6),
+                    color: Colors.white.withOpacity(0.7),
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
+                const SizedBox(height: 8),
+                if (status != LiveEventStatus.live)
+                  Text(
+                    _relativeTimeText(event, DateTime.now()),
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.white.withOpacity(0.7),
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
                 const SizedBox(height: 16),
 
                 Row(
@@ -591,9 +560,10 @@ class _LiveEventCard extends StatelessWidget {
                       Text(
                         '\$${event.featuredProduct!.currentPrice.toStringAsFixed(2)}',
                         style: const TextStyle(
-                          fontSize: 18,
+                          fontSize: 16,
                           fontWeight: FontWeight.bold,
                           color: Color(0xFF9D4EDD),
+                          fontFamily: 'Poppins',
                         ),
                       )
                     else
@@ -621,9 +591,7 @@ class _LiveEventCard extends StatelessWidget {
             backgroundColor: const Color(0xFF9D4EDD),
             foregroundColor: Colors.white,
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
+            shape: StadiumBorder(),
             elevation: 0,
           ),
         );
@@ -638,9 +606,7 @@ class _LiveEventCard extends StatelessWidget {
             backgroundColor: const Color(0xFF3A3D4E),
             foregroundColor: Colors.white,
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
+            shape: StadiumBorder(),
             elevation: 0,
           ),
         );
@@ -653,12 +619,128 @@ class _LiveEventCard extends StatelessWidget {
             backgroundColor: const Color(0xFF3A3D4E),
             foregroundColor: Colors.white,
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8),
-            ),
+            shape: StadiumBorder(),
             elevation: 0,
           ),
         );
     }
+  }
+
+  String _relativeTimeText(LiveEvent event, DateTime now) {
+    if (status == LiveEventStatus.scheduled) {
+      final diff = event.startTime.difference(now);
+      final hours = diff.inHours;
+      final days = diff.inDays;
+      if (diff.inMinutes <= 0) return 'Starts soon';
+      if (hours < 24) {
+        return 'Starts in ${hours}h';
+      } else if (days == 1) {
+        final hourLabel = '${event.startTime.hour}';
+        return 'Starts Tomorrow ${hourLabel}AM';
+      } else {
+        return 'Starts ${days} days later';
+      }
+    } else if (status == LiveEventStatus.ended) {
+      final end = event.endTime ?? event.startTime;
+      final diff = now.difference(end);
+      final days = diff.inDays;
+      if (diff.inHours < 24) {
+        return 'Ended ${diff.inHours} hours ago';
+      }
+      return 'Ended ${days} day${days > 1 ? 's' : ''} ago';
+    }
+    return '';
+  }
+}
+
+class _ImagePreview extends StatelessWidget {
+  final LiveEventStatus status;
+  final String thumbnailUrl;
+  final int viewerCount;
+
+  const _ImagePreview({
+    required this.status,
+    required this.thumbnailUrl,
+    required this.viewerCount,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        ClipRRect(
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+          child: AspectRatio(
+            aspectRatio: 16 / 9,
+            child: Image.network(
+              thumbnailUrl,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return Container(
+                  color: const Color(0xFF3A3D4E),
+                  child: const Icon(
+                    Icons.image_not_supported,
+                    color: Colors.white30,
+                    size: 48,
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+        if (status == LiveEventStatus.live)
+          Positioned(
+            top: 12,
+            left: 12,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              decoration: BoxDecoration(
+                color: const Color(0xFFFF3B30),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: const Text(
+                'LIVE',
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                  fontFamily: 'Poppins',
+                ),
+              ),
+            ),
+          ),
+        Positioned(
+          bottom: 12,
+          right: 12,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            decoration: BoxDecoration(
+              color: Colors.black.withOpacity(0.35),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(
+                  Icons.remove_red_eye,
+                  color: Colors.white70,
+                  size: 14,
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  viewerCount.toString(),
+                  style: const TextStyle(
+                    color: Colors.white70,
+                    fontSize: 12,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
