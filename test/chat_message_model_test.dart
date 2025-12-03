@@ -32,11 +32,7 @@ void main() {
         'senderName': 'Alice',
         'message': 'Replying',
         'timestamp': '2025-12-01T10:05:00Z',
-        'replyTo': {
-          'id': 'msg_1',
-          'sender': 'Bob',
-          'message': 'Hello world'
-        },
+        'replyTo': {'id': 'msg_1', 'sender': 'Bob', 'message': 'Hello world'},
       };
 
       final msg = ChatMessage.fromJson(map);
