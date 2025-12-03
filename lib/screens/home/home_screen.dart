@@ -109,14 +109,19 @@ class _HomeScreenState extends State<HomeScreen> {
                         const Spacer(),
 
                         // Cart Button
-                        IconButton(
-                          onPressed: () => context.go('/cart'),
-                          icon: const Icon(
-                            Icons.shopping_cart_outlined,
-                            color: Colors.white,
-                            size: 24,
+                        Visibility(
+                          visible:
+                              context.read<AuthBloc>().state.status ==
+                              AuthStatus.authenticated,
+                          child: IconButton(
+                            onPressed: () => context.push('/cart'),
+                            icon: const Icon(
+                              Icons.shopping_cart_outlined,
+                              color: Colors.white,
+                              size: 24,
+                            ),
+                            tooltip: 'Cart',
                           ),
-                          tooltip: 'Cart',
                         ),
                         const SizedBox(width: 8),
 
