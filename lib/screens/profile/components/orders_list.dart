@@ -8,7 +8,8 @@ class _OrdersList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => OrdersBloc(api: MockApiService())..add(OrdersRequested(userId)),
+      create: (_) =>
+          OrdersBloc(api: MockApiService())..add(OrdersRequested(userId)),
       child: BlocBuilder<OrdersBloc, OrdersState>(
         builder: (context, state) {
           if (state.isLoading) {
@@ -50,7 +51,9 @@ class _OrdersList extends StatelessWidget {
           final recentOrders = state.orders.take(3).toList();
 
           return Column(
-            children: recentOrders.map((order) => _OrderTile(order: order)).toList(),
+            children: recentOrders
+                .map((order) => _OrderTile(order: order))
+                .toList(),
           );
         },
       ),
@@ -82,7 +85,11 @@ class _OrderTile extends StatelessWidget {
               color: const Color(0xFF9D4EDD).withOpacity(0.2),
               borderRadius: BorderRadius.circular(12),
             ),
-            child: Icon(_getOrderIcon(order.status), color: const Color(0xFF9D4EDD), size: 24),
+            child: Icon(
+              _getOrderIcon(order.status),
+              color: const Color(0xFF9D4EDD),
+              size: 24,
+            ),
           ),
           const SizedBox(width: 20),
           Expanded(
@@ -108,7 +115,10 @@ class _OrderTile extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text(
                   '${order.items.length} item${order.items.length > 1 ? 's' : ''}',
-                  style: TextStyle(fontSize: 14, color: Colors.white.withOpacity(0.7)),
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.white.withOpacity(0.7),
+                  ),
                 ),
               ],
             ),
@@ -126,7 +136,10 @@ class _OrderTile extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: _getStatusColor(order.status),
                   borderRadius: BorderRadius.circular(20),
@@ -143,7 +156,11 @@ class _OrderTile extends StatelessWidget {
             ],
           ),
           const SizedBox(width: 16),
-          Icon(Icons.chevron_right, color: Colors.white.withOpacity(0.3), size: 24),
+          Icon(
+            Icons.chevron_right,
+            color: Colors.white.withOpacity(0.3),
+            size: 24,
+          ),
         ],
       ),
     );
@@ -202,6 +219,19 @@ Color _getStatusColor(String status) {
 }
 
 String _formatDate(DateTime date) {
-  final months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  final months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
   return '${months[date.month - 1]} ${date.day.toString().padLeft(2, '0')}, ${date.year}';
 }
