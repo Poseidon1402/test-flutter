@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'screens/home_screen.dart';
+import 'screens/home/home_screen.dart';
 import 'screens/live_event/live_event_screen.dart';
-import 'screens/cart_screen.dart';
-import 'screens/checkout_screen.dart';
-import 'screens/login_screen.dart';
-import 'screens/profile_screen.dart';
-import 'screens/product_detail_screen.dart';
+import 'screens/cart/cart_screen.dart';
+import 'screens/checkout/checkout_screen.dart';
+import 'screens/login/login_screen.dart';
+import 'screens/profile/profile_screen.dart';
+import 'screens/product/product_detail_screen.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
 
