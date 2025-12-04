@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
+import '../config/socket_configuration.dart';
 import '../models/chat_message.dart';
 
 class SocketIoService {
@@ -12,7 +13,7 @@ class SocketIoService {
   Stream<ViewerCountUpdate> get viewerCountStream =>
       _viewerCountController.stream;
 
-  void connect({String baseUrl = 'http://localhost:8000'}) {
+  void connect({String baseUrl = SocketConfiguration.baseUrl}) {
     if (_socket != null && _socket!.connected) return;
 
     _socket = IO.io(
@@ -55,7 +56,6 @@ class SocketIoService {
           _viewerCountController.add(
             ViewerCountUpdate(room: room, count: count),
           );
-          
         }
       }
     });
