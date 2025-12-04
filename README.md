@@ -53,7 +53,7 @@ flutter run -d chrome
 ```
 
 ## Architecture du projet
-Arborescence simplifiée (mise à jour):
+
 ```
 test_flutter/
 ├─ lib/                          # Code Flutter principal
