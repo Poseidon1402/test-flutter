@@ -31,9 +31,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String _dateFilter = 'All'; // All, Today, Tomorrow, This Week
-  String _statusFilter = 'All'; // All, live, scheduled, ended
-  String _categoryFilter = 'All'; // All, Fashion, Beauty, Electronics
+  String _dateFilter = 'Tous'; // Tous, Aujourd'hui, Demain, Cette semaine
+  String _statusFilter = 'Tous'; // Tous, En direct, Programmé, Terminé
+  String _categoryFilter = 'Tous'; // Tous, Mode, Beauté, Électronique
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ),
                                 child: const Text(
-                                  'Profile',
+                                  'Profil',
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w500,
@@ -150,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ),
                               child: const Text(
-                                'Login',
+                                'Connexion',
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w500,
@@ -177,7 +177,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Column(
                               children: [
                                 const Text(
-                                  'Discover Live Shopping\nEvents',
+                                  'Découvrez des évènements\nde live shopping',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize: 48,
@@ -189,7 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                                 const SizedBox(height: 16),
                                 Text(
-                                  'Find and join live streams for exclusive products, deals, and entertainment.',
+                                  'Trouvez et rejoignez des diffusions en direct pour des produits exclusifs, des offres et du divertissement.',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize: 16,
@@ -216,7 +216,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ),
                                             decoration: InputDecoration(
                                               hintText:
-                                                  'Search for live events or products...',
+                                                  'Recherchez des évènements en direct ou des produits...',
                                               hintStyle: TextStyle(
                                                 color: Colors.white.withOpacity(
                                                   0.4,
@@ -272,39 +272,39 @@ class _HomeScreenState extends State<HomeScreen> {
                                         label: 'Date',
                                         value: _dateFilter,
                                         options: const [
-                                          'All',
-                                          'Today',
-                                          'Tomorrow',
-                                          'This Week',
+                                          'Tous',
+                                          'Aujourd\'hui',
+                                          'Demain',
+                                          'Cette semaine',
                                         ],
                                         onChanged: (v) => setState(
-                                          () => _dateFilter = v ?? 'All',
+                                          () => _dateFilter = v ?? 'Tous',
                                         ),
                                       ),
                                       _FilterChipDropdown(
-                                        label: 'Status',
+                                        label: 'Statut',
                                         value: _statusFilter,
                                         options: const [
-                                          'All',
-                                          'live',
-                                          'scheduled',
-                                          'ended',
+                                          'Tous',
+                                          'En direct',
+                                          'Programmé',
+                                          'Terminé',
                                         ],
                                         onChanged: (v) => setState(
-                                          () => _statusFilter = v ?? 'All',
+                                          () => _statusFilter = v ?? 'Tous',
                                         ),
                                       ),
                                       _FilterChipDropdown(
-                                        label: 'Category',
+                                        label: 'Catégorie',
                                         value: _categoryFilter,
                                         options: const [
-                                          'All',
-                                          'Fashion',
-                                          'Beauty',
-                                          'Electronics',
+                                          'Tous',
+                                          'Mode',
+                                          'Beauté',
+                                          'Électronique',
                                         ],
                                         onChanged: (v) => setState(
-                                          () => _categoryFilter = v ?? 'All',
+                                          () => _categoryFilter = v ?? 'Tous',
                                         ),
                                       ),
                                     ],
@@ -332,7 +332,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   padding: const EdgeInsets.all(40),
                                   child: Center(
                                     child: Text(
-                                      'Error: ${state.error}',
+                                      'Erreur : ${state.error}',
                                       style: const TextStyle(
                                         color: Colors.white,
                                       ),
@@ -393,7 +393,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       _SectionHeader(
                                         icon: Icons.circle,
                                         iconColor: const Color(0xFFFF3B30),
-                                        title: 'Evènement en direct',
+                                        title: 'Événements en direct',
                                       ),
                                       const SizedBox(height: 16),
                                       _EventGrid(
@@ -406,7 +406,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       _SectionHeader(
                                         icon: Icons.calendar_today,
                                         iconColor: const Color(0xFF9D4EDD),
-                                        title: 'Evènement à venir',
+                                        title: 'Événements à venir',
                                       ),
                                       const SizedBox(height: 16),
                                       _EventGrid(
@@ -419,7 +419,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       _SectionHeader(
                                         icon: Icons.access_time,
                                         iconColor: const Color(0xFF9D4EDD),
-                                        title: 'Replays',
+                                        title: 'Rediffusions',
                                       ),
                                       const SizedBox(height: 16),
                                       _EventGrid(
@@ -454,47 +454,67 @@ bool _matchesSearch(LiveEvent e, String query) {
 }
 
 bool _matchesStatus(LiveEvent e, String status) {
-  if (status == 'All') return true;
+  // Accept both English and French filter values
+  if (status == 'All' || status == 'Tous') return true;
+  switch (status) {
+    case 'live':
+    case 'En direct':
+      return e.status == LiveEventStatus.live;
+    case 'scheduled':
+    case 'Programmé':
+    case 'À venir':
+      return e.status == LiveEventStatus.scheduled;
+    case 'ended':
+    case 'Terminé':
+      return e.status == LiveEventStatus.ended;
+  }
   return e.status.name == status;
 }
 
 bool _matchesDate(LiveEvent e, String filter) {
-  if (filter == 'All') return true;
+  if (filter == 'All' || filter == 'Tous') return true;
   final now = DateTime.now();
   final start = e.startTime;
   final isSameDay =
       start.year == now.year &&
       start.month == now.month &&
       start.day == now.day;
-  if (filter == 'Today') return isSameDay;
+  if (filter == 'Today' || filter == "Aujourd'hui") return isSameDay;
   final tomorrow = now.add(const Duration(days: 1));
   final isTomorrow =
       start.year == tomorrow.year &&
       start.month == tomorrow.month &&
       start.day == tomorrow.day;
-  if (filter == 'Tomorrow') return isTomorrow;
+  if (filter == 'Tomorrow' || filter == 'Demain') return isTomorrow;
   final weekFromNow = now.add(const Duration(days: 7));
-  if (filter == 'This Week')
+  if (filter == 'This Week' || filter == 'Cette semaine')
     return start.isAfter(now) && start.isBefore(weekFromNow);
   return true;
 }
 
 bool _matchesCategory(LiveEvent e, String filter) {
-  if (filter == 'All') return true;
+  if (filter == 'All' || filter == 'Tous') return true;
   final title = e.title.toLowerCase();
   switch (filter) {
     case 'Fashion':
+    case 'Mode':
       return title.contains('robe') ||
           title.contains('fashion') ||
-          title.contains('style');
+          title.contains('style') ||
+          title.contains('mode');
     case 'Beauty':
+    case 'Beauté':
       return title.contains('beauty') ||
           title.contains('makeup') ||
-          title.contains('soin');
+          title.contains('soin') ||
+          title.contains('maquillage');
     case 'Electronics':
+    case 'Électronique':
       return title.contains('tech') ||
           title.contains('phone') ||
-          title.contains('electronics');
+          title.contains('electronics') ||
+          title.contains('téléphone') ||
+          title.contains('electronique');
   }
   return true;
 }

@@ -42,7 +42,7 @@ class _LiveEventCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Hosted by ${event.sellerName.startsWith('@') ? event.sellerName : '@${event.sellerName}'}',
+                  'Animé par ${event.sellerName.startsWith('@') ? event.sellerName : '@${event.sellerName}'}',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -100,7 +100,7 @@ class _LiveEventCard extends StatelessWidget {
         return ElevatedButton.icon(
           onPressed: () => context.go('/live/${event.id}'),
           icon: const Icon(Icons.play_arrow, size: 18),
-          label: const Text('Watch'),
+          label: const Text('Regarder'),
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF9D4EDD),
             foregroundColor: Colors.white,
@@ -115,7 +115,7 @@ class _LiveEventCard extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
-                  'You will be notified when "${event.title}" goes live.',
+                  'Vous serez notifié lorsque "${event.title}" sera en direct.',
                   style: TextStyle(color: Colors.white),
                 ),
                 duration: Duration(seconds: 2),
@@ -125,7 +125,7 @@ class _LiveEventCard extends StatelessWidget {
             );
           },
           icon: const Icon(Icons.notifications_outlined, size: 18),
-          label: const Text('Notify Me'),
+          label: const Text('Me notifier'),
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF3A3D4E),
             foregroundColor: Colors.white,
@@ -138,7 +138,7 @@ class _LiveEventCard extends StatelessWidget {
         return ElevatedButton.icon(
           onPressed: () => context.go('/live/${event.id}'),
           icon: const Icon(Icons.replay, size: 18),
-          label: const Text('Watch Replay'),
+          label: const Text('Regarder le replay'),
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF3A3D4E),
             foregroundColor: Colors.white,
@@ -155,23 +155,23 @@ class _LiveEventCard extends StatelessWidget {
       final diff = event.startTime.difference(now);
       final hours = diff.inHours;
       final days = diff.inDays;
-      if (diff.inMinutes <= 0) return 'Starts soon';
+      if (diff.inMinutes <= 0) return 'Commence bientôt';
       if (hours < 24) {
-        return 'Starts in ${hours}h';
+        return 'Commence dans ${hours} h';
       } else if (days == 1) {
         final hourLabel = '${event.startTime.hour}';
-        return 'Starts Tomorrow ${hourLabel}AM';
+        return 'Commence demain à ${hourLabel}h';
       } else {
-        return 'Starts ${days} days later';
+        return 'Commence dans ${days} jours';
       }
     } else if (status == LiveEventStatus.ended) {
       final end = event.endTime ?? event.startTime;
       final diff = now.difference(end);
       final days = diff.inDays;
       if (diff.inHours < 24) {
-        return 'Ended ${diff.inHours} hours ago';
+        return 'Terminé il y a ${diff.inHours} heures';
       }
-      return 'Ended ${days} day${days > 1 ? 's' : ''} ago';
+      return 'Terminé il y a ${days} jour${days > 1 ? 's' : ''}';
     }
     return '';
   }

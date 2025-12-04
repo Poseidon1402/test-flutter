@@ -46,7 +46,7 @@ class _ImagePreview extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: const Text(
-                'LIVE',
+                'EN DIRECT',
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
