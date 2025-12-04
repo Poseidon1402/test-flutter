@@ -107,10 +107,10 @@ class _VideoControlsOverlayState extends State<_VideoControlsOverlay> {
                   height: 48,
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.6),
+                    color: Colors.black.withValues(alpha: 0.6),
                     borderRadius: BorderRadius.circular(24),
                     border: Border.all(
-                      color: Colors.white.withOpacity(0.1),
+                      color: Colors.white.withValues(alpha: 0.1),
                       width: 1,
                     ),
                   ),
@@ -181,17 +181,17 @@ class _VideoControlsOverlayState extends State<_VideoControlsOverlay> {
                                   decoration: BoxDecoration(
                                     color: const Color(
                                       0xFF1E0A3C,
-                                    ).withOpacity(0.95),
+                                    ).withValues(alpha: 0.95),
                                     borderRadius: BorderRadius.circular(20),
                                     border: Border.all(
                                       color: const Color(
                                         0xFF6C5CE7,
-                                      ).withOpacity(0.3),
+                                      ).withValues(alpha: 0.3),
                                       width: 1,
                                     ),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.black.withOpacity(0.3),
+                                        color: Colors.black.withValues(alpha: 0.3),
                                         blurRadius: 12,
                                         offset: const Offset(0, 4),
                                       ),
@@ -218,7 +218,7 @@ class _VideoControlsOverlayState extends State<_VideoControlsOverlay> {
                                         thumbColor: const Color(0xFF6C5CE7),
                                         overlayColor: const Color(
                                           0xFF6C5CE7,
-                                        ).withOpacity(0.2),
+                                        ).withValues(alpha: 0.2),
                                       ),
                                       child: Slider(
                                         value: widget.volume,

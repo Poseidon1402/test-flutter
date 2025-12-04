@@ -17,7 +17,7 @@ class _DecorativeIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Transform.rotate(
       angle: rotation,
-      child: Icon(icon, size: size, color: Colors.white.withOpacity(opacity)),
+      child: Icon(icon, size: size, color: Colors.white.withValues(alpha: opacity)),
     );
   }
 }

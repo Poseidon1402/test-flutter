@@ -22,7 +22,7 @@ class _EmptyResults extends StatelessWidget {
         const SizedBox(height: 6),
         Text(
           'Ajustez votre recherche ou vos filtres',
-          style: TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 14),
+          style: TextStyle(color: Colors.white.withValues(alpha: 0.7), fontSize: 14),
           textAlign: TextAlign.center,
         ),
       ],

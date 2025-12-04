@@ -19,7 +19,7 @@ class _LiveChatPanel extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFF1A1D2E),
         border: Border(
-          left: BorderSide(color: Colors.white.withOpacity(0.1), width: 1),
+          left: BorderSide(color: Colors.white.withValues(alpha: 0.1), width: 1),
         ),
       ),
       child: Column(
@@ -27,10 +27,10 @@ class _LiveChatPanel extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.05),
+              color: Colors.white.withValues(alpha: 0.05),
               border: Border(
                 bottom: BorderSide(
-                  color: Colors.white.withOpacity(0.1),
+                  color: Colors.white.withValues(alpha: 0.1),
                   width: 1,
                 ),
               ),
@@ -72,9 +72,9 @@ class _LiveChatPanel extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.05),
+              color: Colors.white.withValues(alpha: 0.05),
               border: Border(
-                top: BorderSide(color: Colors.white.withOpacity(0.1), width: 1),
+                top: BorderSide(color: Colors.white.withValues(alpha: 0.1), width: 1),
               ),
             ),
             child: Row(
@@ -86,7 +86,7 @@ class _LiveChatPanel extends StatelessWidget {
                     decoration: InputDecoration(
                       hintText: 'Envoyer un message...',
                       hintStyle: TextStyle(
-                        color: Colors.white.withOpacity(0.4),
+                        color: Colors.white.withValues(alpha: 0.4),
                       ),
                       filled: true,
                       fillColor: const Color(0xFF2A2D3E),

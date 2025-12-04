@@ -123,7 +123,7 @@ class _LiveVideoAndProducts extends StatelessWidget {
                         Icon(
                           Icons.remove_red_eye,
                           size: 18,
-                          color: Colors.white.withOpacity(0.7),
+                          color: Colors.white.withValues(alpha: 0.7),
                         ),
                         const SizedBox(width: 4),
                         Text(

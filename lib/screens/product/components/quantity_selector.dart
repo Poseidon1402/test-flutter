@@ -16,7 +16,7 @@ class _QuantitySelector extends StatelessWidget {
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,
-            color: Colors.white.withOpacity(0.9),
+            color: Colors.white.withValues(alpha: 0.9),
           ),
         ),
         const SizedBox(height: 8),
@@ -26,7 +26,7 @@ class _QuantitySelector extends StatelessWidget {
           decoration: BoxDecoration(
             color: const Color(0xFF2A2D3E),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.white.withOpacity(0.1)),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

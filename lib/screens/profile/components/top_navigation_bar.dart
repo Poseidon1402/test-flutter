@@ -79,7 +79,7 @@ class _TopNavigationBar extends StatelessWidget {
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
                   return Container(
-                    color: const Color(0xFF9D4EDD).withOpacity(0.2),
+                    color: const Color(0xFF9D4EDD).withValues(alpha: 0.2),
                     child: const Icon(
                       Icons.person,
                       color: Color(0xFF9D4EDD),

@@ -17,12 +17,12 @@ class _CheckoutButton extends StatelessWidget {
       height: 54,
       decoration: BoxDecoration(
         gradient: enabled ? gradient : null,
-        color: enabled ? null : Colors.white.withOpacity(0.06),
+        color: enabled ? null : Colors.white.withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(12),
         boxShadow: enabled
             ? [
                 BoxShadow(
-                  color: const Color(0xFF9D4EDD).withOpacity(0.35),
+                  color: const Color(0xFF9D4EDD).withValues(alpha: 0.35),
                   blurRadius: 18,
                   offset: const Offset(0, 8),
                 ),
@@ -30,7 +30,7 @@ class _CheckoutButton extends StatelessWidget {
             : null,
         border: enabled
             ? null
-            : Border.all(color: Colors.white.withOpacity(0.18), width: 1),
+            : Border.all(color: Colors.white.withValues(alpha: 0.18), width: 1),
       ),
       child: ElevatedButton(
         onPressed: enabled ? onPressed : null,

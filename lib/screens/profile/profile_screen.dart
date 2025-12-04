@@ -135,7 +135,7 @@ class ProfileScreen extends StatelessWidget {
                                         'Affichage des 3 commandes les plus récentes',
                                         style: TextStyle(
                                           fontSize: 14,
-                                          color: Colors.white.withOpacity(0.6),
+                                          color: Colors.white.withValues(alpha: 0.6),
                                         ),
                                       ),
                                       const SizedBox(height: 24),

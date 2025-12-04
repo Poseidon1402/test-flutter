@@ -47,7 +47,7 @@ class _LiveEventCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.white.withOpacity(0.7),
+                    color: Colors.white.withValues(alpha: 0.7),
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w400,
                   ),
@@ -58,7 +58,7 @@ class _LiveEventCard extends StatelessWidget {
                     _relativeTimeText(event, DateTime.now()),
                     style: TextStyle(
                       fontSize: 14,
-                      color: Colors.white.withOpacity(0.7),
+                      color: Colors.white.withValues(alpha: 0.7),
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w400,
                     ),

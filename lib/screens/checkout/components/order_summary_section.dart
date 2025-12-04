@@ -13,9 +13,9 @@ class _OrderSummarySection extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.05),
+        color: Colors.white.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withOpacity(0.1), width: 1),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.1), width: 1),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,14 +42,14 @@ class _OrderSummarySection extends StatelessWidget {
                     child: Container(
                       width: 60,
                       height: 60,
-                      color: Colors.white.withOpacity(0.1),
+                      color: Colors.white.withValues(alpha: 0.1),
                       child: Image.network(
                         item.product.thumbnail,
                         fit: BoxFit.cover,
                         errorBuilder: (context, error, stackTrace) {
                           return Icon(
                             Icons.image_not_supported,
-                            color: Colors.white.withOpacity(0.3),
+                            color: Colors.white.withValues(alpha: 0.3),
                           );
                         },
                       ),
@@ -77,7 +77,7 @@ class _OrderSummarySection extends StatelessWidget {
                           '${item.quantity} x €${item.product.currentPrice.toStringAsFixed(2)}',
                           style: TextStyle(
                             fontSize: 14,
-                            color: Colors.white.withOpacity(0.7),
+                            color: Colors.white.withValues(alpha: 0.7),
                           ),
                         ),
                       ],
@@ -99,7 +99,7 @@ class _OrderSummarySection extends StatelessWidget {
           }).toList(),
 
           const SizedBox(height: 16),
-          Divider(color: Colors.white.withOpacity(0.1)),
+          Divider(color: Colors.white.withValues(alpha: 0.1)),
           const SizedBox(height: 16),
 
           // Subtotal
@@ -110,7 +110,7 @@ class _OrderSummarySection extends StatelessWidget {
                 'Sous-total',
                 style: TextStyle(
                   fontSize: 16,
-                  color: Colors.white.withOpacity(0.7),
+                  color: Colors.white.withValues(alpha: 0.7),
                 ),
               ),
               Text(
@@ -133,7 +133,7 @@ class _OrderSummarySection extends StatelessWidget {
                 'Livraison',
                 style: TextStyle(
                   fontSize: 16,
-                  color: Colors.white.withOpacity(0.7),
+                  color: Colors.white.withValues(alpha: 0.7),
                 ),
               ),
               Text(
@@ -148,7 +148,7 @@ class _OrderSummarySection extends StatelessWidget {
           ),
 
           const SizedBox(height: 16),
-          Divider(color: Colors.white.withOpacity(0.1)),
+          Divider(color: Colors.white.withValues(alpha: 0.1)),
           const SizedBox(height: 16),
 
           // Total

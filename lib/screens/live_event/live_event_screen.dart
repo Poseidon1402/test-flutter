@@ -223,7 +223,7 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
                           if (!isLoggedIn)
                             Positioned.fill(
                               child: Container(
-                                color: Colors.black.withOpacity(0.7),
+                                color: Colors.black.withValues(alpha: 0.7),
                                 child: Center(
                                   child: Container(
                                     margin: const EdgeInsets.all(24),
@@ -233,13 +233,13 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
                                         begin: Alignment.topLeft,
                                         end: Alignment.bottomRight,
                                         colors: [
-                                          Colors.white.withOpacity(0.15),
-                                          Colors.white.withOpacity(0.05),
+                                          Colors.white.withValues(alpha: 0.15),
+                                          Colors.white.withValues(alpha: 0.05),
                                         ],
                                       ),
                                       borderRadius: BorderRadius.circular(24),
                                       border: Border.all(
-                                        color: Colors.white.withOpacity(0.2),
+                                        color: Colors.white.withValues(alpha: 0.2),
                                         width: 1.5,
                                       ),
                                     ),
@@ -266,7 +266,7 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontSize: 16,
-                                            color: Colors.white.withOpacity(
+                                            color: Colors.white.withValues(alpha: 
                                               0.8,
                                             ),
                                           ),
@@ -287,7 +287,7 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
                                               BoxShadow(
                                                 color: const Color(
                                                   0xFF9D4EDD,
-                                                ).withOpacity(0.4),
+                                                ).withValues(alpha: 0.4),
                                                 blurRadius: 20,
                                                 offset: const Offset(0, 8),
                                               ),

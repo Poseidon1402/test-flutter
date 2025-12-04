@@ -21,9 +21,9 @@ class _CartItemTile extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 16),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.1),
+        color: Colors.white.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.white.withOpacity(0.2), width: 1),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.2), width: 1),
       ),
       child: Row(
         children: [
@@ -32,14 +32,14 @@ class _CartItemTile extends StatelessWidget {
             child: Container(
               width: 60,
               height: 60,
-              color: Colors.white.withOpacity(0.1),
+              color: Colors.white.withValues(alpha: 0.1),
               child: Image.network(
                 thumbnailUrl,
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
                   return Icon(
                     Icons.image_not_supported,
-                    color: Colors.white.withOpacity(0.3),
+                    color: Colors.white.withValues(alpha: 0.3),
                   );
                 },
               ),
@@ -65,7 +65,7 @@ class _CartItemTile extends StatelessWidget {
                   '$quantity x €${unitPrice.toStringAsFixed(2)}',
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.white.withOpacity(0.7),
+                    color: Colors.white.withValues(alpha: 0.7),
                   ),
                 ),
               ],
@@ -75,7 +75,7 @@ class _CartItemTile extends StatelessWidget {
             onPressed: onRemove,
             icon: Icon(
               Icons.delete_outline,
-              color: Colors.white.withOpacity(0.7),
+              color: Colors.white.withValues(alpha: 0.7),
             ),
           ),
         ],

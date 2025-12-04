@@ -92,13 +92,13 @@ class CartScreen extends StatelessWidget {
                                     begin: Alignment.topLeft,
                                     end: Alignment.bottomRight,
                                     colors: [
-                                      Colors.white.withOpacity(0.15),
-                                      Colors.white.withOpacity(0.05),
+                                      Colors.white.withValues(alpha: 0.15),
+                                      Colors.white.withValues(alpha: 0.05),
                                     ],
                                   ),
                                   borderRadius: BorderRadius.circular(24),
                                   border: Border.all(
-                                    color: Colors.white.withOpacity(0.2),
+                                    color: Colors.white.withValues(alpha: 0.2),
                                     width: 1.5,
                                   ),
                                 ),
@@ -173,8 +173,8 @@ class CartScreen extends StatelessWidget {
                                             Icon(
                                               Icons.shopping_cart_outlined,
                                               size: 80,
-                                              color: Colors.white.withOpacity(
-                                                0.3,
+                                              color: Colors.white.withValues(
+                                                alpha: 0.3,
                                               ),
                                             ),
                                             const SizedBox(height: 16),
@@ -182,8 +182,8 @@ class CartScreen extends StatelessWidget {
                                               'Votre panier est vide',
                                               style: TextStyle(
                                                 fontSize: 18,
-                                                color: Colors.white.withOpacity(
-                                                  0.7,
+                                                color: Colors.white.withValues(
+                                                  alpha: 0.7,
                                                 ),
                                               ),
                                             ),
@@ -235,7 +235,7 @@ class CartScreen extends StatelessWidget {
                                                 );
                                               },
                                             );
-                                          }).toList(),
+                                          }),
 
                                           const SizedBox(height: 24),
 

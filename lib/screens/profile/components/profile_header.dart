@@ -17,7 +17,7 @@ class _ProfileHeader extends StatelessWidget {
             border: Border.all(color: const Color(0xFF9D4EDD), width: 4),
             boxShadow: [
               BoxShadow(
-                color: const Color(0xFF9D4EDD).withOpacity(0.3),
+                color: const Color(0xFF9D4EDD).withValues(alpha: 0.3),
                 blurRadius: 20,
                 spreadRadius: 2,
               ),
@@ -52,7 +52,7 @@ class _ProfileHeader extends StatelessWidget {
         const SizedBox(height: 8),
         Text(
           user.email,
-          style: TextStyle(fontSize: 16, color: Colors.white.withOpacity(0.7)),
+          style: TextStyle(fontSize: 16, color: Colors.white.withValues(alpha: 0.7)),
         ),
       ],
     );

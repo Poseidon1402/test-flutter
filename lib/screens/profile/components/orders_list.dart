@@ -40,7 +40,7 @@ class _OrdersList extends StatelessWidget {
                 child: Text(
                   'Aucune commande pour le moment',
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.6),
+                    color: Colors.white.withValues(alpha: 0.6),
                     fontSize: 16,
                   ),
                 ),
@@ -74,7 +74,7 @@ class _OrderTile extends StatelessWidget {
       decoration: BoxDecoration(
         color: const Color(0xFF2A2D3E),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withOpacity(0.1), width: 1),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.1), width: 1),
       ),
       child: Row(
         children: [
@@ -82,7 +82,7 @@ class _OrderTile extends StatelessWidget {
             width: 50,
             height: 50,
             decoration: BoxDecoration(
-              color: const Color(0xFF9D4EDD).withOpacity(0.2),
+              color: const Color(0xFF9D4EDD).withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Icon(
@@ -109,7 +109,7 @@ class _OrderTile extends StatelessWidget {
                   _formatDate(order.createdAt),
                   style: TextStyle(
                     fontSize: 13,
-                    color: Colors.white.withOpacity(0.5),
+                    color: Colors.white.withValues(alpha: 0.5),
                   ),
                 ),
                 const SizedBox(height: 8),
@@ -117,7 +117,7 @@ class _OrderTile extends StatelessWidget {
                   '${order.items.length} article${order.items.length > 1 ? 's' : ''}',
                   style: TextStyle(
                     fontSize: 14,
-                    color: Colors.white.withOpacity(0.7),
+                    color: Colors.white.withValues(alpha: 0.7),
                   ),
                 ),
               ],
@@ -158,7 +158,7 @@ class _OrderTile extends StatelessWidget {
           const SizedBox(width: 16),
           Icon(
             Icons.chevron_right,
-            color: Colors.white.withOpacity(0.3),
+            color: Colors.white.withValues(alpha: 0.3),
             size: 24,
           ),
         ],

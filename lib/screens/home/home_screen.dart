@@ -193,7 +193,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontSize: 16,
-                                    color: Colors.white.withOpacity(0.7),
+                                    color: Colors.white.withValues(alpha: 0.7),
                                     height: 1.5,
                                   ),
                                 ),
@@ -218,13 +218,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                               hintText:
                                                   'Recherchez des évènements en direct ou des produits...',
                                               hintStyle: TextStyle(
-                                                color: Colors.white.withOpacity(
+                                                color: Colors.white.withValues(alpha: 
                                                   0.4,
                                                 ),
                                               ),
                                               prefixIcon: Icon(
                                                 Icons.search,
-                                                color: Colors.white.withOpacity(
+                                                color: Colors.white.withValues(alpha: 
                                                   0.5,
                                                 ),
                                               ),

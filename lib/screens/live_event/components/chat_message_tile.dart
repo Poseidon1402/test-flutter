@@ -37,13 +37,13 @@ class _ChatMessageTile extends StatelessWidget {
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
                     color: isMe
-                        ? const Color(0xFF9D4EDD).withOpacity(0.2)
+                        ? const Color(0xFF9D4EDD).withValues(alpha: 0.2)
                         : const Color(0xFF2A2D3E),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
                       color: isMe
-                          ? const Color(0xFF9D4EDD).withOpacity(0.3)
-                          : Colors.white.withOpacity(0.1),
+                          ? const Color(0xFF9D4EDD).withValues(alpha: 0.3)
+                          : Colors.white.withValues(alpha: 0.1),
                       width: 1,
                     ),
                   ),

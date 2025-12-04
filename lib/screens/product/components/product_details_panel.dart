@@ -36,9 +36,9 @@ class _ProductDetailsPanel extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.06),
+        color: Colors.white.withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withOpacity(0.1), width: 1),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.1), width: 1),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,7 +56,7 @@ class _ProductDetailsPanel extends StatelessWidget {
             product.description,
             style: TextStyle(
               fontSize: 14,
-              color: Colors.white.withOpacity(0.8),
+              color: Colors.white.withValues(alpha: 0.8),
             ),
           ),
           const SizedBox(height: 16),
@@ -76,7 +76,7 @@ class _ProductDetailsPanel extends StatelessWidget {
                   '\u20ac${product.price.toStringAsFixed(2)}',
                   style: TextStyle(
                     fontSize: 16,
-                    color: Colors.white.withOpacity(0.6),
+                    color: Colors.white.withValues(alpha: 0.6),
                     decoration: TextDecoration.lineThrough,
                   ),
                 ),
@@ -166,7 +166,7 @@ class _ProductDetailsPanel extends StatelessWidget {
               OutlinedButton(
                 onPressed: () {},
                 style: OutlinedButton.styleFrom(
-                  side: BorderSide(color: Colors.white.withOpacity(0.3)),
+                  side: BorderSide(color: Colors.white.withValues(alpha: 0.3)),
                   foregroundColor: Colors.white,
                 ),
                 child: const Text('Acheter maintenant'),

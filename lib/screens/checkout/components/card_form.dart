@@ -86,10 +86,10 @@ class _CardFormState extends State<_CardForm> {
                     vertical: 6,
                   ),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF6C5CE7).withOpacity(0.15),
+                    color: const Color(0xFF6C5CE7).withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: const Color(0xFF6C5CE7).withOpacity(0.3),
+                      color: const Color(0xFF6C5CE7).withValues(alpha: 0.3),
                     ),
                   ),
                   child: Text(
@@ -158,7 +158,7 @@ class _CardFormState extends State<_CardForm> {
       style: TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w500,
-        color: Colors.white.withOpacity(0.9),
+        color: Colors.white.withValues(alpha: 0.9),
       ),
     );
   }
@@ -181,7 +181,7 @@ class _CardFormState extends State<_CardForm> {
       decoration: InputDecoration(
         hintText: hint,
         hintStyle: TextStyle(
-          color: Colors.white.withOpacity(0.4),
+          color: Colors.white.withValues(alpha: 0.4),
           fontSize: 16,
         ),
         filled: true,
@@ -189,14 +189,14 @@ class _CardFormState extends State<_CardForm> {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(
-            color: Colors.white.withOpacity(0.1),
+            color: Colors.white.withValues(alpha: 0.1),
             width: 1,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(
-            color: Colors.white.withOpacity(0.1),
+            color: Colors.white.withValues(alpha: 0.1),
             width: 1,
           ),
         ),
