@@ -13,7 +13,7 @@ class LiveEventBloc extends Bloc<LiveEventEvent, LiveEventState> {
   final MockSocketService socket;
 
   LiveEventBloc({required this.api, required this.socket})
-      : super(const LiveEventState.initial()) {
+    : super(const LiveEventState.initial()) {
     on<LiveEventOpened>(_onOpened);
     on<LiveEventViewerCountUpdated>(_onViewerUpdated);
   }
@@ -33,11 +33,13 @@ class LiveEventBloc extends Bloc<LiveEventEvent, LiveEventState> {
         liveEvent.id,
         initialViewers: liveEvent.viewerCount,
       );
-      emit(state.copyWith(
-        isLoading: false,
-        liveEvent: liveEvent,
-        viewerCount: liveEvent.viewerCount,
-      ));
+      emit(
+        state.copyWith(
+          isLoading: false,
+          liveEvent: liveEvent,
+          viewerCount: liveEvent.viewerCount,
+        ),
+      );
     } catch (e) {
       emit(state.copyWith(isLoading: false, error: e.toString()));
     }
@@ -48,5 +50,6 @@ class LiveEventBloc extends Bloc<LiveEventEvent, LiveEventState> {
     Emitter<LiveEventState> emit,
   ) {
     emit(state.copyWith(viewerCount: event.viewerCount));
+    print('state ${state}');
   }
 }

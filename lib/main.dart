@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:test_flutter/blocs/live_event/live_event_bloc.dart';
 
 import 'config/theme_config.dart';
 import 'services/mock_api_service.dart';
 import 'services/mock_socket_service.dart';
-import 'blocs/live_events_bloc.dart';
-import 'blocs/cart_bloc.dart';
-import 'blocs/auth_bloc.dart';
+import 'blocs/live_events/live_events_bloc.dart';
+import 'blocs/cart/cart_bloc.dart';
+import 'blocs/auth/auth_bloc.dart';
 import 'app_router.dart';
 
 void main() {
-  
+  usePathUrlStrategy();
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -57,10 +59,10 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(
           create: (_) => AuthBloc(api: api)..add(const AuthStarted()),
         ),
-        // Other BLoCs (LiveEventBloc, ChatBloc) will be provided closer to their screens
+    
       ],
       child: MaterialApp.router(
-        title: 'Live Shopping',
+        title: 'Live Shop',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
         darkTheme: AppTheme.dark,
