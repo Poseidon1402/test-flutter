@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../blocs/cart_bloc.dart';
+import '../../blocs/cart/cart_bloc.dart';
 import '../../services/mock_api_service.dart';
 import '../../models/product.dart';
 part 'components/variation_selector.dart';

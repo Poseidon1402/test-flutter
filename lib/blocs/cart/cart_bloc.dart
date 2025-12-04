@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../models/cart_item.dart';
-import '../services/mock_api_service.dart';
+import '../../models/cart_item.dart';
+import '../../services/mock_api_service.dart';
 
 part 'cart_event.dart';
 part 'cart_state.dart';

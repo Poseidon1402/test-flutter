@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../blocs/auth/auth_bloc.dart';
-import '../blocs/cart_bloc.dart';
+import '../blocs/cart/cart_bloc.dart';
 
 class CartButton extends StatelessWidget {
   const CartButton({super.key});

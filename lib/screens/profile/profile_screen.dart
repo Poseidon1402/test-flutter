@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../blocs/auth/auth_bloc.dart';
-import '../../blocs/orders_bloc.dart';
+import '../../blocs/order/orders_bloc.dart';
 import '../../services/mock_api_service.dart';
 part 'components/decorative_icon.dart';
 part 'components/top_navigation_bar.dart';

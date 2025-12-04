@@ -5,8 +5,8 @@ import 'package:test_flutter/blocs/live_event/live_event_bloc.dart';
 import 'config/theme_config.dart';
 import 'services/mock_api_service.dart';
 import 'services/mock_socket_service.dart';
-import 'blocs/live_events_bloc.dart';
-import 'blocs/cart_bloc.dart';
+import 'blocs/live_events/live_events_bloc.dart';
+import 'blocs/cart/cart_bloc.dart';
 import 'blocs/auth/auth_bloc.dart';
 import 'app_router.dart';
 

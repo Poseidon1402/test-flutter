@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../models/live_event.dart';
-import '../services/mock_api_service.dart';
+import '../../models/live_event.dart';
+import '../../services/mock_api_service.dart';
 
 part 'live_events_event.dart';
 part 'live_events_state.dart';

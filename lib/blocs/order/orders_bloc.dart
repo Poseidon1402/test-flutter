@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../models/order.dart';
-import '../services/mock_api_service.dart';
+import '../../models/order.dart';
+import '../../services/mock_api_service.dart';
 
 part 'orders_event.dart';
 part 'orders_state.dart';
