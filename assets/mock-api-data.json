@@ -543,21 +543,7 @@
       }
     }
   ],
-  "cart": {
-    "userId": "user_001",
-    "items": [
-      {
-        "id": "cart_item_001",
-        "productId": "prod_001",
-        "quantity": 1,
-        "selectedVariations": {
-          "size": "M",
-          "color": "Bleu"
-        }
-      }
-    ],
-    "updatedAt": "2024-01-15T10:15:00Z"
-  },
+  "cart": {},
   "categories": [
     {
       "id": "cat_001",

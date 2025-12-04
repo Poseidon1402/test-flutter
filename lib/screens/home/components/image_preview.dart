@@ -56,38 +56,6 @@ class _ImagePreview extends StatelessWidget {
               ),
             ),
           ),
-        if (status == LiveEventStatus.live)
-          Positioned(
-            bottom: 12,
-            right: 12,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-              decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.35),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(
-                    Icons.remove_red_eye,
-                    color: Colors.white70,
-                    size: 14,
-                  ),
-                  const SizedBox(width: 6),
-                  Text(
-                    viewerCount.toString(),
-                    style: const TextStyle(
-                      color: Colors.white70,
-                      fontSize: 12,
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
       ],
     );
   }

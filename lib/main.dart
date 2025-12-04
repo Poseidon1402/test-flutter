@@ -12,7 +12,7 @@ import 'blocs/auth/auth_bloc.dart';
 import 'app_router.dart';
 
 void main() {
-  usePathUrlStrategy(); 
+  usePathUrlStrategy();
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
@@ -62,7 +62,7 @@ class _MyAppState extends State<MyApp> {
         // Other BLoCs (LiveEventBloc, ChatBloc) will be provided closer to their screens
       ],
       child: MaterialApp.router(
-        title: 'Live Shopping',
+        title: 'Live Shop',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.light,
         darkTheme: AppTheme.dark,

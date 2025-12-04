@@ -24,7 +24,7 @@ class _EventGrid extends StatelessWidget {
         return Wrap(
           spacing: 24,
           runSpacing: 24,
-          children: events.take(crossAxisCount).map((event) {
+          children: events.map((event) {
             return SizedBox(
               width: (width - (24 * (crossAxisCount - 1))) / crossAxisCount,
               child: _LiveEventCard(event: event, status: status),
