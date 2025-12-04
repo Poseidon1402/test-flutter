@@ -61,6 +61,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
     return Scaffold(
       body: Container(
+        constraints: const BoxConstraints.expand(),
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
