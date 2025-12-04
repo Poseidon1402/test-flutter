@@ -20,9 +20,10 @@ LiveShop est une application Flutter Web de live shopping mettant en avant une i
 - ✅ Authentification: écran de connexion (formulaire + feedback).
 - ✅ Live Event: lecteur vidéo, liste de produits, chat (mocké), compteur de spectateurs (WebSocket/Socket.IO mock).
 - ✅ Messagerie par live: échange de messages en temps réel sur chaque live.
-- ✅ Panier: ajout/suppression d’articles, calcul du sous‑total.
+- ✅ Panier: ajout/suppression d'articles, calcul du sous‑total.
 - ✅ Checkout: résumé de commande, formulaire de livraison et paiement avec formatteurs (numéro carte `NNNN NNNN NNNN NNNN`, date `MM/YY`, Luhn).
 - ✅ Profil: historique de commandes (mock), informations utilisateur.
+- ✅ Tests unitaires: tests des modèles de données dans le dossier `test/`.
 - 🚫 Backend réel: Le compteur de spectateurs utilise un serveur WebSocket/Socket.IO de démonstration.
 
 ## Configuration locale
@@ -37,8 +38,7 @@ dart --version         # Dart inclus avec Flutter
 flutter pub get
 ```
 
-3) Lancer le backend WebSocket mock (facultatif, pas de backend réel)
-- Option A: Utiliser le backend de démonstration fourni dans `backend/` (Python)
+3) Utiliser le backend de démonstration fourni dans `backend/` (Python)
 ```bash
 cd backend
 python -m venv .venv
@@ -46,7 +46,6 @@ source .venv/Scripts/activate
 pip install -r requirements.txt
 python main.py   # lance le serveur Socket.IO
 ```
-Configurer l’URL côté client via `SOCKET_URL` (ex: `http://localhost:8000`).
 
 4) Démarrer l’application Web
 ```bash
@@ -90,7 +89,7 @@ Principes:
 - Sécurité: validation des saisies (ex: Luhn), séparation claire front/back.
 
 ## Perspectives d’évolution
-- [1] Paiement: intégration passerelle réelle (Stripe/Adyen) + 3DS ✅ sécurité.
+- [1] Paiement: intégration passerelle réelle (Stripe/Adyen).
 - [2] Live avancé: chat temps réel avec modération et emojis.
 - [3] Catalogue: filtres, recherche, recommandations.
 - [4] Auth: social login (Google/Apple), reset mot de passe.
