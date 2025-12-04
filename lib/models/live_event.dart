@@ -63,6 +63,27 @@ class LiveEvent extends Equatable {
     );
   }
 
+  LiveEvent copyWith({
+    LiveEventStatus? status,
+    int? viewerCount,
+  }) {
+    return LiveEvent(
+      id: id,
+      title: title,
+      description: description,
+      startTime: startTime,
+      endTime: endTime,
+      status: status ?? this.status,
+      sellerName: sellerName,
+      products: products,
+      featuredProduct: featuredProduct,
+      viewerCount: viewerCount ?? this.viewerCount,
+      streamUrl: streamUrl,
+      replayUrl: replayUrl,
+      thumbnailUrl: thumbnailUrl,
+    );
+  }
+  
   @override
   List<Object?> get props => [id, title, status, viewerCount];
 }

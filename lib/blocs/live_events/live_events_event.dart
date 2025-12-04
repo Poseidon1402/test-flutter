@@ -28,3 +28,13 @@ class LiveEventsFilterStatusChanged extends LiveEventsEvent {
   @override
   List<Object?> get props => [status];
 }
+
+class LiveEventsViewerCountUpdated extends LiveEventsEvent {
+  final String eventId;
+  final int viewerCount;
+
+  const LiveEventsViewerCountUpdated(this.eventId, this.viewerCount);
+
+  @override
+  List<Object?> get props => [eventId, viewerCount];
+}

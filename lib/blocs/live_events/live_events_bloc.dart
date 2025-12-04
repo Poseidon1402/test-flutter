@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../models/live_event.dart';
@@ -14,6 +14,7 @@ class LiveEventsBloc extends Bloc<LiveEventsEvent, LiveEventsState> {
     on<LiveEventsRequested>(_onRequested);
     on<LiveEventsSearchChanged>(_onSearchChanged);
     on<LiveEventsFilterStatusChanged>(_onFilterStatusChanged);
+    on<LiveEventsViewerCountUpdated>(_onViewerCountUpdated);
   }
 
   Future<void> _onRequested(
@@ -41,5 +42,19 @@ class LiveEventsBloc extends Bloc<LiveEventsEvent, LiveEventsState> {
     Emitter<LiveEventsState> emit,
   ) {
     emit(state.copyWith(filterStatus: event.status));
+  }
+
+  void _onViewerCountUpdated(
+    LiveEventsViewerCountUpdated event,
+    Emitter<LiveEventsState> emit,
+  ) {
+    final updatedEvents = state.events.map((liveEvent) {
+      if (liveEvent.id == event.eventId) {
+        return liveEvent.copyWith(viewerCount: event.viewerCount);
+      }
+      return liveEvent;
+    }).toList();
+
+    emit(state.copyWith(events: updatedEvents));
   }
 }
