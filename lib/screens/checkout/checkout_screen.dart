@@ -31,9 +31,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   final _cardNumberController = TextEditingController();
   final _expiryController = TextEditingController(); // MM/YY
   final _cvvController = TextEditingController();
-  bool _cardNumberValid = false;
-  bool _expiryValid = false;
-  bool _cvvValid = false;
 
   @override
   Widget build(BuildContext context) {
