@@ -20,7 +20,7 @@ class _LiveEventCard extends StatelessWidget {
           _ImagePreview(
             status: status,
             thumbnailUrl: event.thumbnailUrl,
-            viewerCount: 0,
+            viewerCount: event.viewerCount,
           ),
 
           // Content

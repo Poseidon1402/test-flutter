@@ -44,6 +44,7 @@ class LiveEventsBloc extends Bloc<LiveEventsEvent, LiveEventsState> {
     emit(state.copyWith(filterStatus: event.status));
   }
 
+  /// Update viewer count for a specific live event in the list
   void _onViewerCountUpdated(
     LiveEventsViewerCountUpdated event,
     Emitter<LiveEventsState> emit,
@@ -54,7 +55,6 @@ class LiveEventsBloc extends Bloc<LiveEventsEvent, LiveEventsState> {
       }
       return liveEvent;
     }).toList();
-
     emit(state.copyWith(events: updatedEvents));
   }
 }

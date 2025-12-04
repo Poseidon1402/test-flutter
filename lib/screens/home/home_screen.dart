@@ -369,7 +369,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                     (e) => e.status == LiveEventStatus.ended,
                                   )
                                   .toList();
-
                               if (allEvents.isEmpty) {
                                 return const Padding(
                                   padding: EdgeInsets.symmetric(

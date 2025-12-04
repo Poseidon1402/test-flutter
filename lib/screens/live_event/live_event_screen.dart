@@ -9,6 +9,7 @@ import '../../blocs/chat/chat_bloc.dart';
 import '../../blocs/live_event/live_event_bloc.dart';
 import '../../blocs/cart/cart_bloc.dart';
 import '../../blocs/auth/auth_bloc.dart';
+import '../../blocs/live_events/live_events_bloc.dart';
 import '../../shared_components/logo.dart';
 import '../../models/chat_message.dart';
 // Removed unused mock services imports
@@ -60,7 +61,13 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
       if (update.room == widget.eventId && mounted) {
         try {
           final bloc = context.read<LiveEventBloc>();
+          final liveEventsBloc = context.read<LiveEventsBloc>();
+          // Update viewer count in LiveEventBloc
           bloc.add(LiveEventViewerCountUpdated(update.count));
+          // Also update in LiveEventsBloc list
+          liveEventsBloc.add(
+            LiveEventsViewerCountUpdated(widget.eventId, update.count),
+          );
         } catch (_) {
           // Bloc not available yet; ignore early updates
         }

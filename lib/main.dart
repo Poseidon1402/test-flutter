@@ -11,7 +11,7 @@ import 'blocs/auth/auth_bloc.dart';
 import 'app_router.dart';
 
 void main() {
-  
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
