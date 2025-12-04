@@ -7,7 +7,7 @@ import 'services/mock_api_service.dart';
 import 'services/mock_socket_service.dart';
 import 'blocs/live_events_bloc.dart';
 import 'blocs/cart_bloc.dart';
-import 'blocs/auth_bloc.dart';
+import 'blocs/auth/auth_bloc.dart';
 import 'app_router.dart';
 
 void main() {

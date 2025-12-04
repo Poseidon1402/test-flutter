@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
-import '../models/user.dart';
-import '../services/mock_api_service.dart';
+import '../../models/user.dart';
+import '../../services/mock_api_service.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';

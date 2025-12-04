@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../blocs/chat/chat_bloc.dart';
 import '../../blocs/live_event/live_event_bloc.dart';
 import '../../blocs/cart_bloc.dart';
-import '../../blocs/auth_bloc.dart';
+import '../../blocs/auth/auth_bloc.dart';
 import '../../shared_components/logo.dart';
 import '../../models/chat_message.dart';
 // Removed unused mock services imports

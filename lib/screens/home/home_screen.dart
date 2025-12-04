@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../blocs/live_events_bloc.dart';
-import '../../blocs/auth_bloc.dart';
+import '../../blocs/auth/auth_bloc.dart';
 import '../../shared_components/cart_button.dart';
 import '../../shared_components/logo.dart';
 import '../../models/live_event.dart';
