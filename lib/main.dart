@@ -59,7 +59,7 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(
           create: (_) => AuthBloc(api: api)..add(const AuthStarted()),
         ),
-        // Other BLoCs (LiveEventBloc, ChatBloc) will be provided closer to their screens
+    
       ],
       child: MaterialApp.router(
         title: 'Live Shop',

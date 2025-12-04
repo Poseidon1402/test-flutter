@@ -114,6 +114,7 @@ class _LiveChatPanel extends StatelessWidget {
                     onPressed: () {
                       final text = controller.text.trim();
                       if (text.isEmpty) return;
+
                       context.read<ChatBloc>().add(
                         ChatMessageSent(
                           message: text,

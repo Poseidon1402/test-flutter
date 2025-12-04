@@ -48,7 +48,6 @@ class SocketIoService {
 
     // Listen for viewer count updates
     _socket!.on('viewer_count', (data) {
-      print('Viewer count data received: $data');
       if (data is Map && data['room'] != null && data['count'] != null) {
         final room = data['room'].toString();
         final count = int.tryParse(data['count'].toString());

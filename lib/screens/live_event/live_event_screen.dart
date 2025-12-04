@@ -35,6 +35,7 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
   bool _isVideoInitialized = false;
   late final SocketIoService _ioSocket;
   StreamSubscription? _viewerSub;
+  late final ChatBloc _chatBloc;
 
   @override
   void initState() {
@@ -56,6 +57,8 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
 
     // Start watching to increment viewers; username will be refined in build
     _ioSocket.watchLive(room: widget.eventId, username: 'Guest');
+    // Initialize chat bloc once to avoid duplicate subscriptions
+    _chatBloc = ChatBloc(socket: _ioSocket)..add(ChatStarted(widget.eventId));
     // Listen for viewer count updates for this event and forward to Bloc
     _viewerSub = _ioSocket.viewerCountStream.listen((update) {
       if (update.room == widget.eventId && mounted) {
@@ -81,6 +84,7 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
   void dispose() {
     _viewerSub?.cancel();
     _ioSocket.leaveLive(room: widget.eventId);
+    _chatBloc.close();
     _videoController.dispose();
     super.dispose();
   }
@@ -90,12 +94,7 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
     // Removed unused locals: MockApiService and MockSocketService
 
     return MultiBlocProvider(
-      providers: [
-        BlocProvider<ChatBloc>(
-          create: (_) =>
-              ChatBloc(socket: _ioSocket)..add(ChatStarted(widget.eventId)),
-        ),
-      ],
+      providers: [BlocProvider<ChatBloc>.value(value: _chatBloc)],
       child: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, authState) {
           final isLoggedIn =
