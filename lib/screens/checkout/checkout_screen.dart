@@ -212,12 +212,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                     cardNumberController: _cardNumberController,
                                     expiryController: _expiryController,
                                     cvvController: _cvvController,
-                                    onNumberValid: (v) =>
-                                        setState(() => _cardNumberValid = v),
-                                    onExpiryValid: (v) =>
-                                        setState(() => _expiryValid = v),
-                                    onCvvValid: (v) =>
-                                        setState(() => _cvvValid = v),
                                   ),
 
                                   // Confirm button
@@ -244,25 +238,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                     ),
                                     child: ElevatedButton(
                                       onPressed: () {
-                                        if (!_formKey.currentState!.validate())
-                                          return;
-                                        if (!(_cardNumberValid &&
-                                            _expiryValid &&
-                                            _cvvValid)) {
-                                          ScaffoldMessenger.of(
-                                            context,
-                                          ).showSnackBar(
-                                            const SnackBar(
-                                              content: Text(
-                                                'Please enter valid card details',
-                                              ),
-                                              backgroundColor: Color(
-                                                0xFF9D4EDD,
-                                              ),
-                                            ),
-                                          );
+                                        if (!_formKey.currentState!
+                                            .validate()) {
                                           return;
                                         }
+
+                                        // Clear the cart and show confirmation
                                         context.read<CartBloc>().add(
                                           const CartCleared(),
                                         );

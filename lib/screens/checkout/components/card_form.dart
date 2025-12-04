@@ -5,18 +5,12 @@ class _CardForm extends StatefulWidget {
   final TextEditingController cardNumberController;
   final TextEditingController expiryController;
   final TextEditingController cvvController;
-  final ValueChanged<bool> onNumberValid;
-  final ValueChanged<bool> onExpiryValid;
-  final ValueChanged<bool> onCvvValid;
 
   const _CardForm({
     required this.cardNameController,
     required this.cardNumberController,
     required this.expiryController,
     required this.cvvController,
-    required this.onNumberValid,
-    required this.onExpiryValid,
-    required this.onCvvValid,
   });
 
   @override
@@ -49,7 +43,6 @@ class _CardFormState extends State<_CardForm> {
         selection: caret,
       );
     }
-    widget.onCvvValid(truncated.length == maxLen);
   }
 
   @override
