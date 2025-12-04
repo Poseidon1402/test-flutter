@@ -14,6 +14,7 @@ part 'components/section_header.dart';
 part 'components/event_grid.dart';
 part 'components/live_event_card.dart';
 part 'components/image_preview.dart';
+part 'components/empty_state.dart';
 
 class HomeScreen extends StatefulWidget {
   final VoidCallback onToggleTheme;
@@ -368,6 +369,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                     (e) => e.status == LiveEventStatus.ended,
                                   )
                                   .toList();
+
+                              if (allEvents.isEmpty) {
+                                return const Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 32,
+                                    vertical: 60,
+                                  ),
+                                  child: Center(child: _EmptyResults()),
+                                );
+                              }
 
                               return Padding(
                                 padding: const EdgeInsets.fromLTRB(

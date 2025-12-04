@@ -20,7 +20,7 @@ class _LiveEventCard extends StatelessWidget {
           _ImagePreview(
             status: status,
             thumbnailUrl: event.thumbnailUrl,
-            viewerCount: event.viewerCount,
+            viewerCount: 0,
           ),
 
           // Content
@@ -112,7 +112,17 @@ class _LiveEventCard extends StatelessWidget {
       case LiveEventStatus.scheduled:
         return ElevatedButton.icon(
           onPressed: () {
-            // TODO: Implement notify me
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  'You will be notified when "${event.title}" goes live.',
+                  style: TextStyle(color: Colors.white),
+                ),
+                duration: Duration(seconds: 2),
+                behavior: SnackBarBehavior.floating,
+                backgroundColor: Colors.green[600],
+              ),
+            );
           },
           icon: const Icon(Icons.notifications_outlined, size: 18),
           label: const Text('Notify Me'),
