@@ -96,7 +96,7 @@ class _OrderSummarySection extends StatelessWidget {
                 ],
               ),
             );
-          }).toList(),
+          }),
 
           const SizedBox(height: 16),
           Divider(color: Colors.white.withValues(alpha: 0.1)),

@@ -487,8 +487,9 @@ bool _matchesDate(LiveEvent e, String filter) {
       start.day == tomorrow.day;
   if (filter == 'Tomorrow' || filter == 'Demain') return isTomorrow;
   final weekFromNow = now.add(const Duration(days: 7));
-  if (filter == 'This Week' || filter == 'Cette semaine')
+  if (filter == 'This Week' || filter == 'Cette semaine') {
     return start.isAfter(now) && start.isBefore(weekFromNow);
+  }
   return true;
 }
 

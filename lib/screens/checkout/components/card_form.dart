@@ -75,8 +75,9 @@ class _CardFormState extends State<_CardForm> {
           validator: (v) {
             final raw = (v ?? '').replaceAll(RegExp(r'\s+'), '');
             if (raw.isEmpty) return 'Obligatoire';
-            if (!_luhnValid(raw) || raw.length < 13 || raw.length > 19)
+            if (!_luhnValid(raw) || raw.length < 13 || raw.length > 19) {
               return 'Numéro de carte invalide';
+            }
             return null;
           },
           suffix: _brand != null

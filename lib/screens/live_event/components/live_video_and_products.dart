@@ -33,7 +33,6 @@ class _LiveVideoAndProducts extends StatelessWidget {
           );
         }
         final event = state.liveEvent;
-        print('Rendering event: ${event?.id}, viewers: ${state.viewerCount}');
         if (event == null) {
           return const Center(
             child: Text(
@@ -129,7 +128,7 @@ class _LiveVideoAndProducts extends StatelessWidget {
                         Text(
                           '${state.viewerCount}',
                           style: TextStyle(
-                            color: Colors.white.withOpacity(0.7),
+                            color: Colors.white.withValues(alpha: 0.7),
                             fontSize: 16,
                           ),
                         ),
@@ -149,7 +148,7 @@ class _LiveVideoAndProducts extends StatelessWidget {
                         color: const Color(0xFF1E2139),
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                          color: Colors.white.withOpacity(0.1),
+                          color: Colors.white.withValues(alpha: 0.1),
                           width: 1,
                         ),
                       ),
@@ -160,14 +159,14 @@ class _LiveVideoAndProducts extends StatelessWidget {
                             child: Container(
                               width: 70,
                               height: 70,
-                              color: Colors.white.withOpacity(0.1),
+                              color: Colors.white.withValues(alpha: 0.1),
                               child: Image.network(
                                 product.thumbnail,
                                 fit: BoxFit.cover,
                                 errorBuilder: (context, error, stackTrace) {
                                   return Icon(
                                     Icons.image_not_supported,
-                                    color: Colors.white.withOpacity(0.3),
+                                    color: Colors.white.withValues(alpha: 0.3),
                                   );
                                 },
                               ),

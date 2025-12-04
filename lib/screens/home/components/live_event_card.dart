@@ -157,12 +157,12 @@ class _LiveEventCard extends StatelessWidget {
       final days = diff.inDays;
       if (diff.inMinutes <= 0) return 'Commence bientôt';
       if (hours < 24) {
-        return 'Commence dans ${hours} h';
+        return 'Commence dans $hours h';
       } else if (days == 1) {
         final hourLabel = '${event.startTime.hour}';
         return 'Commence demain à ${hourLabel}h';
       } else {
-        return 'Commence dans ${days} jours';
+        return 'Commence dans $days jours';
       }
     } else if (status == LiveEventStatus.ended) {
       final end = event.endTime ?? event.startTime;
@@ -171,7 +171,7 @@ class _LiveEventCard extends StatelessWidget {
       if (diff.inHours < 24) {
         return 'Terminé il y a ${diff.inHours} heures';
       }
-      return 'Terminé il y a ${days} jour${days > 1 ? 's' : ''}';
+      return 'Terminé il y a $days jour${days > 1 ? 's' : ''}';
     }
     return '';
   }

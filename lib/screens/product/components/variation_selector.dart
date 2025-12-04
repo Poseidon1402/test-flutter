@@ -28,7 +28,7 @@ class _VariationSelector extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         DropdownButtonFormField<String>(
-          value: value,
+          initialValue: value,
           items: options
               .map((e) => DropdownMenuItem(value: e, child: Text(e)))
               .toList(),

@@ -125,12 +125,15 @@ class _ProductDetailsPanel extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       final variations = <String, String>{};
-                      if (selectedSize != null)
+                      if (selectedSize != null) {
                         variations['size'] = selectedSize!;
-                      if (selectedColor != null)
+                      }
+                      if (selectedColor != null) {
                         variations['color'] = selectedColor!;
-                      if (selectedType != null)
+                      }
+                      if (selectedType != null) {
                         variations['type'] = selectedType!;
+                      }
                       context.read<CartBloc>().add(
                         CartItemAdded(
                           productId: product.id,
