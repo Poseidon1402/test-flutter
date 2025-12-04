@@ -49,7 +49,7 @@ class _TopNavigationBar extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             ),
             child: const Text(
-              'Home',
+              'Accueil',
               style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
             ),
           ),
@@ -61,7 +61,7 @@ class _TopNavigationBar extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             ),
             child: const Text(
-              'My Orders',
+              'Mes commandes',
               style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
             ),
           ),

@@ -31,7 +31,7 @@ class ProfileScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const Text(
-                    'You are not logged in',
+                    "Vous n'êtes pas connecté",
                     style: TextStyle(color: Colors.white),
                   ),
                   const SizedBox(height: 12),
@@ -41,7 +41,7 @@ class ProfileScreen extends StatelessWidget {
                       backgroundColor: const Color(0xFF9D4EDD),
                       foregroundColor: Colors.white,
                     ),
-                    child: const Text('Login'),
+                    child: const Text('Connexion'),
                   ),
                 ],
               ),
@@ -123,7 +123,7 @@ class ProfileScreen extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       const Text(
-                                        'Order History',
+                                        'Historique des commandes',
                                         style: TextStyle(
                                           fontSize: 24,
                                           fontWeight: FontWeight.bold,
@@ -132,7 +132,7 @@ class ProfileScreen extends StatelessWidget {
                                       ),
                                       const SizedBox(height: 8),
                                       Text(
-                                        'Showing 3 most recent orders',
+                                        'Affichage des 3 commandes les plus récentes',
                                         style: TextStyle(
                                           fontSize: 14,
                                           color: Colors.white.withOpacity(0.6),
@@ -159,7 +159,7 @@ class ProfileScreen extends StatelessWidget {
                                 },
                                 icon: const Icon(Icons.logout, size: 20),
                                 label: const Text(
-                                  'Logout',
+                                  'Se déconnecter',
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,

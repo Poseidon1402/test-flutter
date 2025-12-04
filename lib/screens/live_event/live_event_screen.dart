@@ -254,7 +254,7 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
                                         ),
                                         const SizedBox(height: 24),
                                         const Text(
-                                          'Login Required',
+                                          'Connexion requise',
                                           style: TextStyle(
                                             fontSize: 28,
                                             fontWeight: FontWeight.bold,
@@ -263,7 +263,7 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
                                         ),
                                         const SizedBox(height: 12),
                                         Text(
-                                          'Please log in to watch and chat in this live stream',
+                                          'Veuillez vous connecter pour regarder et discuter dans ce live',
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontSize: 16,
@@ -312,7 +312,7 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
                                               ),
                                             ),
                                             child: const Text(
-                                              'Go to Login',
+                                              'Aller à la connexion',
                                               style: TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.w600,

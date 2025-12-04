@@ -18,7 +18,7 @@ class _SubtotalSection extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            'Subtotal',
+            'Sous-total',
             style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w600,

@@ -19,7 +19,7 @@ class _ShippingDetailsSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text(
-          'Shipping details',
+          'Informations de livraison',
           style: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
@@ -28,21 +28,21 @@ class _ShippingDetailsSection extends StatelessWidget {
         ),
         const SizedBox(height: 24),
 
-        _buildLabel('Full name'),
+        _buildLabel('Nom complet'),
         const SizedBox(height: 8),
         _buildTextField(
           controller: nameController,
-          hint: 'Enter your full name',
-          validator: (v) => v == null || v.isEmpty ? 'Required' : null,
+          hint: 'Entrez votre nom complet',
+          validator: (v) => v == null || v.isEmpty ? 'Obligatoire' : null,
         ),
         const SizedBox(height: 20),
 
-        _buildLabel('Address'),
+        _buildLabel('Adresse'),
         const SizedBox(height: 8),
         _buildTextField(
           controller: addressController,
-          hint: 'Enter your address',
-          validator: (v) => v == null || v.isEmpty ? 'Required' : null,
+          hint: 'Entrez votre adresse',
+          validator: (v) => v == null || v.isEmpty ? 'Obligatoire' : null,
         ),
         const SizedBox(height: 20),
 
@@ -52,13 +52,13 @@ class _ShippingDetailsSection extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildLabel('City'),
+                  _buildLabel('Ville'),
                   const SizedBox(height: 8),
                   _buildTextField(
                     controller: cityController,
-                    hint: 'Enter your city',
+                    hint: 'Entrez votre ville',
                     validator: (v) =>
-                        v == null || v.isEmpty ? 'Required' : null,
+                        v == null || v.isEmpty ? 'Obligatoire' : null,
                   ),
                 ],
               ),
@@ -68,13 +68,13 @@ class _ShippingDetailsSection extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _buildLabel('ZIP code'),
+                  _buildLabel('Code postal'),
                   const SizedBox(height: 8),
                   _buildTextField(
                     controller: zipController,
-                    hint: 'Enter ZIP code',
+                    hint: 'Entrez votre code postal',
                     validator: (v) =>
-                        v == null || v.isEmpty ? 'Required' : null,
+                        v == null || v.isEmpty ? 'Obligatoire' : null,
                   ),
                 ],
               ),

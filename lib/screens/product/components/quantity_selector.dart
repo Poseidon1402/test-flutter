@@ -12,7 +12,7 @@ class _QuantitySelector extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Quantity',
+          'Quantité',
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.w600,

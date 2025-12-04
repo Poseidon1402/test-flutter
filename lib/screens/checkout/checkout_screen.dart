@@ -131,7 +131,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                       ),
                                       const SizedBox(width: 8),
                                       const Text(
-                                        'Checkout',
+                                        'Paiement',
                                         style: TextStyle(
                                           fontSize: 32,
                                           fontWeight: FontWeight.bold,
@@ -196,7 +196,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
                                   // Card Payment Form
                                   const Text(
-                                    'Payment details',
+                                    'Informations de paiement',
                                     style: TextStyle(
                                       fontSize: 24,
                                       fontWeight: FontWeight.bold,
@@ -260,7 +260,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                         ),
                                       ),
                                       child: Text(
-                                        'Confirm order (€${cartState.subtotal.toStringAsFixed(2)})',
+                                        'Confirmer la commande (€${cartState.subtotal.toStringAsFixed(2)})',
                                         style: const TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w600,

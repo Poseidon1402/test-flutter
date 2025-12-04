@@ -146,7 +146,7 @@ class CartScreen extends StatelessWidget {
 
                                     // Title
                                     const Text(
-                                      'Your Cart',
+                                      'Votre panier',
                                       style: TextStyle(
                                         fontSize: 32,
                                         fontWeight: FontWeight.bold,
@@ -179,7 +179,7 @@ class CartScreen extends StatelessWidget {
                                             ),
                                             const SizedBox(height: 16),
                                             Text(
-                                              'Your cart is empty',
+                                              'Votre panier est vide',
                                               style: TextStyle(
                                                 fontSize: 18,
                                                 color: Colors.white.withOpacity(
@@ -207,7 +207,7 @@ class CartScreen extends StatelessWidget {
                                                 elevation: 0,
                                               ),
                                               child: const Text(
-                                                'Continue Shopping',
+                                                'Continuer les achats',
                                                 style: TextStyle(
                                                   fontSize: 16,
                                                   fontWeight: FontWeight.w600,

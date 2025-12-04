@@ -50,17 +50,18 @@ class _CardFormState extends State<_CardForm> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _label('Name on card'),
+        _label('Nom sur la carte'),
         const SizedBox(height: 8),
         _field(
           controller: widget.cardNameController,
-          hint: 'Full name',
+          hint: 'Nom complet',
           keyboardType: TextInputType.name,
-          validator: (v) => v == null || v.trim().isEmpty ? 'Required' : null,
+          validator: (v) =>
+              v == null || v.trim().isEmpty ? 'Obligatoire' : null,
         ),
         const SizedBox(height: 16),
 
-        _label('Card number'),
+        _label('Numéro de carte'),
         const SizedBox(height: 8),
         _field(
           controller: widget.cardNumberController,
@@ -73,9 +74,9 @@ class _CardFormState extends State<_CardForm> {
           ],
           validator: (v) {
             final raw = (v ?? '').replaceAll(RegExp(r'\s+'), '');
-            if (raw.isEmpty) return 'Required';
+            if (raw.isEmpty) return 'Obligatoire';
             if (!_luhnValid(raw) || raw.length < 13 || raw.length > 19)
-              return 'Invalid card number';
+              return 'Numéro de carte invalide';
             return null;
           },
           suffix: _brand != null
@@ -106,19 +107,20 @@ class _CardFormState extends State<_CardForm> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _label('Expiry (MM/YY)'),
+                  _label('Expiration (MM/AA)'),
                   const SizedBox(height: 8),
                   _field(
                     controller: widget.expiryController,
-                    hint: 'MM/YY',
+                    hint: 'MM/AA',
                     inputFormatters: [
                       FilteringTextInputFormatter.allow(RegExp(r'[0-9/]')),
                       LengthLimitingTextInputFormatter(5),
                       ExpirationDateFormatter(),
                     ],
                     keyboardType: TextInputType.number,
-                    validator: (v) =>
-                        _expiryValid(v ?? '') ? null : 'Invalid expiry',
+                    validator: (v) => _expiryValid(v ?? '')
+                        ? null
+                        : "Date d'expiration invalide",
                   ),
                 ],
               ),
@@ -137,7 +139,7 @@ class _CardFormState extends State<_CardForm> {
                     validator: (v) {
                       final raw = (v ?? '').replaceAll(RegExp(r'[^0-9]'), '');
                       final maxLen = (_brand == 'AMEX') ? 4 : 3;
-                      return raw.length == maxLen ? null : 'Invalid CVV';
+                      return raw.length == maxLen ? null : 'CVV invalide';
                     },
                   ),
                 ],

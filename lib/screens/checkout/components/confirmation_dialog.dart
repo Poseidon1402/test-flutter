@@ -42,7 +42,7 @@ class _ConfirmationDialog extends StatelessWidget {
                 ),
                 const SizedBox(height: 24),
                 const Text(
-                  'Order confirmed',
+                  'Commande confirmée',
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,
@@ -51,7 +51,7 @@ class _ConfirmationDialog extends StatelessWidget {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  'Your order has been placed successfully!',
+                  'Votre commande a été passée avec succès !',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 16,
@@ -80,7 +80,7 @@ class _ConfirmationDialog extends StatelessWidget {
                       ),
                     ),
                     child: const Text(
-                      'Back to Home',
+                      'Retour à l’accueil',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,

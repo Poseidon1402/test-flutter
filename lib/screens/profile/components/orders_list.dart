@@ -26,7 +26,7 @@ class _OrdersList extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(40),
                 child: Text(
-                  'Error: ${state.error}',
+                  'Erreur : ${state.error}',
                   style: const TextStyle(color: Colors.red),
                 ),
               ),
@@ -38,7 +38,7 @@ class _OrdersList extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(40),
                 child: Text(
-                  'No orders yet',
+                  'Aucune commande pour le moment',
                   style: TextStyle(
                     color: Colors.white.withOpacity(0.6),
                     fontSize: 16,
@@ -97,7 +97,7 @@ class _OrderTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Order #${order.id}',
+                  'Commande n°${order.id}',
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -114,7 +114,7 @@ class _OrderTile extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  '${order.items.length} item${order.items.length > 1 ? 's' : ''}',
+                  '${order.items.length} article${order.items.length > 1 ? 's' : ''}',
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.white.withOpacity(0.7),
@@ -187,15 +187,15 @@ IconData _getOrderIcon(String status) {
 String _getStatusText(String status) {
   switch (status.toLowerCase()) {
     case 'completed':
-      return 'Delivered';
+      return 'Livrée';
     case 'pending':
-      return 'Pending';
+      return 'En attente';
     case 'shipped':
-      return 'Shipped';
+      return 'Expédiée';
     case 'processing':
-      return 'Processing';
+      return 'En cours';
     case 'cancelled':
-      return 'Cancelled';
+      return 'Annulée';
     default:
       return status;
   }
@@ -220,18 +220,18 @@ Color _getStatusColor(String status) {
 
 String _formatDate(DateTime date) {
   final months = [
-    'Jan',
-    'Feb',
-    'Mar',
-    'Apr',
-    'May',
-    'Jun',
-    'Jul',
-    'Aug',
-    'Sep',
-    'Oct',
-    'Nov',
-    'Dec',
+    'janv.',
+    'févr.',
+    'mars',
+    'avr.',
+    'mai',
+    'juin',
+    'juil.',
+    'août',
+    'sept.',
+    'oct.',
+    'nov.',
+    'déc.',
   ];
   return '${months[date.month - 1]} ${date.day.toString().padLeft(2, '0')}, ${date.year}';
 }

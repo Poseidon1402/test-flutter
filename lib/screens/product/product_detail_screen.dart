@@ -90,7 +90,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           ),
                           const SizedBox(width: 8),
                           const Text(
-                            'Product Details',
+                            'Détails du produit',
                             style: TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.bold,
@@ -135,11 +135,15 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                   selectedSize: _selectedSize,
                                   selectedColor: _selectedColor,
                                   selectedType: _selectedType,
-                                  onSizeChanged: (v) => setState(() => _selectedSize = v),
-                                  onColorChanged: (v) => setState(() => _selectedColor = v),
-                                  onTypeChanged: (v) => setState(() => _selectedType = v),
+                                  onSizeChanged: (v) =>
+                                      setState(() => _selectedSize = v),
+                                  onColorChanged: (v) =>
+                                      setState(() => _selectedColor = v),
+                                  onTypeChanged: (v) =>
+                                      setState(() => _selectedType = v),
                                   quantity: _quantity,
-                                  onQuantityChanged: (q) => setState(() => _quantity = q),
+                                  onQuantityChanged: (q) =>
+                                      setState(() => _quantity = q),
                                 ),
                               ),
                             ],
@@ -157,4 +161,3 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
     );
   }
 }
-

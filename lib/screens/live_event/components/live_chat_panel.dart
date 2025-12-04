@@ -38,7 +38,7 @@ class _LiveChatPanel extends StatelessWidget {
             child: const Row(
               children: [
                 Text(
-                  'Live Chat',
+                  'Chat en direct',
                   style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -84,7 +84,7 @@ class _LiveChatPanel extends StatelessWidget {
                     controller: controller,
                     style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
-                      hintText: 'Send a message...',
+                      hintText: 'Envoyer un message...',
                       hintStyle: TextStyle(
                         color: Colors.white.withOpacity(0.4),
                       ),

@@ -21,7 +21,7 @@ class _OrderSummarySection extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            'Order summary',
+            'Résumé de la commande',
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -107,7 +107,7 @@ class _OrderSummarySection extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Subtotal',
+                'Sous-total',
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.white.withOpacity(0.7),
@@ -130,7 +130,7 @@ class _OrderSummarySection extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'Shipping',
+                'Livraison',
                 style: TextStyle(
                   fontSize: 16,
                   color: Colors.white.withOpacity(0.7),

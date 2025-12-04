@@ -47,7 +47,7 @@ class _LoginCard extends StatelessWidget {
                 Center(child: const Logo(centered: true)),
                 const SizedBox(height: 32),
                 Text(
-                  'Welcome Back!',
+                  'Bon retour !',
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontSize: 28,
@@ -57,7 +57,7 @@ class _LoginCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  'Login to your account',
+                  'Connectez-vous à votre compte',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 14,
@@ -66,7 +66,7 @@ class _LoginCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 40),
                 Text(
-                  'Email',
+                  'Adresse e-mail',
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.white.withOpacity(0.9),
@@ -114,14 +114,14 @@ class _LoginCard extends StatelessWidget {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your email';
+                      return 'Veuillez saisir votre adresse e-mail';
                     }
                     return null;
                   },
                 ),
                 const SizedBox(height: 24),
                 Text(
-                  'Password',
+                  'Mot de passe',
                   style: TextStyle(
                     fontSize: 14,
                     color: Colors.white.withOpacity(0.9),
@@ -169,7 +169,7 @@ class _LoginCard extends StatelessWidget {
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter your password';
+                      return 'Veuillez saisir votre mot de passe';
                     }
                     return null;
                   },
@@ -223,7 +223,7 @@ class _LoginCard extends StatelessWidget {
                             ),
                           )
                         : const Text(
-                            'Login',
+                            'Connexion',
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
@@ -236,7 +236,7 @@ class _LoginCard extends StatelessWidget {
                 TextButton(
                   onPressed: () {},
                   child: Text(
-                    'Forgot Password?',
+                    'Mot de passe oublié ?',
                     style: TextStyle(
                       color: Colors.white.withOpacity(0.7),
                       fontSize: 14,
@@ -248,7 +248,7 @@ class _LoginCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Don't have an account? ",
+                      "Vous n'avez pas de compte ? ",
                       style: TextStyle(
                         color: Colors.white.withOpacity(0.7),
                         fontSize: 14,
@@ -262,7 +262,7 @@ class _LoginCard extends StatelessWidget {
                         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                       ),
                       child: const Text(
-                        'Sign Up',
+                        'Créer un compte',
                         style: TextStyle(
                           color: Color(0xFF9D4EDD),
                           fontSize: 14,

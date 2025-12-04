@@ -85,7 +85,7 @@ class _ProductDetailsPanel extends StatelessWidget {
           const SizedBox(height: 16),
           if (sizes.isNotEmpty)
             _VariationSelector(
-              label: 'Size',
+              label: 'Taille',
               options: sizes,
               value: selectedSize,
               onChanged: onSizeChanged,
@@ -93,7 +93,7 @@ class _ProductDetailsPanel extends StatelessWidget {
           if (colors.isNotEmpty) ...[
             const SizedBox(height: 12),
             _VariationSelector(
-              label: 'Color',
+              label: 'Couleur',
               options: colors,
               value: selectedColor,
               onChanged: onColorChanged,

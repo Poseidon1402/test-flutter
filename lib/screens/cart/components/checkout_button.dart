@@ -44,7 +44,7 @@ class _CheckoutButton extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 16),
         ),
         child: const Text(
-          'Proceed to Checkout',
+          'Passer à la caisse',
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
         ),
       ),
