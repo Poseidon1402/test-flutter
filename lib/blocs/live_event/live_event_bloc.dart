@@ -50,6 +50,5 @@ class LiveEventBloc extends Bloc<LiveEventEvent, LiveEventState> {
     Emitter<LiveEventState> emit,
   ) {
     emit(state.copyWith(viewerCount: event.viewerCount));
-    print('state ${state}');
   }
 }

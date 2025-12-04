@@ -1,10 +1,11 @@
 import 'dart:async';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:flutter/foundation.dart';
+import 'package:socket_io_client/socket_io_client.dart' as io;
 import '../config/socket_configuration.dart';
 import '../models/chat_message.dart';
 
 class SocketIoService {
-  IO.Socket? _socket;
+  io.Socket? _socket;
   final _chatController = StreamController<ChatMessage>.broadcast();
   final _viewerCountController =
       StreamController<ViewerCountUpdate>.broadcast();
@@ -16,20 +17,20 @@ class SocketIoService {
   void connect({String baseUrl = SocketConfiguration.baseUrl}) {
     if (_socket != null && _socket!.connected) return;
 
-    _socket = IO.io(
+    _socket = io.io(
       baseUrl,
-      IO.OptionBuilder()
+      io.OptionBuilder()
           .setTransports(['websocket'])
           .disableAutoConnect()
           .build(),
     );
 
     _socket!.onConnect((_) {
-      print('Socket connected');
+      debugPrint('Socket connected');
     });
 
     _socket!.onDisconnect((_) {
-      print('Socket disconnected');
+      debugPrint('Socket disconnected');
     });
 
     // IMPORTANT: listen to the same event name the backend emits: "message"

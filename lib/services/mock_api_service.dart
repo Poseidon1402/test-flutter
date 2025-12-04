@@ -99,7 +99,6 @@ class MockApiService {
     final list = _data!['users'] as List<dynamic>?;
     if (list == null) return null;
     try {
-      print(list);
       final match = list.firstWhere(
         (u) =>
             (u as Map<String, dynamic>)['email'] == email &&
