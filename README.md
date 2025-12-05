@@ -1,7 +1,7 @@
 # LiveShop – Application de live shopping
 
 ## Aperçu
-LiveShop est une application Flutter (Android & iOS) de live shopping mettant en avant une interface moderne et un flux en direct avec compteur de spectateurs en temps réel. Objectif ✅: permettre à un nouveau développeur de cloner, installer et lancer le projet en moins de 5 minutes. Vous pouvez consulter le vidéo démo ici : [voir vidéo](https://drive.google.com/file/d/1GDnNikMedHXtjoYJ1go06wgP4nSYidDn/view?usp=drive_link) et l'APK ici : [télécharger l'APK](https://drive.google.com/file/d/11ezQMzAnIlL7xItcFNTNSVFHvzQQB_Hg/view?usp=drive_link).
+LiveShop est une application Flutter (Android & iOS) de live shopping mettant en avant une interface moderne et un flux en direct avec compteur de spectateurs en temps réel. Vous pouvez consulter le vidéo démo ici : [voir vidéo](https://drive.google.com/file/d/1GDnNikMedHXtjoYJ1go06wgP4nSYidDn/view?usp=drive_link) et l'APK ici : [télécharger l'APK](https://drive.google.com/file/d/11ezQMzAnIlL7xItcFNTNSVFHvzQQB_Hg/view?usp=drive_link).
 
 ## Screenshots
 ![Screenshot 1](screenshots/1.jpg)
