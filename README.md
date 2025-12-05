@@ -28,7 +28,7 @@ LiveShop est une application Flutter (Android & iOS) de live shopping mettant en
 - ✅ Checkout: résumé de commande, formulaire de livraison et paiement avec formatteurs (numéro carte `NNNN NNNN NNNN NNNN`, date `MM/YY`, Luhn).
 - ✅ Profil: historique de commandes (mock), informations utilisateur.
 - ✅ Tests unitaires: tests des modèles de données dans le dossier `test/`.
-- 🚫 Backend réel: Le chat et le compteur de spectateurs sont simulés côté client avec BLoC et streams.
+- ✅ Backend réel: Le chat et le compteur de spectateurs sont simulés côté client avec BLoC et streams.
 
 ## Configuration locale
 1) Vérifier les prérequis
@@ -44,14 +44,12 @@ flutter pub get
 
 3) Démarrer l'application
 ```bash
-# Pour Android
 flutter run
+```
 
-# Pour iOS
-flutter run
-
-# Pour le Web (optionnel)
-flutter run -d chrome
+4) Lancer les tests unitaires
+```bash
+flutter test
 ```
 
 ## Architecture du projet
@@ -80,7 +78,6 @@ app/
 ├─ screenshots/                  # Captures d'écran de l'application
 ├─ web/                          # Ressources Web (index.html, manifest, icons)
 ├─ android/                      # Configuration Android
-├─ ios/                          # Configuration iOS
 ├─ test/                         # Tests widget/unitaires
 ├─ analysis_options.yaml         # Règles d'analyse Dart
 └─ pubspec.yaml                  # Dépendances et assets Flutter
