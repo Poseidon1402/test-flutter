@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:test_flutter/blocs/live_event/live_event_bloc.dart';
 
@@ -10,8 +11,9 @@ import 'blocs/cart/cart_bloc.dart';
 import 'blocs/auth/auth_bloc.dart';
 import 'app_router.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   runApp(const MyApp());
 }
 
@@ -57,7 +59,6 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(
           create: (_) => AuthBloc(api: api)..add(const AuthStarted()),
         ),
-    
       ],
       child: MaterialApp.router(
         title: 'Live Shop',

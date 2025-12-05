@@ -16,7 +16,10 @@ class _TopNavigationBar extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.05),
         border: Border(
-          bottom: BorderSide(color: Colors.white.withValues(alpha: 0.1), width: 1),
+          bottom: BorderSide(
+            color: Colors.white.withValues(alpha: 0.1),
+            width: 1,
+          ),
         ),
       ),
       child: Row(
@@ -29,7 +32,7 @@ class _TopNavigationBar extends StatelessWidget {
           if (isLoggedIn)
             CircleAvatar(
               radius: 16,
-              backgroundImage: NetworkImage(
+              backgroundImage: CachedNetworkImageProvider(
                 'https://picsum.photos/seed/${currentUser?.id ?? "user"}/200',
               ),
             )
