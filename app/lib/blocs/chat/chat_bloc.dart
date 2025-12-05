@@ -29,10 +29,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     });
   }
 
-  void _onMessageReceived(
-    ChatMessageReceived event,
-    Emitter<ChatState> emit,
-  ) {
+  void _onMessageReceived(ChatMessageReceived event, Emitter<ChatState> emit) {
     final updated = List<ChatMessage>.from(state.messages)..add(event.message);
     emit(state.copyWith(messages: updated));
   }
@@ -41,12 +38,25 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     ChatMessageSent event,
     Emitter<ChatState> emit,
   ) async {
-    socket.sendMessage(
-      room: event.roomId,
-      userId: event.senderId,
-      username: event.senderName,
-      message: event.message,
-    );
+    // If we were using a real socket connection, we would send the message like this:
+    // socket.sendMessage(
+    //   room: event.roomId,
+    //   userId: event.senderId,
+    //   username: event.senderName,
+    //   message: event.message,
+    // );
+    // simulate immediate local echo
+    final updated = List<ChatMessage>.from(state.messages)
+      ..add(
+        ChatMessage(
+          id: DateTime.now().millisecondsSinceEpoch.toString(),
+          senderId: event.senderId,
+          senderName: event.senderName,
+          message: event.message,
+          timestamp: DateTime.now(),
+        ),
+      );
+    emit(state.copyWith(messages: updated));
   }
 
   @override

@@ -12,7 +12,7 @@ class CartButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Visibility(
       visible:
-          context.read<AuthBloc>().state.status == AuthStatus.authenticated,
+          context.watch<AuthBloc>().state.status == AuthStatus.authenticated,
       child: Badge(
         backgroundColor: Colors.red,
         label: Text(
