@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -61,7 +62,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
     return Scaffold(
       body: Container(
-        constraints: const BoxConstraints.expand(),
+        width: double.infinity,
+        height: double.infinity,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
@@ -93,7 +95,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           const Text(
                             'Détails du produit',
                             style: TextStyle(
-                              fontSize: 24,
+                              fontSize: 20,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
@@ -106,28 +108,60 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                       LayoutBuilder(
                         builder: (context, constraints) {
                           final isWide = constraints.maxWidth > 800;
-                          return Flex(
-                            direction: isWide ? Axis.horizontal : Axis.vertical,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // Images
-                              Expanded(
-                                flex: 1,
-                                child: _ProductImage(
+                          if (isWide) {
+                            return Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                // Images
+                                Expanded(
+                                  flex: 1,
+                                  child: _ProductImage(
+                                    imageUrl: product.images.isNotEmpty
+                                        ? product.images.first
+                                        : product.thumbnail,
+                                    isWide: isWide,
+                                  ),
+                                ),
+                                const SizedBox(width: 24),
+                                // Details + actions
+                                Expanded(
+                                  flex: 1,
+                                  child: _ProductDetailsPanel(
+                                    product: product,
+                                    price: price,
+                                    sizes: _sizes,
+                                    colors: _colors,
+                                    types: _types,
+                                    selectedSize: _selectedSize,
+                                    selectedColor: _selectedColor,
+                                    selectedType: _selectedType,
+                                    onSizeChanged: (v) =>
+                                        setState(() => _selectedSize = v),
+                                    onColorChanged: (v) =>
+                                        setState(() => _selectedColor = v),
+                                    onTypeChanged: (v) =>
+                                        setState(() => _selectedType = v),
+                                    quantity: _quantity,
+                                    onQuantityChanged: (q) =>
+                                        setState(() => _quantity = q),
+                                  ),
+                                ),
+                              ],
+                            );
+                          } else {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Images
+                                _ProductImage(
                                   imageUrl: product.images.isNotEmpty
                                       ? product.images.first
                                       : product.thumbnail,
                                   isWide: isWide,
                                 ),
-                              ),
-                              SizedBox(
-                                width: isWide ? 24 : 0,
-                                height: isWide ? 0 : 24,
-                              ),
-                              // Details + actions
-                              Expanded(
-                                flex: 1,
-                                child: _ProductDetailsPanel(
+                                const SizedBox(height: 24),
+                                // Details + actions
+                                _ProductDetailsPanel(
                                   product: product,
                                   price: price,
                                   sizes: _sizes,
@@ -146,9 +180,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                   onQuantityChanged: (q) =>
                                       setState(() => _quantity = q),
                                 ),
-                              ),
-                            ],
-                          );
+                              ],
+                            );
+                          }
                         },
                       ),
                     ],
