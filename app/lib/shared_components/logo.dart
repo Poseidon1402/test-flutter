@@ -12,7 +12,9 @@ class Logo extends StatelessWidget {
     return InkWell(
       onTap: () => context.go('/'),
       child: Row(
-        mainAxisAlignment: centered ? MainAxisAlignment.center : MainAxisAlignment.start,
+        mainAxisAlignment: centered
+            ? MainAxisAlignment.center
+            : MainAxisAlignment.start,
         children: [
           Container(
             width: 32,
@@ -33,7 +35,7 @@ class Logo extends StatelessWidget {
           const Text(
             'LiveShop',
             style: TextStyle(
-              fontSize: 24,
+              fontSize: 20,
               fontWeight: FontWeight.w800,
               color: Colors.white,
               letterSpacing: -0.5,

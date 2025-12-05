@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -112,7 +113,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
                         // Cart Button
                         const CartButton(),
-                        const SizedBox(width: 8),
 
                         // Login Button
                         BlocBuilder<AuthBloc, AuthState>(
@@ -122,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                             if (isLoggedIn) {
                               return TextButton(
-                                onPressed: () => context.go('/profile'),
+                                onPressed: () => context.push('/profile'),
                                 style: TextButton.styleFrom(
                                   foregroundColor: Colors.white,
                                   padding: const EdgeInsets.symmetric(
@@ -130,18 +130,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                     vertical: 12,
                                   ),
                                 ),
-                                child: const Text(
-                                  'Profil',
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
+                                child: const Icon(Icons.person, size: 24),
                               );
                             }
 
                             return TextButton(
-                              onPressed: () => context.go('/login'),
+                              onPressed: () => context.push('/login'),
                               style: TextButton.styleFrom(
                                 foregroundColor: Colors.white,
                                 padding: const EdgeInsets.symmetric(
@@ -218,14 +212,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                               hintText:
                                                   'Recherchez des évènements en direct ou des produits...',
                                               hintStyle: TextStyle(
-                                                color: Colors.white.withValues(alpha: 
-                                                  0.4,
+                                                color: Colors.white.withValues(
+                                                  alpha: 0.4,
                                                 ),
                                               ),
                                               prefixIcon: Icon(
                                                 Icons.search,
-                                                color: Colors.white.withValues(alpha: 
-                                                  0.5,
+                                                color: Colors.white.withValues(
+                                                  alpha: 0.5,
                                                 ),
                                               ),
                                               filled: true,
@@ -472,6 +466,7 @@ bool _matchesStatus(LiveEvent e, String status) {
 }
 
 bool _matchesDate(LiveEvent e, String filter) {
+  // Filter by date
   if (filter == 'All' || filter == 'Tous') return true;
   final now = DateTime.now();
   final start = e.startTime;
@@ -494,6 +489,7 @@ bool _matchesDate(LiveEvent e, String filter) {
 }
 
 bool _matchesCategory(LiveEvent e, String filter) {
+  // Simple category matching based on title keywords
   if (filter == 'All' || filter == 'Tous') return true;
   final title = e.title.toLowerCase();
   switch (filter) {

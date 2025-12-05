@@ -23,7 +23,10 @@ class _CartItemTile extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.2), width: 1),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.2),
+          width: 1,
+        ),
       ),
       child: Row(
         children: [
@@ -33,10 +36,19 @@ class _CartItemTile extends StatelessWidget {
               width: 60,
               height: 60,
               color: Colors.white.withValues(alpha: 0.1),
-              child: Image.network(
-                thumbnailUrl,
+              child: CachedNetworkImage(
+                imageUrl: thumbnailUrl,
                 fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) {
+                placeholder: (context, url) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.white.withValues(alpha: 0.3),
+                    ),
+                  );
+                },
+                imageBuilder: (context, imageProvider) =>
+                    Image(image: imageProvider, fit: BoxFit.cover),
+                errorWidget: (context, error, stackTrace) {
                   return Icon(
                     Icons.image_not_supported,
                     color: Colors.white.withValues(alpha: 0.3),

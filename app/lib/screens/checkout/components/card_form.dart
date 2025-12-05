@@ -103,6 +103,7 @@ class _CardFormState extends State<_CardForm> {
         const SizedBox(height: 16),
 
         Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             Expanded(
               child: Column(
