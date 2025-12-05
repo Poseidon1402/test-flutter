@@ -88,7 +88,7 @@ class _LiveVideoAndProducts extends StatelessWidget {
                           child: Text(
                             event.title,
                             style: const TextStyle(
-                              fontSize: 24,
+                              fontSize: 20,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
@@ -126,7 +126,8 @@ class _LiveVideoAndProducts extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          '${state.viewerCount}',
+                          '1',
+                          // '${state.viewerCount}', // Placeholder for viewer count
                           style: TextStyle(
                             color: Colors.white.withValues(alpha: 0.7),
                             fontSize: 16,
