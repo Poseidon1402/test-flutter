@@ -57,7 +57,7 @@ flutter run -d chrome
 ## Architecture du projet
 
 ```
-test_flutter/
+app/
 ├─ lib/                          # Code Flutter principal
 │  ├─ main.dart                  # Bootstrap + routing
 │  ├─ screens/                   # Écrans par fonctionnalité (feature folders)
