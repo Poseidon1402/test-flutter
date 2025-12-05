@@ -19,10 +19,24 @@ class _ImagePreview extends StatelessWidget {
           borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
           child: AspectRatio(
             aspectRatio: 16 / 9,
-            child: Image.network(
-              thumbnailUrl,
+            child: CachedNetworkImage(
+              imageUrl: thumbnailUrl,
               fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) {
+              placeholder: (context, url) {
+                return Container(
+                  color: const Color(0xFF3A3D4E),
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.white.withValues(alpha: 0.3),
+                    ),
+                  ),
+                );
+              },
+              imageBuilder: (context, imageProvider) => Image(
+                image: imageProvider,
+                fit: BoxFit.cover,
+              ),
+              errorWidget: (context, error, stackTrace) {
                 return Container(
                   color: const Color(0xFF3A3D4E),
                   child: const Icon(

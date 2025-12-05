@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../config/socket_configuration.dart';
 import '../../models/chat_message.dart';
 import '../../services/socket_io_service.dart';
 
@@ -21,7 +22,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   Future<void> _onStarted(ChatStarted event, Emitter<ChatState> emit) async {
     await _sub?.cancel();
-    socket.connect(baseUrl: 'http://localhost:8000');
+    socket.connect(baseUrl: SocketConfiguration.baseUrl);
     socket.joinRoom(room: event.roomId, username: 'user123');
 
     _sub = socket.chatStream.listen((message) {
@@ -29,10 +30,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     });
   }
 
-  void _onMessageReceived(
-    ChatMessageReceived event,
-    Emitter<ChatState> emit,
-  ) {
+  void _onMessageReceived(ChatMessageReceived event, Emitter<ChatState> emit) {
     final updated = List<ChatMessage>.from(state.messages)..add(event.message);
     emit(state.copyWith(messages: updated));
   }
@@ -41,12 +39,25 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     ChatMessageSent event,
     Emitter<ChatState> emit,
   ) async {
-    socket.sendMessage(
-      room: event.roomId,
-      userId: event.senderId,
-      username: event.senderName,
-      message: event.message,
-    );
+    // If we were using a real socket connection, we would send the message like this:
+    // socket.sendMessage(
+    //   room: event.roomId,
+    //   userId: event.senderId,
+    //   username: event.senderName,
+    //   message: event.message,
+    // );
+    // simulate immediate local echo
+    final updated = List<ChatMessage>.from(state.messages)
+      ..add(
+        ChatMessage(
+          id: DateTime.now().millisecondsSinceEpoch.toString(),
+          senderId: event.senderId,
+          senderName: event.senderName,
+          message: event.message,
+          timestamp: DateTime.now(),
+        ),
+      );
+    emit(state.copyWith(messages: updated));
   }
 
   @override

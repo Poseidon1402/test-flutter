@@ -10,9 +10,6 @@ part 'components/top_navigation_bar.dart';
 part 'components/profile_header.dart';
 part 'components/orders_list.dart';
 
-// Content moved from lib/screens/profile_screen.dart
-// (unchanged UI; only import paths adjusted)
-
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 

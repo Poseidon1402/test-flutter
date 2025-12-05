@@ -80,7 +80,9 @@ class _LoginCard extends StatelessWidget {
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     hintText: 'alice@example.com',
-                    hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.5)),
+                    hintStyle: TextStyle(
+                      color: Colors.white.withValues(alpha: 0.5),
+                    ),
                     prefixIcon: Icon(
                       Icons.email_outlined,
                       color: Colors.white.withValues(alpha: 0.7),
@@ -135,7 +137,9 @@ class _LoginCard extends StatelessWidget {
                   obscureText: true,
                   decoration: InputDecoration(
                     hintText: '••••••••••',
-                    hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.5)),
+                    hintStyle: TextStyle(
+                      color: Colors.white.withValues(alpha: 0.5),
+                    ),
                     prefixIcon: Icon(
                       Icons.lock_outline,
                       color: Colors.white.withValues(alpha: 0.7),
@@ -231,46 +235,6 @@ class _LoginCard extends StatelessWidget {
                             ),
                           ),
                   ),
-                ),
-                const SizedBox(height: 24),
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    'Mot de passe oublié ?',
-                    style: TextStyle(
-                      color: Colors.white.withValues(alpha: 0.7),
-                      fontSize: 14,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Vous n'avez pas de compte ? ",
-                      style: TextStyle(
-                        color: Colors.white.withValues(alpha: 0.7),
-                        fontSize: 14,
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {},
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                        minimumSize: Size.zero,
-                        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      ),
-                      child: const Text(
-                        'Créer un compte',
-                        style: TextStyle(
-                          color: Color(0xFF9D4EDD),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
-                  ],
                 ),
               ],
             ),

@@ -43,6 +43,7 @@ class _ConfirmationDialog extends StatelessWidget {
                 const SizedBox(height: 24),
                 const Text(
                   'Commande confirmée',
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.bold,

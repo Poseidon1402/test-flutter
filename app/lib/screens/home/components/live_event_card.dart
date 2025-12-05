@@ -98,7 +98,7 @@ class _LiveEventCard extends StatelessWidget {
     switch (status) {
       case LiveEventStatus.live:
         return ElevatedButton.icon(
-          onPressed: () => context.go('/live/${event.id}'),
+          onPressed: () => context.push('/live/${event.id}'),
           icon: const Icon(Icons.play_arrow, size: 18),
           label: const Text('Regarder'),
           style: ElevatedButton.styleFrom(

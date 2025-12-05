@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:test_flutter/shared_components/cart_button.dart';
@@ -53,6 +54,7 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
             setState(() {
               _isVideoInitialized = true;
             });
+            _videoController.play();
           });
 
     // Start watching to increment viewers; username will be refined in build
@@ -239,7 +241,9 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
                                       ),
                                       borderRadius: BorderRadius.circular(24),
                                       border: Border.all(
-                                        color: Colors.white.withValues(alpha: 0.2),
+                                        color: Colors.white.withValues(
+                                          alpha: 0.2,
+                                        ),
                                         width: 1.5,
                                       ),
                                     ),
@@ -266,8 +270,8 @@ class _LiveEventScreenState extends State<LiveEventScreen> {
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontSize: 16,
-                                            color: Colors.white.withValues(alpha: 
-                                              0.8,
+                                            color: Colors.white.withValues(
+                                              alpha: 0.8,
                                             ),
                                           ),
                                         ),

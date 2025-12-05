@@ -88,7 +88,7 @@ class _LiveVideoAndProducts extends StatelessWidget {
                           child: Text(
                             event.title,
                             style: const TextStyle(
-                              fontSize: 24,
+                              fontSize: 20,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                             ),
@@ -126,7 +126,8 @@ class _LiveVideoAndProducts extends StatelessWidget {
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          '${state.viewerCount}',
+                          '1',
+                          // '${state.viewerCount}', // Placeholder for viewer count
                           style: TextStyle(
                             color: Colors.white.withValues(alpha: 0.7),
                             fontSize: 16,
@@ -154,21 +155,28 @@ class _LiveVideoAndProducts extends StatelessWidget {
                       ),
                       child: Row(
                         children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Container(
-                              width: 70,
-                              height: 70,
-                              color: Colors.white.withValues(alpha: 0.1),
-                              child: Image.network(
-                                product.thumbnail,
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) {
-                                  return Icon(
-                                    Icons.image_not_supported,
-                                    color: Colors.white.withValues(alpha: 0.3),
-                                  );
-                                },
+                          GestureDetector(
+                            onTap: () {
+                              context.push('/product/${product.id}');
+                            },
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Container(
+                                width: 70,
+                                height: 70,
+                                color: Colors.white.withValues(alpha: 0.1),
+                                child: CachedNetworkImage(
+                                  imageUrl: product.thumbnail,
+                                  fit: BoxFit.cover,
+                                  errorWidget: (context, error, stackTrace) {
+                                    return Icon(
+                                      Icons.image_not_supported,
+                                      color: Colors.white.withValues(
+                                        alpha: 0.3,
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
                             ),
                           ),

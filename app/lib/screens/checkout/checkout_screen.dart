@@ -133,7 +133,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                       const Text(
                                         'Paiement',
                                         style: TextStyle(
-                                          fontSize: 32,
+                                          fontSize: 20,
                                           fontWeight: FontWeight.bold,
                                           color: Colors.white,
                                         ),
@@ -261,6 +261,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                       ),
                                       child: Text(
                                         'Confirmer la commande (€${cartState.subtotal.toStringAsFixed(2)})',
+                                        textAlign: TextAlign.center,
                                         style: const TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w600,

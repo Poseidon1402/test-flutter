@@ -38,7 +38,10 @@ class _ProductDetailsPanel extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.06),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.1), width: 1),
+        border: Border.all(
+          color: Colors.white.withValues(alpha: 0.1),
+          width: 1,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,6 +115,7 @@ class _ProductDetailsPanel extends StatelessWidget {
           _QuantitySelector(quantity: quantity, onChanged: onQuantityChanged),
           const SizedBox(height: 24),
           Row(
+            spacing: 8,
             children: [
               Expanded(
                 child: Container(
@@ -152,12 +156,13 @@ class _ProductDetailsPanel extends StatelessWidget {
                       backgroundColor: Colors.transparent,
                       shadowColor: Colors.transparent,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                        borderRadius: BorderRadius.circular(24),
                       ),
                     ),
                     child: const Text(
                       'Ajouter au panier',
                       style: TextStyle(
+                        fontSize: 12,
                         color: Colors.white,
                         fontWeight: FontWeight.w600,
                       ),
@@ -165,14 +170,13 @@ class _ProductDetailsPanel extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(width: 12),
               OutlinedButton(
                 onPressed: () {},
                 style: OutlinedButton.styleFrom(
                   side: BorderSide(color: Colors.white.withValues(alpha: 0.3)),
                   foregroundColor: Colors.white,
                 ),
-                child: const Text('Acheter maintenant'),
+                child: const Text('Acheter'),
               ),
             ],
           ),
