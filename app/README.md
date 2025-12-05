@@ -1,7 +1,7 @@
 # LiveShop – Application de live shopping
 
 ## Aperçu
-LiveShop est une application Flutter (Android & iOS) de live shopping mettant en avant une interface moderne et un flux en direct avec compteur de spectateurs en temps réel. Objectif ✅: permettre à un nouveau développeur de cloner, installer et lancer le projet en moins de 5 minutes.
+LiveShop est une application Flutter (Android & iOS) de live shopping mettant en avant une interface moderne et un flux en direct avec compteur de spectateurs en temps réel. Vous pouvez consulter le vidéo démo ici : [voir vidéo](https://drive.google.com/file/d/1GDnNikMedHXtjoYJ1go06wgP4nSYidDn/view?usp=drive_link) et l'APK ici : [télécharger l'APK](https://drive.google.com/file/d/11ezQMzAnIlL7xItcFNTNSVFHvzQQB_Hg/view?usp=drive_link).
 
 ## Screenshots
 ![Screenshot 1](screenshots/1.jpg)
@@ -28,7 +28,7 @@ LiveShop est une application Flutter (Android & iOS) de live shopping mettant en
 - ✅ Checkout: résumé de commande, formulaire de livraison et paiement avec formatteurs (numéro carte `NNNN NNNN NNNN NNNN`, date `MM/YY`, Luhn).
 - ✅ Profil: historique de commandes (mock), informations utilisateur.
 - ✅ Tests unitaires: tests des modèles de données dans le dossier `test/`.
-- 🚫 Backend réel: Le chat et le compteur de spectateurs sont simulés côté client avec BLoC et streams.
+- ✅ Backend réel: Le chat et le compteur de spectateurs sont simulés côté client avec BLoC et streams.
 
 ## Configuration locale
 1) Vérifier les prérequis
@@ -44,20 +44,18 @@ flutter pub get
 
 3) Démarrer l'application
 ```bash
-# Pour Android
 flutter run
+```
 
-# Pour iOS
-flutter run
-
-# Pour le Web (optionnel)
-flutter run -d chrome
+4) Lancer les tests unitaires
+```bash
+flutter test
 ```
 
 ## Architecture du projet
 
 ```
-test_flutter/
+app/
 ├─ lib/                          # Code Flutter principal
 │  ├─ main.dart                  # Bootstrap + routing
 │  ├─ screens/                   # Écrans par fonctionnalité (feature folders)
@@ -80,7 +78,6 @@ test_flutter/
 ├─ screenshots/                  # Captures d'écran de l'application
 ├─ web/                          # Ressources Web (index.html, manifest, icons)
 ├─ android/                      # Configuration Android
-├─ ios/                          # Configuration iOS
 ├─ test/                         # Tests widget/unitaires
 ├─ analysis_options.yaml         # Règles d'analyse Dart
 └─ pubspec.yaml                  # Dépendances et assets Flutter
