@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../config/socket_configuration.dart';
 import '../../models/chat_message.dart';
 import '../../services/socket_io_service.dart';
 
@@ -21,7 +22,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   Future<void> _onStarted(ChatStarted event, Emitter<ChatState> emit) async {
     await _sub?.cancel();
-    socket.connect(baseUrl: 'http://localhost:8000');
+    socket.connect(baseUrl: SocketConfiguration.baseUrl);
     socket.joinRoom(room: event.roomId, username: 'user123');
 
     _sub = socket.chatStream.listen((message) {
